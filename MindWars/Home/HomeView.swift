@@ -15,12 +15,7 @@ struct HomeView: View {
     var body: some View {
         CommonBackgroundView {
             VStack {
-                Button("laa", action: {
-                    withAnimation(.easeIn(duration: 1)) {
-                        navigationState.state = "Register"
-                    }
-                })
-                
+
             }
         }
         .languageSelectionDialog(isPresented: $isPresented, languageManager: languageManager)
