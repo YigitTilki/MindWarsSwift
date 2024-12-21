@@ -1,0 +1,30 @@
+/* 
+  Localizable.strings
+  MindWars
+
+  Created by Yiğit Tilki on 21.12.2024.
+  
+*/
+
+"Hello" = "Merhaba";
+"Select Language" = "Dil Seçiniz";
+"Turkish" = "Türkçe";
+"English" = "İngilizce";
+"Close" = "Kapat";
+"Change E-Mail" = "E-Posta Değiştir";
+"Continue" = "Devam Et";
+"Forget Password?" = "Şifremi Unuttum?";
+"Password" = "Şifre";
+"ENTER PASSWORD AND CONTINUE" = "ŞİFRENİ GİR VE DEVAM ET";
+"LAST STEP" = "SON ADIM";
+"LET'S SIGN UP" = "HAYDİ KAYIT OL";
+"ENTER YOUR CREDENTIALS TO SIGN UP" = "KAYIT OLMAK İÇİN BİLGİLERİNİ GİR";
+"UserName" = "Kullanıcı Adı";
+"Email" = "E-Posta";
+"Birth Date" = "Doğum Tarihi";
+"Re-Password" = "Şifre Tekrar";
+"Sign Up" = "Kayıt Ol";
+"LET'S PLAY" = "HAYDİ BAŞLAYALIM";
+"ENTER MIND WARS WORLD" = "MIND WARS DÜNYASINA GİR";
+"Username/E-Mail" = "Kullanıc Adı/E-Posta";
+"Do you already have an account?" = "Zaten bir hesabın var mı?";
