@@ -26,5 +26,7 @@
 "Sign Up" = "Kayıt Ol";
 "LET'S PLAY" = "HAYDİ BAŞLAYALIM";
 "ENTER MIND WARS WORLD" = "MIND WARS DÜNYASINA GİR";
-"Username/E-Mail" = "Kullanıc Adı/E-Posta";
 "Do you already have an account?" = "Zaten bir hesabın var mı?";
+"Invalid E-mail Address" = "Geçersiz E-Posta Adresi";
+"Invalid Password" = "Geçersiz Şifre";
+"Wrong Password" = "Şifre Yanlış";

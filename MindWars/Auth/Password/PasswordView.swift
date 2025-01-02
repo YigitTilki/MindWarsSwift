@@ -8,39 +8,73 @@
 import SwiftUI
 
 struct PasswordView: View {
-    @EnvironmentObject var navigationState: NavigationState
+    @EnvironmentObject var navigationState: Navigation
     @StateObject private var viewModel = PasswordViewModel()
+    @EnvironmentObject var authState: AuthState
     
     var body: some View {
         CommonBackgroundView {
-            VStack(alignment: .leading) {
-                Text("LAST STEP")
-                    .font(.title)
-                Text("ENTER PASSWORD AND CONTINUE")
-                    .font(.title3)
-                TextField("Password", text: $viewModel.password)
-                    .appTextFieldStyle()
-                HStack{
-                    Button("Forget Password?"){
-                        viewModel.handleForgetPasswordButton(navigationState: navigationState)
-                    }
-                    Spacer()
-                    Button("Continue"){
-                        viewModel.handleContinueButton(navigationState: navigationState)
-                    }
-                    .loginButtonStyle()
-                }
-                    
-                    
             
+            VStack(alignment: .leading) {
+                descriptionTitle()
+                passwordTextField()
+                continueForgetPasswordButton()
+                
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .appBarBackButton(text: "Change E-Mail", action: {navigationState.state = "Email"})
             .padding()
+            .alert(item: $viewModel.alertItem) { alert in
+                Alert(title: alert.title, message: alert.message, dismissButton: alert.dismissButton)
+            }
+            
+            if authState.isLoading {
+                LoadingView()
+            }
         }
-        .appBarBackButton(text: "Change E-Mail", action: {navigationState.state = "Email"})
     }
+    
+    func descriptionTitle() -> some View {
+        VStack(alignment: .leading) {
+            Text("LAST STEP")
+                .font(.title)
+                .fontWeight(.medium)
+            Text("ENTER PASSWORD AND CONTINUE")
+                .font(.title3)
+            
+        }
+    }
+    func passwordTextField() -> some View {
+        VStack(alignment: .leading){
+            SecureField("Password", text: $authState.password)
+                .appTextFieldStyle()
+            
+            if authState.error != "" {
+                Text("\(authState.error)").foregroundStyle(.red).font(.caption)
+            }
+        }
+    }
+    func continueForgetPasswordButton() -> some View {
+        HStack{
+            Button("Forget Password?"){
+                viewModel.handleForgetPasswordButton(navigationState: navigationState)
+            }
+            .font(.subheadline)
+            Spacer()
+            Button(action: {
+                Task {
+                    await viewModel.handleContinueButton(navigationState: navigationState, authState: authState)
+                }
+            }, label: {
+                Text("Continue")
+                    .loginButtonStyle()
+            })
+       
+        }
+    }
+    
 }
 
 #Preview {
     PasswordView()
+        .environmentObject(AuthState())
 }

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var navigationState: NavigationState
-    @Environment(LanguageManager.self) var languageManager
+    @EnvironmentObject var navigationState: Navigation
+    @Environment(Language.self) var languageManager
     @State private var isPresented = false
     
     var body: some View {
@@ -28,8 +28,6 @@ struct HomeView: View {
                 }
             }
         }
-        
-        
     }
 }
 

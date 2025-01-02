@@ -8,6 +8,6 @@
 import Foundation
 
 @Observable
-class LanguageManager {
+class Language {
     var locale = Locale(identifier: "en")
 }

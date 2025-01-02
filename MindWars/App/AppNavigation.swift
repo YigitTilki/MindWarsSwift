@@ -7,34 +7,37 @@
 
 import SwiftUI
 
-class NavigationState: ObservableObject {
+class Navigation: ObservableObject {
     @Published var state: String = "OnBoarding"
 }
 
 struct AppNavigation: View {
-    @StateObject private var navigationState = NavigationState()
+    @StateObject private var navigation = Navigation()
+    @StateObject private var authState = AuthState()
     
     var body: some View {
         NavigationStack {
             Group {
-                if navigationState.state == "OnBoarding" {
+                if navigation.state == "OnBoarding" {
                     OnBoardingView()
-                        .environmentObject(navigationState)
-                } else if navigationState.state == "Splash" {
+                        .environmentObject(navigation)
+                } else if navigation.state == "Splash" {
                     SplashView()
-                        .environmentObject(navigationState)
-                } else if navigationState.state == "Email" {
+                        .environmentObject(navigation)
+                } else if navigation.state == "Email" {
                     EmailView()
-                        .environmentObject(navigationState)
-                } else if navigationState.state == "Password" {
+                        .environmentObject(navigation)
+                        .environmentObject(authState)
+                } else if navigation.state == "Password" {
                     PasswordView()
-                        .environmentObject(navigationState)
-                } else if navigationState.state == "Register" {
+                        .environmentObject(navigation)
+                        .environmentObject(authState)
+                } else if navigation.state == "Register" {
                     RegisterView()
-                        .environmentObject(navigationState)
-                } else if navigationState.state == "Home" {
+                        .environmentObject(navigation)
+                } else if navigation.state == "Home" {
                     HomeView()
-                        .environmentObject(navigationState)
+                        .environmentObject(navigation)
                 }
             }
             

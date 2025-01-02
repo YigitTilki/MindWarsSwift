@@ -8,21 +8,29 @@
 import SwiftUI
 
 struct SplashView: View {
-    @EnvironmentObject var navigationState: NavigationState
+    @EnvironmentObject var navigation: Navigation
     
     var body: some View {
-        ZStack{
+        ZStack {
             AppBackground()
-            LottieView(animationFileName: "LoadingLottie", loopMode: .loop)
-                .frame(width: 200, height: 200).padding(30)
+            loadingIndicator()
         }
-        .onAppear{DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-            navigationState.state = "Email"
-        } }
+        .onAppear {
+            navigate()
+        }
         
+    }
+    
+    func loadingIndicator() -> some View {
+        LottieView(animationFileName: "LoadingLottie", loopMode: .loop)
+            .frame(width: 200, height: 200).padding(30)
+    }
+    
+    func navigate() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+            navigation.state = "Email"
+        }
     }
 }
 
-#Preview {
-    SplashView()
-}
+

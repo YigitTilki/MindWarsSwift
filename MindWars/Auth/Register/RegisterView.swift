@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var navigationState: NavigationState
+    @EnvironmentObject var navigationState: Navigation
     @StateObject private var viewModel = RegisterViewModel()
     var body: some View {
         CommonBackgroundView {
@@ -17,6 +17,7 @@ struct RegisterView: View {
                     .font(.title)
                 Text("ENTER YOUR CREDENTIALS TO SIGN UP")
                     .font(.callout)
+                
                 TextField("UserName", text: $viewModel.userName)
                     .appTextFieldStyle()
                 TextField("Email", text: $viewModel.email)
@@ -27,6 +28,7 @@ struct RegisterView: View {
                     .appTextFieldStyle()
                 TextField("Re-Password", text: $viewModel.rePassword)
                     .appTextFieldStyle()
+                
                 HStack{
                     Spacer()
                     Button("Sign Up"){

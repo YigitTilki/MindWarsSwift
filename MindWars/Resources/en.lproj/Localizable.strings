@@ -20,11 +20,14 @@
 "LET'S SIGN UP" = "LET'S SIGN UP";
 "ENTER YOUR CREDENTIALS TO SIGN UP" = "ENTER YOUR CREDENTIALS TO SIGN UP";
 "UserName" = "UserName";
-"Email" = "Email";
+"Email" = "E-Mail";
 "Birth Date" = "Birth Date";
 "Re-Password" = "Re-Password";
 "Sign Up" = "Sign Up";
 "LET'S PLAY" = "LET'S PLAY";
 "ENTER MIND WARS WORLD" = "ENTER MIND WARS WORLD";
-"Username/E-Mail" = "Username/E-Mail";
 "Do you already have an account?" = "Do you already have an account?";
+"Invalid E-mail Address" = "Invalid E-mail Address";
+"Invalid Password" = "Invalid Password";
+"Wrong Password" = "Wrong Password";
+

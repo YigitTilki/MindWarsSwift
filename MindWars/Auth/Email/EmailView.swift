@@ -8,44 +8,73 @@
 import SwiftUI
 
 struct EmailView: View {
-    @EnvironmentObject var navigationState: NavigationState
+    @EnvironmentObject var navigationState: Navigation
+    @EnvironmentObject var authState: AuthState
+    
     @StateObject private var viewModel = EmailViewModel()
     
     var body: some View {
         CommonBackgroundView {
+            
             VStack(alignment: .leading) {
-                Text("LET'S PLAY")
-                    .font(.title)
-                Text("ENTER MIND WARS WORLD")
-                    .font(.title3)
-                TextField("Username/E-Mail", text: $viewModel.username)
-                    .appTextFieldStyle()
-                
-                HStack{
-                    Spacer()
-                        Button("Continue"){
-                            viewModel.handleContinueButton(navigationState: navigationState)
-                        }
-                        .loginButtonStyle()
-                    }
-                    
-            
+                descriptionTitle()
+                emailTextField()
+                continueButton()
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding()
-            
-        }
-        .toolbar(content: {
-            ToolbarItem(placement: .navigationBarLeading ,content: {
-                Button(""){
-                    
-                }
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarLeading) {
+                           Button("") {
+                           }
+                       }
             })
-        })
+            
+            
+            if authState.isLoading {
+                LoadingView()
+            }
+        }
+    }
+    
+    func descriptionTitle() -> some View {
+        VStack(alignment: .leading){
+            Text("LET'S PLAY")
+                .font(.title)
+                .fontWeight(.medium)
+            Text("ENTER MIND WARS WORLD")
+                .font(.title3)
+        }
+    }
+    func emailTextField() ->  some View {
+        VStack(alignment: .leading){
+            TextField("Email", text: $authState.email)
+                .keyboardType(.emailAddress)
+                .appTextFieldStyle()
+            
+            if authState.error != "" {
+                Text("\(authState.error)").foregroundStyle(.red).font(.caption)
+            }
+        }
         
+    }
+    func continueButton() -> some View {
+        HStack{
+            Spacer()
+            Button(action: {
+                Task {
+                    await viewModel.handleContinueButton(
+                        navigationState: navigationState, authState: authState
+                    )
+                }
+            }, label: {
+                Text("Continue")
+                    .loginButtonStyle()
+            })
+        }
     }
 }
 
 #Preview {
     EmailView()
+        .environmentObject(AuthState())
 }

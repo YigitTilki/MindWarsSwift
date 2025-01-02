@@ -15,7 +15,7 @@ class RegisterViewModel: ObservableObject {
     @Published var rePassword: String = ""
 
     
-    func handleSignUpButton(navigationState: NavigationState) {
+    func handleSignUpButton(navigationState: Navigation) {
         navigationState.state = "Home"
     }
     
