@@ -12,23 +12,20 @@ struct QuestionSectionView: View {
     let sectionId: String
     
     var body: some View {
-        NavigationView {
             VStack{
                 List {
                     ForEach(vm.questionSections) { section in
                         NavigationLink(section.name, destination: {
                             AddRedQuestionsView(sectionId: section.id)
-                                .navigationBarBackButtonHidden(true)
                         })
                             
                             
                     }
                 }
+                .navigationBarTitleDisplayMode(.large)
                 .navigationTitle("Sections")
-                
-               
             }
-        }
+        
         .task {
             await vm.getQuestionSections(sectionId: sectionId)
         }

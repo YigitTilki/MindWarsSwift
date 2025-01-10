@@ -15,7 +15,7 @@ struct AddQuestionAnswerView: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        NavigationView {
+        
             
             ZStack {
                 Form {
@@ -44,25 +44,8 @@ struct AddQuestionAnswerView: View {
                 .alert(item: $vm.alertItem) { alert in
                     Alert(title: alert.title, message: alert.message, dismissButton: alert.dismissButton)
                 }
+                .navigationBarTitleDisplayMode(.large)
                 .navigationTitle("add_qa")
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            HStack {
-                                Image(systemName: "chevron.backward")
-                                    .font(.system(size: 18, weight: .medium))
-                                
-                                Text("back")
-                                    .font(.system(size: 18))
-                                    .fontWeight(.medium)
-                                
-                            }
-                            .foregroundColor(.blue)
-                        }
-                    }
-                }
                 .sheet(isPresented: $vm.isPickerPresented) {
                     ImagePicker(selectedImage: $vm.selectedImage)
                        }
@@ -70,8 +53,6 @@ struct AddQuestionAnswerView: View {
                 if vm.isLoading {
                     LoadingView()
                 }
-            }
-            
             
         }
         
