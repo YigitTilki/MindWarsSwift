@@ -30,3 +30,38 @@
 "Invalid E-mail Address" = "Geçersiz E-Posta Adresi";
 "Invalid Password" = "Geçersiz Şifre";
 "Wrong Password" = "Şifre Yanlış";
+"Passwords Doesn't Match" = "Şifreler Eşleşmiyor";
+//GENERAL
+"language" = "Dil";
+"difficulty" = "Zorluk";
+"type" = "Tip";
+"answer" = "Cevap";
+"add" = "Ekle";
+"question" = "Soru";
+"question_parts" = "Soru Bölümleri";
+"part_length" = "Bölüm Uzunluğu:";
+"none" = "Yok";
+"turkish" = "Türkçe";
+"english" = "İngilizce";
+"both" = "İkiside";
+"very_easy" = "Çok Kolay";
+"easy" = "Kolay";
+"medium" = "Orta";
+"hard" = "Zor";
+"very_hard" = "Çok Zor";
+"professor" = "Profesör";
+"general" = "Genel";
+"math" = "Matematik";
+"science" = "Bilim";
+"back" = "Geri";
+"time" = "Süre(Saniye)";
+
+//RED QUESTIONS
+
+//QuestionAnswer Question
+
+"add_qa" = "S&C Ekle";
+"add_qa_question" = "S&C Sorusu Ekle";
+"possible_answers" = "Olabilecek Cevaplar";
+"qa_answer" = "S&C Cevabı";
+"qa_question" = "S&C Sorusu";

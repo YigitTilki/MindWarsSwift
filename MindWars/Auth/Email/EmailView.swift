@@ -28,6 +28,7 @@ struct EmailView: View {
                            }
                        }
             })
+            .animation(.easeInOut, value: !authState.error.isEmpty)
             
             
             if authState.isLoading {
@@ -68,7 +69,7 @@ struct EmailView: View {
                 }
             }, label: {
                 Text("Continue")
-                    .loginButtonStyle()
+                    .loginButtonStyle(isEmpty: authState.email.isEmpty)
             })
         }
     }

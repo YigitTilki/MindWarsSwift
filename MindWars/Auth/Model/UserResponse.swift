@@ -21,4 +21,11 @@ class UserResponseModel: Codable {
 
 typealias UserResponse = [UserResponseModel]
 
+let mockUserResponseData: [UserResponseModel] = [
+    UserResponseModel(id: "0001", username: "NemesisCran", email: "yiğit@gmail.com", birthDate: "2002-12-22"),
+    UserResponseModel(id: "0002", username: "Sezen", email: "sezen@gmail.com", birthDate: "1980-12-04"),
+    UserResponseModel(id: "0003", username: "Birol", email: "birol@gmail.com", birthDate: "1972-12-12"),
+    UserResponseModel(id: "0004", username: "Yagiz", email: "yagiz@gmail.com", birthDate: "2016-12-19"),
+]
+
 

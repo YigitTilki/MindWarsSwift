@@ -9,41 +9,74 @@ import SwiftUI
 
 struct RegisterView: View {
     @EnvironmentObject var navigationState: Navigation
+    @EnvironmentObject var authState: AuthState
+    
     @StateObject private var viewModel = RegisterViewModel()
+    
     var body: some View {
         CommonBackgroundView {
             VStack(alignment: .leading){
-                Text("LET'S SIGN UP")
-                    .font(.title)
-                Text("ENTER YOUR CREDENTIALS TO SIGN UP")
-                    .font(.callout)
                 
-                TextField("UserName", text: $viewModel.userName)
-                    .appTextFieldStyle()
-                TextField("Email", text: $viewModel.email)
-                    .appTextFieldStyle()
-                TextField("Birth Date", text: $viewModel.birthDate)
-                    .appTextFieldStyle()
-                TextField("Password", text: $viewModel.password)
-                    .appTextFieldStyle()
-                TextField("Re-Password", text: $viewModel.rePassword)
-                    .appTextFieldStyle()
-                
-                HStack{
-                    Spacer()
-                    Button("Sign Up"){
-                        viewModel.handleSignUpButton(navigationState: navigationState)                        }
-                    .loginButtonStyle()
-                }
+                descriptionTitle()
+                textFields()
+                signUpButton()
+            
+            }
+            .padding()
+            .animation(.easeInOut, value: !authState.error.isEmpty)
+            .appBarBackButton(text: "Do you already have an account?", action: {navigationState.state = "Email"})
+            
+            if authState.isLoading {
+                LoadingView()
+            }
+        }
+    }
+    
+    func textFields() -> some View {
+        VStack {
+            TextField("UserName", text: $viewModel.userName)
+                .appTextFieldStyle()
+            TextField("Email", text: $authState.email)
+                .appTextFieldStyle()
+            TextField("Birth Date", text: $viewModel.birthDate)
+                .appTextFieldStyle()
+            TextField("Password", text: $viewModel.password)
+                .appTextFieldStyle()
+            TextField("Re-Password", text: $viewModel.rePassword)
+                .appTextFieldStyle()
+                .disabled(viewModel.password.isEmpty)
+            
+            if authState.error != "" {
+                Text("\(authState.error)").foregroundStyle(.red).font(.caption)
+            }
+        }
+    }
+    
+    func signUpButton() -> some View {
+        HStack{
+            Spacer()
+            Button("Sign Up"){
+                Task{
+                    await  viewModel.handleSignUpButton(navigationState: navigationState,authState: authState)                        }
                 
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding()
+            .loginButtonStyle(isEmpty: viewModel.isFieldsEmpty(email: authState.email))
+            
         }
-        .appBarBackButton(text: "Do you already have an account?", action: {navigationState.state = "Email"})
+        .disabled(viewModel.isFieldsEmpty(email: authState.email))
+    }
+    
+    func descriptionTitle() -> some View {
+        VStack(alignment: .leading){
+            Text("LET'S SIGN UP")
+                .font(.title)
+            Text("ENTER YOUR CREDENTIALS TO SIGN UP")
+                .font(.callout)
+        }
     }
 }
 
 #Preview {
     RegisterView()
+        .environmentObject(AuthState())
 }

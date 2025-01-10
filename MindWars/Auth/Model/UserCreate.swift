@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserCreateModel: Codable {
+class UserCreateModel: Codable, Identifiable {
     let username, email, birthDate, password: String?
 
     init(username: String?, email: String?, birthDate: String?, password: String?) {

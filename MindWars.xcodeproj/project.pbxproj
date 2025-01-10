@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		4332755F2D15E2D900864551 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4332755E2D15E2D900864551 /* Lottie */; };
+		434157792D2D913500162130 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 434157782D2D913500162130 /* FirebaseAuth */; };
+		4341577B2D2D913500162130 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4341577A2D2D913500162130 /* FirebaseCore */; };
+		4341577D2D2D913500162130 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4341577C2D2D913500162130 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4332755F2D15E2D900864551 /* Lottie in Frameworks */,
+				4341577D2D2D913500162130 /* FirebaseFirestore in Frameworks */,
+				4341577B2D2D913500162130 /* FirebaseCore in Frameworks */,
+				434157792D2D913500162130 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +77,9 @@
 			name = MindWars;
 			packageProductDependencies = (
 				4332755E2D15E2D900864551 /* Lottie */,
+				434157782D2D913500162130 /* FirebaseAuth */,
+				4341577A2D2D913500162130 /* FirebaseCore */,
+				4341577C2D2D913500162130 /* FirebaseFirestore */,
 			);
 			productName = MindWars;
 			productReference = 43109F9E2D134A7600CC8BE4 /* MindWars.app */;
@@ -103,6 +112,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4332755D2D15E2D900864551 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 43109F9F2D134A7600CC8BE4 /* Products */;
@@ -344,6 +354,14 @@
 				minimumVersion = 4.5.0;
 			};
 		};
+		434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -351,6 +369,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4332755D2D15E2D900864551 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		434157782D2D913500162130 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		4341577A2D2D913500162130 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		4341577C2D2D913500162130 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

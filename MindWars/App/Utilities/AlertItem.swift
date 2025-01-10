@@ -24,5 +24,17 @@ struct AlertContext {
                                             message: Text("Your password is wrong. Check your password and email then try again"),
                                             dismissButton: .default(Text("OK")))
     
+    static let questionPartCantEmpty      = AlertItem(title: Text("Question Part Cannot Empty"),
+                                            message: Text("Your question part is empty. Check your question part then try again"),
+                                            dismissButton: .default(Text("OK")))
+    
+    static let questionCreatedSuccesfully      = AlertItem(title: Text("Question Created"),
+                                            message: Text("Your question has been created successfully"),
+                                            dismissButton: .default(Text("OK")))
+    
+    static let unexpectedError      = AlertItem(title: Text("Unexpected Error"),
+                                            message: Text("Something went wrong. Please try again later"),
+                                            dismissButton: .default(Text("OK")))
+    
     
 }

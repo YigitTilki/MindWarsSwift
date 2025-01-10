@@ -26,6 +26,7 @@ struct PasswordView: View {
             .alert(item: $viewModel.alertItem) { alert in
                 Alert(title: alert.title, message: alert.message, dismissButton: alert.dismissButton)
             }
+            .animation(.easeInOut, value: !authState.error.isEmpty)
             
             if authState.isLoading {
                 LoadingView()
@@ -66,7 +67,7 @@ struct PasswordView: View {
                 }
             }, label: {
                 Text("Continue")
-                    .loginButtonStyle()
+                    .loginButtonStyle(isEmpty: authState.password.isEmpty)
             })
        
         }

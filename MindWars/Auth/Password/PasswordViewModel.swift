@@ -22,10 +22,10 @@ class PasswordViewModel: ObservableObject {
         
         try? await Task.sleep(for: .seconds(1))
         
-        if let user = mockUserLoginData.first(where: {
+        if  (mockUserLoginData.first(where: {
             $0.email == authState.email.lowercased() &&
             $0.password == authState.password
-        }) {
+        }) != nil) {
             
             authState.isLoggedIn = true
             navigationState.state = "Home"
