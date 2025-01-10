@@ -6,31 +6,45 @@
 //
 
 import Foundation
+import UIKit
 
 @MainActor
 class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
     
-    @Published var selectedPart: QuestionPart = .none
-    @Published var lengthOfPart: String = ""
     @Published var question1: String = ""
     @Published var question2: String = ""
-    @Published var alertItem: AlertItem?
     @Published var answer1: String = ""
     @Published var answers1: [String] = []
     @Published var answer2: String = ""
     @Published var answers2: [String] = []
+    
+    @Published var selectedPart: QuestionPart = .none
     @Published var difficulty: QuestionDifficulty = .medium
     @Published var language: Languages = .tr
     @Published var type: QuestionType = .general
     @Published var time: QuestionTime = .thirtySec
     
+    @Published var lengthOfPart: String = ""
+    @Published var alertItem: AlertItem?
+    @Published var isImageQuestion: Bool = false
+    @Published var isPickerPresented = false
+    @Published var selectedImage: UIImage?
     
     func addQuestion() async {
-        
+        //TODO: Implement author id
         let tr = QuestionAnswerQuestionDetailModel(question: question1, answers: answers1)
         let en = QuestionAnswerQuestionDetailModel(question: question2, answers: answers2)
         let questionModel = QuestionAnswerQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = QuestionAnswerModel(translations: questionModel, difficulty: difficulty.intValue, language: language.intValue, type: type.intValue,time: time.rawValue)
+        let questionAnswerModel = QuestionAnswerModel(
+            translations: questionModel,
+            difficulty: difficulty.intValue,
+            language: language.intValue,
+            type: type.intValue,
+            time: time.rawValue,
+            createdAt: Date(),
+            authorId: "SKwlaoAomALQ",
+            imageUrl: ""
+        )
         
         
         await performLoadingTask { [self] in
@@ -69,6 +83,7 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
         language = .tr
         difficulty = .medium
         type = .general
+        isImageQuestion = false
     }
     
     
@@ -102,16 +117,16 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
             }
         }
         else if language == .tr {
-                if answers1.isEmpty || question1.isEmpty {
-                    return true
-                }
+            if answers1.isEmpty || question1.isEmpty {
+                return true
             }
+        }
         else if language == .en {
             if answers2.isEmpty || question2.isEmpty {
                 return true
             }
         }
-    
+        
         return false
         
     }

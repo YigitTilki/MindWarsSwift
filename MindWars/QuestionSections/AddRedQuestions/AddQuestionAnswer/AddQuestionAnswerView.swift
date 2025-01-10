@@ -9,6 +9,8 @@ import SwiftUI
 
 struct AddQuestionAnswerView: View {
     
+    
+    
     @StateObject var vm = AddQuestionAnswerViewModel()
     @Environment(\.dismiss) var dismiss
     
@@ -21,6 +23,7 @@ struct AddQuestionAnswerView: View {
                     typePicker()
                     difficultyPicker()
                     timePicker()
+                    imagePicker()
                     questionParts()
                     if vm.language == .tr || vm.language == .both {
                         questionText1()
@@ -60,6 +63,9 @@ struct AddQuestionAnswerView: View {
                         }
                     }
                 }
+                .sheet(isPresented: $vm.isPickerPresented) {
+                    ImagePicker(selectedImage: $vm.selectedImage)
+                       }
                 
                 if vm.isLoading {
                     LoadingView()
@@ -70,6 +76,21 @@ struct AddQuestionAnswerView: View {
         }
         
         
+    }
+    
+    func imagePicker() -> some View {
+        HStack{
+            if vm.isImageQuestion {
+                Button("select_image") {
+                    //vm.isPickerPresented = true
+                    vm.alertItem = AlertContext.unavailableService
+                            }
+            }
+            
+            Toggle(isOn: $vm.isImageQuestion) {
+                Text(!vm.isImageQuestion ? "question_with_image" : "")
+            }
+        }
     }
     
     func timePicker() -> some View {
@@ -155,7 +176,7 @@ struct AddQuestionAnswerView: View {
                     .foregroundColor(vm.answer1.isEmpty ? .gray : .blue)
                     .onTapGesture {
                         if vm.answer1.isEmpty { return }
-                        vm.answers1.append(vm.answer1)
+                        vm.answers1.append(vm.answer1.lowercased())
                         vm.answer1 = ""
                     }
                 
@@ -203,7 +224,7 @@ struct AddQuestionAnswerView: View {
                     .foregroundColor(vm.answer2.isEmpty ? .gray : .blue)
                     .onTapGesture {
                         if vm.answer2.isEmpty { return }
-                        vm.answers2.append(vm.answer2)
+                        vm.answers2.append(vm.answer2.lowercased())
                         vm.answer2 = ""
                     }
                 
@@ -248,3 +269,5 @@ struct AddQuestionAnswerView: View {
 #Preview {
     AddQuestionAnswerView()
 }
+
+

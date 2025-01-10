@@ -55,6 +55,19 @@
 "science" = "Bilim";
 "back" = "Geri";
 "time" = "Süre(Saniye)";
+"select_image" = "Fotoğraf Seç";
+"question_with_image" = "Fotoğraflı Soru";
+
+//ALERTS
+"unavaliable_service" = "Özellik Kullanılamıyor";
+"ok" = "Tamam";
+"unavaliable_service_message" = "Bu özellik şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyiniz";
+"unexpected_error" = "Beklenilmeyen Hata";
+"unexpected_error_message" = "Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyiniz";
+"question_created" = "Soru Oluşturuldu";
+"question_created_message" = "Girdiğin soru başarı ile oluşturuldu";
+"question_part_cannot_empty" = "Soru Bölümü Boş Olamaz";
+"question_part_cannot_empty_message" = "Soru bölümü boş. Lütfen doldurun ve tekrar deneyin";
 
 //RED QUESTIONS
 

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 
 struct QuestionAnswerModel: BaseQuestionModel, Codable {
@@ -16,6 +17,9 @@ struct QuestionAnswerModel: BaseQuestionModel, Codable {
     let language: Int
     let type: Int
     let time: Int
+    let createdAt: Date?
+    let authorId: String
+    let imageUrl: String?
 }
     
 

@@ -55,6 +55,19 @@
 "science" = "Science";
 "back" = "Back";
 "time" = "Time(Seconds)";
+"select_image" = "Select Image";
+"question_with_image" = "Question With Image";
+
+//ALERTS
+"unavaliable_service" = "Unavaliable Service";
+"ok" = "OK";
+"unavaliable_service_message" = "This service is currently unavailable. Please try again later";
+"unexpected_error" = "Unexpected Error";
+"unexpected_error_message" = "Something went wrong. Please try again later";
+"question_created" = "Question Created";
+"question_created_message" = "Your question has been created successfully";
+"question_part_cannot_empty" = "Question Part Cannot Empty";
+"question_part_cannot_empty_message" = "Your question part is empty. Check your question part then try again";
 
 //RED QUESTIONS
 
