@@ -9,11 +9,8 @@ import SwiftUI
 
 struct AddQuestionAnswerView: View {
     
-    
-    
     @StateObject var vm = AddQuestionAnswerViewModel()
-    @Environment(\.dismiss) var dismiss
-    
+
     var body: some View {
         
             
@@ -31,6 +28,7 @@ struct AddQuestionAnswerView: View {
                         if !vm.answers1.isEmpty {
                             answersList1()
                         }
+                        answerDescription1()
                     }
                     if vm.language == .en || vm.language == .both {
                         questionText2()
@@ -38,6 +36,7 @@ struct AddQuestionAnswerView: View {
                         if !vm.answers2.isEmpty {
                             answersList2()
                         }
+                        answerDescription2()
                     }
                     addButton()
                 }
@@ -46,7 +45,7 @@ struct AddQuestionAnswerView: View {
                 }
                 .navigationBarTitleDisplayMode(.large)
                 .navigationTitle("add_qa")
-                .sheet(isPresented: $vm.isPickerPresented) {
+                .sheet(isPresented: $vm.isImagePickerPresented) {
                     ImagePicker(selectedImage: $vm.selectedImage)
                        }
                 
@@ -57,6 +56,19 @@ struct AddQuestionAnswerView: View {
         }
         
         
+    }
+    
+    func answerDescription1() -> some View {
+        Section(header: Text("Cevap Açıklaması")){
+            TextField("Cevap Açıklaması", text: $vm.answerDescription1)
+        }
+            
+    }
+    func answerDescription2() -> some View {
+        Section(header: Text("Answer Description")){
+            TextField("Answer Description", text: $vm.answerDescription2)
+        }
+            
     }
     
     func imagePicker() -> some View {
@@ -116,7 +128,7 @@ struct AddQuestionAnswerView: View {
     
     
     func addButton() -> some View {
-        let isFieldsEmpty = vm.isFieldsEmpty1()
+        let isFieldsEmpty = vm.isFieldsEmpty()
         return Button(
             action: {
                 Task {
@@ -151,27 +163,23 @@ struct AddQuestionAnswerView: View {
     
     func answerText1() -> some View {
         Section(header: Text("S&C Cevabı")) {
-            HStack() {
-                TextField("answer", text: $vm.answer1)
-                Text("Ekle")
-                    .foregroundColor(vm.answer1.isEmpty ? .gray : .blue)
-                    .onTapGesture {
-                        if vm.answer1.isEmpty { return }
-                        vm.answers1.append(vm.answer1.lowercased())
-                        vm.answer1 = ""
-                    }
-                
-                
-                
-                
-            }
+                HStack() {
+                    TextField("Cevap", text: $vm.answer1)
+                    Text("Ekle")
+                        .foregroundColor(vm.answer1.isEmpty ? .gray : .blue)
+                        .onTapGesture {
+                            if vm.answer1.isEmpty { return }
+                            vm.answers1.append(vm.answer1.lowercased())
+                            vm.answer1 = ""
+                        }
+                }
             
         }
     }
     
     func questionText1() -> some View {
         Section(header: Text("S&C Sorusu")) {
-            TextField("question", text: $vm.question1, axis: .vertical)
+            TextField("Soru", text: $vm.question1, axis: .vertical)
                 .lineLimit(5...10)
             
             
@@ -200,7 +208,7 @@ struct AddQuestionAnswerView: View {
     func answerText2() -> some View {
         Section(header: Text("Q&A Answer")) {
             HStack() {
-                TextField("answer", text: $vm.answer2)
+                TextField("Answer", text: $vm.answer2)
                 Text("Add")
                     .foregroundColor(vm.answer2.isEmpty ? .gray : .blue)
                     .onTapGesture {
@@ -208,10 +216,6 @@ struct AddQuestionAnswerView: View {
                         vm.answers2.append(vm.answer2.lowercased())
                         vm.answer2 = ""
                     }
-                
-                
-                
-                
             }
             
         }
@@ -219,7 +223,7 @@ struct AddQuestionAnswerView: View {
     
     func questionText2() -> some View {
         Section(header: Text("Q&A Question")) {
-            TextField("question", text: $vm.question2, axis: .vertical)
+            TextField("Question", text: $vm.question2, axis: .vertical)
                 .lineLimit(5...10)
             
             

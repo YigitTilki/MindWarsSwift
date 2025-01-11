@@ -70,6 +70,7 @@
 "question_part_cannot_empty_message" = "Your question part is empty. Check your question part then try again";
 
 //RED QUESTIONS
+"answer_description" = "Answer Description";
 
 //QuestionAnswer Question
 
@@ -78,4 +79,15 @@
 "possible_answers" = "Possible Answers";
 "qa_answer" = "Q&A Answer";
 "qa_question" = "Q&A Question";
+
+//TrueFalse Question
+
+"add_tf" = "Add True-False";
+"add_tf_question" = "Add True-False Question";
+
+//MultipleChoice Question
+
+"add_mc" = "Add Multiple Choice";
+"add_mc_question" = "Add Multiple Choice Question";
+"answers" = "Answers";
 

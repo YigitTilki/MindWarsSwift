@@ -1,40 +1,26 @@
 //
-//  RedQuestionsViewModel.swift
+//  AddTrueFalseViewModel.swift
 //  MindWars
 //
-//  Created by Yiğit Tilki on 9.01.2025.
+//  Created by Yiğit Tilki on 11.01.2025.
 //
 
 import Foundation
 import UIKit
 
 @MainActor
-class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
+class AddTrueFalseViewModel: BaseViewModel, ObservableObject {
     
-    
-    @Published var answer1: String = ""
-    @Published var answers1: [String] = []
-    @Published var answer2: String = ""
-    @Published var answers2: [String] = []
-    
-    
-    
-    
+    @Published var answer1: Bool = false
+    @Published var answer2: Bool = false
     
     func addQuestion() async {
         //TODO: Implement author id
-        let tr = AddQuestionAnswerQuestionDetailModel(question: question1, answers: answers1, answerDescription: answerDescription1)
-        let en = AddQuestionAnswerQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2)
-        let questionModel = AddQuestionAnswerQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = AddQuestionAnswerModel(
-            translations: questionModel,
-            difficulty: difficulty.intValue,
-            language: language.intValue,
-            type: type.intValue,
-            time: time.rawValue,
-            createdAt: Date(),
-            authorId: "SKwlaoAomALQ",
-            imageUrl: ""
+        let tr = AddTrueFalseQuestionDetailModel(question: question1, answer: answer1, answerDescription: answerDescription1)
+        let en = AddTrueFalseQuestionDetailModel(question: question2, answer: answer2, answerDescription: answerDescription2)
+        let questionModel = AddTrueFalseQuestionModel(en: en, tr: tr)
+        let questionAnswerModel = AddTrueFalseModel(authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: ""
+            
         )
         
         
@@ -45,7 +31,7 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
                     return
                 }
                 
-                let section = RedQuestionSectionEnum(rawValue: 1) ?? .none
+                let section = RedQuestionSectionEnum(rawValue: 3) ?? .none
                 
                 try db.collection("questions")
                     .document("1")
@@ -66,12 +52,12 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
     }
     
     func clearFields() {
-        answers1.removeAll()
         question1 = ""
         answerDescription1 = ""
-        answers2.removeAll()
+        answer1 = false
         question2 = ""
         answerDescription2 = ""
+        answer2 = false
         selectedPart = .none
         language = .tr
         difficulty = .medium
@@ -82,21 +68,19 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
         selectedImage = nil
     }
     
-    
-   
     func isFieldsEmpty() -> Bool {
         if language == .both {
-            if answers1.isEmpty || question1.isEmpty || answers2.isEmpty || question2.isEmpty {
+            if  question1.isEmpty || question2.isEmpty {
                 return true
             }
         }
         else if language == .tr {
-            if answers1.isEmpty || question1.isEmpty {
+            if question1.isEmpty {
                 return true
             }
         }
         else if language == .en {
-            if answers2.isEmpty || question2.isEmpty {
+            if question2.isEmpty {
                 return true
             }
         }
@@ -105,9 +89,6 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
         
     }
     
-    
+  
     
 }
-
-
-

@@ -70,6 +70,7 @@
 "question_part_cannot_empty_message" = "Soru bölümü boş. Lütfen doldurun ve tekrar deneyin";
 
 //RED QUESTIONS
+"answer_description" = "Cevap Açıklaması";
 
 //QuestionAnswer Question
 
@@ -78,3 +79,13 @@
 "possible_answers" = "Olabilecek Cevaplar";
 "qa_answer" = "S&C Cevabı";
 "qa_question" = "S&C Sorusu";
+
+//TrueFalse Question
+
+"add_tf" = "Doğru-Yanlış Ekle";
+"add_tf_question" = "Doğru-Yanlış Sorusu Ekle";
+
+//MultipleChoice Question
+"add_mc" = "Çoktan Seçmeli Ekle";
+"add_mc_question" = "Çoktan Seçmeli Soru Ekle";
+"answers" = "Cevaplar";

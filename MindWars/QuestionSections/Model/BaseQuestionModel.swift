@@ -8,6 +8,8 @@
 import Foundation
 
 protocol BaseQuestionModel {
+    var authorId: String { get }
+    var createdAt: Date { get }
     var difficulty: Int { get }
     var correctAnswers: Int { get }
     var incorrectAnswers: Int { get }
