@@ -91,3 +91,8 @@
 "add_mc_question" = "Add Multiple Choice Question";
 "answers" = "Answers";
 
+//MismatchedDuo Question
+
+"add_md" = "Add Mismatched Duo";
+"add_md_question" = "Add Mismatched Duo Question";
+

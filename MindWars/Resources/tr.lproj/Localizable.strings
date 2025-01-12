@@ -87,5 +87,10 @@
 
 //MultipleChoice Question
 "add_mc" = "Çoktan Seçmeli Ekle";
-"add_mc_question" = "Çoktan Seçmeli Soru Ekle";
+"add_mc_question" = "Çoktan Seçmeli Sorusu Ekle";
 "answers" = "Cevaplar";
+
+//MismatchedDuo Question
+
+"add_md" = "Uyumsuz İkili Ekle";
+"add_md_question" = "Uyumsuz İkili Sorusu Ekle";

@@ -1,5 +1,5 @@
 //
-//  AddMultipleChoiceView.swift
+//  AddMismatchedDuoView.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 9.01.2025.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct AddMultipleChoiceView: View {
+struct AddMismatchedDuoView: View {
     
-    @StateObject var vm = AddMultipleChoiceViewModel()
+    @StateObject var vm = AddMismatchedDuoViewModel()
     
     var body: some View {
         ZStack {
@@ -26,6 +26,7 @@ struct AddMultipleChoiceView: View {
                     if !vm.answers1.isEmpty {
                         answersList1()
                         correctAnswer1()
+                        correctAnswer2()
                         answerDescription1()
                     }
                    
@@ -35,7 +36,8 @@ struct AddMultipleChoiceView: View {
                     answerText2()
                     if !vm.answers2.isEmpty {
                         answersList2()
-                        correctAnswer2()
+                        correctAnswer3()
+                        correctAnswer4()
                         answerDescription2()
                     }
                     
@@ -46,7 +48,7 @@ struct AddMultipleChoiceView: View {
                 Alert(title: alert.title, message: alert.message, dismissButton: alert.dismissButton)
             }
             .navigationBarTitleDisplayMode(.large)
-            .navigationTitle("add_mc")
+            .navigationTitle("add_md")
             .sheet(isPresented: $vm.isImagePickerPresented) {
                 ImagePicker(selectedImage: $vm.selectedImage)
                    }
@@ -58,27 +60,54 @@ struct AddMultipleChoiceView: View {
     }
     
     func correctAnswer1() -> some View {
-        Picker("Doğru Cevap", selection: $vm.correctAnswer1) {
+        Picker("Doğru Cevap 1", selection: $vm.correctAnswer1) {
             Text("Cevap Seç")
             ForEach(vm.answers1, id: \.self) { part in
                 Text(part)
             }
         }
         .pickerStyle(.menu)
+        .onChange(of: vm.correctAnswer1) {
+            vm.correctAnswer2 = ""
+        }
     }
     
     func correctAnswer2() -> some View {
-        Picker("Correct Answer", selection: $vm.correctAnswer2) {
+        Picker("Doğru Cevap 2", selection: $vm.correctAnswer2) {
+            Text("Cevap Seç")
+            ForEach(vm.filteredAnswersForAnswers1, id: \.self) { part in
+                Text(part)
+            }
+        }
+        .pickerStyle(.menu)
+        .disabled(vm.correctAnswer1.isEmpty)
+    }
+    func correctAnswer3() -> some View {
+        Picker("Correct Answer 1", selection: $vm.correctAnswer3) {
             Text("Choose Answer")
             ForEach(vm.answers2, id: \.self) { part in
                 Text(part)
             }
         }
         .pickerStyle(.menu)
+        .onChange(of: vm.correctAnswer3) {
+            vm.correctAnswer4 = ""
+        }
+    }
+    
+    func correctAnswer4() -> some View {
+        Picker("Correct Answer 2", selection: $vm.correctAnswer4) {
+            Text("Choose Answer")
+            ForEach(vm.filteredAnswersForAnswers2, id: \.self) { part in
+                Text(part)
+            }
+        }
+        .pickerStyle(.menu)
+        .disabled(vm.correctAnswer3.isEmpty)
     }
     
     func questionText1() -> some View {
-        Section(header: Text("Çoktan Secmeli Sorusu")) {
+        Section(header: Text("Uyumsuz İkili Sorusu")) {
             TextField("Soru", text: $vm.question1, axis: .vertical)
                 .lineLimit(5...10)
             
@@ -87,17 +116,18 @@ struct AddMultipleChoiceView: View {
     }
     
     func answerText1() -> some View {
-        Section(header: Text("Çoktan Seçmeli Cevapları")) {
+        Section(header: Text("Uyumsuz İkili Cevapları")) {
                 HStack() {
-                    TextField("Answer", text: $vm.answer1)
+                    TextField("Cevap", text: $vm.answer1)
                     Text("Ekle")
-                        .foregroundColor(vm.answer1.isEmpty || vm.answers1.count > 4 ? .gray : .blue)
+                        .foregroundColor(vm.answer1.isEmpty || vm.answers1.count > 6 ? .gray : .blue)
                         .onTapGesture {
                             if vm.answer1.isEmpty { return }
-                            if vm.answers1.count > 4 { return }
+                            if vm.answers1.count > 6 { return }
                             vm.answers1.append(vm.answer1)
                             vm.answer1 = ""
                         }
+                        .autocorrectionDisabled(true)
                 }
         }
     }
@@ -125,17 +155,18 @@ struct AddMultipleChoiceView: View {
 
     
     func answerText2() -> some View {
-        Section(header: Text("Multiple Choice Answer")) {
+        Section(header: Text("Mismatched Duo Answer")) {
             HStack() {
                 TextField("Answer", text: $vm.answer2)
                 Text("Add")
-                    .foregroundColor(vm.answer2.isEmpty || vm.answers2.count > 4 ? .gray : .blue)
+                    .foregroundColor(vm.answer2.isEmpty || vm.answers2.count > 6 ? .gray : .blue)
                     .onTapGesture {
                         if vm.answer2.isEmpty { return }
-                        if vm.answers2.count > 4 { return }
+                        if vm.answers2.count > 6 { return }
                         vm.answers2.append(vm.answer2)
                         vm.answer2 = ""
                     }
+                    .autocorrectionDisabled(true)
             }
             
         }
@@ -162,7 +193,7 @@ struct AddMultipleChoiceView: View {
     }
     
     func questionText2() -> some View {
-        Section(header: Text("Multiple Choice Question")) {
+        Section(header: Text("Mismatched Duo Question")) {
             TextField("Question", text: $vm.question2, axis: .vertical)
                 .lineLimit(5...10)
             
@@ -196,7 +227,7 @@ struct AddMultipleChoiceView: View {
                 .pickerStyle(.menu)
                 .onChange(of: vm.selectedPart) {
                     Task {
-                        await vm.getPartLength(sectionId: 2)
+                        await vm.getPartLength(sectionId: 4)
                     }
                 }
             }
@@ -268,7 +299,7 @@ struct AddMultipleChoiceView: View {
                 }
             },
             label: {
-                Text("add_mc_question")
+                Text("add_md_question")
             }
         )
         .disabled(isFieldsEmpty)
@@ -276,5 +307,5 @@ struct AddMultipleChoiceView: View {
 }
 
 #Preview {
-    AddMultipleChoiceView()
+    AddMismatchedDuoView()
 }
