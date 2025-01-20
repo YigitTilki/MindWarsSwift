@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddMultipleChoiceModel: BaseQuestionModel, Encodable {
+struct AddMultipleChoiceModel: BaseQuestionModel, Codable {
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -21,12 +21,12 @@ struct AddMultipleChoiceModel: BaseQuestionModel, Encodable {
     
 }
 
-struct AddMultipleChoiceQuestionModel: Encodable {
+struct AddMultipleChoiceQuestionModel: Codable {
     let en: AddMultipleChoiceQuestionDetailModel
     let tr: AddMultipleChoiceQuestionDetailModel
 }
 
-struct AddMultipleChoiceQuestionDetailModel: BaseQuestionDetailModel, Encodable {
+struct AddMultipleChoiceQuestionDetailModel: BaseQuestionDetailModel, Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

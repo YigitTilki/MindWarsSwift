@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddTrueFalseModel: BaseQuestionModel, Encodable {
+struct AddTrueFalseModel: BaseQuestionModel, Codable {
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -20,12 +20,12 @@ struct AddTrueFalseModel: BaseQuestionModel, Encodable {
     let imageUrl: String?
 }
 
-struct AddTrueFalseQuestionModel: Encodable {
+struct AddTrueFalseQuestionModel: Codable {
     let en: AddTrueFalseQuestionDetailModel
     let tr: AddTrueFalseQuestionDetailModel
 }
 
-struct AddTrueFalseQuestionDetailModel: BaseQuestionDetailModel, Encodable {
+struct AddTrueFalseQuestionDetailModel: BaseQuestionDetailModel, Codable {
     let question: String
     let answer: Bool
     let answerDescription: String?

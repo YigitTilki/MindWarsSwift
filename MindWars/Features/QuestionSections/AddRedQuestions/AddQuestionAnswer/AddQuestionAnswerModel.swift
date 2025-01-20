@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddQuestionAnswerModel: BaseQuestionModel, Encodable {
+struct AddQuestionAnswerModel: BaseQuestionModel, Codable {
     let translations: AddQuestionAnswerQuestionModel
     let difficulty: Int
     var correctAnswers: Int = 0
@@ -21,15 +21,16 @@ struct AddQuestionAnswerModel: BaseQuestionModel, Encodable {
 }
     
 
-struct AddQuestionAnswerQuestionModel: Encodable {
+struct AddQuestionAnswerQuestionModel: Codable {
     let en: AddQuestionAnswerQuestionDetailModel
     let tr: AddQuestionAnswerQuestionDetailModel
 }
    
 
-struct AddQuestionAnswerQuestionDetailModel: BaseQuestionDetailModel, Encodable {
+struct AddQuestionAnswerQuestionDetailModel: BaseQuestionDetailModel, Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?
 }
+
 

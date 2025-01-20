@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddMismatchedDuoModel: BaseQuestionModel, Encodable {
+struct AddMismatchedDuoModel: BaseQuestionModel, Codable {
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -21,12 +21,12 @@ struct AddMismatchedDuoModel: BaseQuestionModel, Encodable {
     
 }
 
-struct AddMismatchedDuoQuestionModel: Encodable {
+struct AddMismatchedDuoQuestionModel: Codable {
     let en: AddMismatchedDuoQuestionDetailModel
     let tr: AddMismatchedDuoQuestionDetailModel
 }
 
-struct AddMismatchedDuoQuestionDetailModel: BaseQuestionDetailModel, Encodable {
+struct AddMismatchedDuoQuestionDetailModel: BaseQuestionDetailModel, Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?
