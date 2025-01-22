@@ -57,6 +57,8 @@
 "time" = "Time(Seconds)";
 "select_image" = "Select Image";
 "question_with_image" = "Question With Image";
+"true" = "True";
+"false" = "False";
 
 //ALERTS
 "unavaliable_service" = "Unavaliable Service";

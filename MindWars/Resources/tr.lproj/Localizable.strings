@@ -57,6 +57,8 @@
 "time" = "Süre(Saniye)";
 "select_image" = "Fotoğraf Seç";
 "question_with_image" = "Fotoğraflı Soru";
+"true" = "Doğru";
+"false" = "Yanlış";
 
 //ALERTS
 "unavaliable_service" = "Özellik Kullanılamıyor";

@@ -21,20 +21,21 @@ struct PlaySoloRedMindWarView: View {
                     .background(.linearGradient(Gradient(colors: [.red,.red.opacity(0.1)]), startPoint: .center, endPoint: .bottom))
                     .foregroundColor(.white)
                     .cornerRadius(30)
-                    .padding(.vertical, 60)
+                    .padding(.top, 50)
+                    .padding(.bottom, 30)
                     
                     
                 if currentQuestionIndex < vm.questionList.count {
                     let question = vm.questionList[currentQuestionIndex]
                     switch question {
                     case let question as AddTrueFalseModel:
-                        Text(question.translations.en.question)
+                        TrueFalseView(question: question)
                     case let question as AddQuestionAnswerModel:
                         QuestionAnswerView(question: question)
                     case let question as AddMismatchedDuoModel:
-                        Text(question.translations.tr.question)
+                        MismatchedDuoView(question: question)
                     case let question as AddMultipleChoiceModel:
-                        Text(question.translations.tr.question)
+                        MultipleChoiceView(question: question)
                     default:
                         Text("Unknown question type")
                     }
@@ -56,7 +57,9 @@ struct PlaySoloRedMindWarView: View {
                         .background(Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(8)
-                        .padding(.bottom, 60)
+                        .padding(.bottom, 50)
+                        .padding(.top, 20)
+                        
                         
                     
                 }
@@ -64,7 +67,7 @@ struct PlaySoloRedMindWarView: View {
             .padding()
             .onAppear {
                 Task {
-                    await vm.getQuestionAnswer()
+                    await vm.getQuestions()
                 }
             }
             

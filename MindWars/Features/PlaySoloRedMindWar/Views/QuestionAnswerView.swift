@@ -9,12 +9,14 @@ import SwiftUI
 
 struct QuestionAnswerView: View {
     let question: AddQuestionAnswerModel
+    @StateObject var vm = PlaySoloRedMindWarViewModel()
+    
     var body: some View {
         VStack{
             Text(question.translations.tr.question)
                 .padding(.bottom, 20)
                 .font(.title3)
-            TextField("Cevap", text: .constant(""))
+            TextField("answer", text: $vm.questionAnswerQuestion)
                 .appTextFieldStyle()
             HStack() {
                 Image(systemName: "info.circle")
@@ -24,7 +26,6 @@ struct QuestionAnswerView: View {
             .foregroundStyle(.gray)
             .padding(.vertical, 5)
         }
-       
     }
 }
 
