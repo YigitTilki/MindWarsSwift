@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @MainActor
-class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
+class AddQuestionAnswerViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
     
     
     @Published var answer1: String = ""
@@ -23,10 +23,10 @@ class AddQuestionAnswerViewModel: BaseViewModel, ObservableObject {
     
     func addQuestion() async {
         //TODO: Implement author id
-        let tr = AddQuestionAnswerQuestionDetailModel(question: question1, answers: answers1, answerDescription: answerDescription1)
-        let en = AddQuestionAnswerQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2)
-        let questionModel = AddQuestionAnswerQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = AddQuestionAnswerModel(
+        let tr = QuestionAnswerQuestionDetailModel(question: question1, answers: answers1, answerDescription: answerDescription1)
+        let en = QuestionAnswerQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2)
+        let questionModel = QuestionAnswerQuestionModel(en: en, tr: tr)
+        let questionAnswerModel = QuestionAnswerModel(
             translations: questionModel,
             difficulty: difficulty.intValue,
             language: language.intValue,

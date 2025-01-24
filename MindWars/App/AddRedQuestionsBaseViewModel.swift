@@ -9,20 +9,18 @@ import Foundation
 import FirebaseFirestore
 
 @MainActor
-class BaseViewModel {
+class AddRedQuestionsBaseViewModel: BaseViewModel {
     let db = Firestore.firestore()
     @Published var question1: String = ""
     @Published var question2: String = ""
     @Published var answerDescription1: String = ""
     @Published var answerDescription2: String = ""
-    @Published var isLoading: Bool = false
     @Published var selectedPart: QuestionPart = .none
     @Published var difficulty: QuestionDifficulty = .medium
     @Published var language: Languages = .tr
     @Published var type: QuestionType = .general
     @Published var time: QuestionTime = .thirtySec
     @Published var lengthOfPart: String = ""
-    @Published var alertItem: AlertItem?
     @Published var isImageQuestion: Bool = false
     @Published var isImagePickerPresented = false
     @Published var selectedImage: UIImage?
@@ -52,17 +50,4 @@ class BaseViewModel {
     
 }
 
-extension BaseViewModel {
-    func performLoadingTask(_ task: @escaping () async throws -> Void) async {
-          guard !isLoading else { return }
-          isLoading = true
-          defer { isLoading = false }
-          
-          do {
-              print(task)
-              try await task()
-          } catch {
-              print("🔥Error: \(error)")
-          }
-      }
-  }
+

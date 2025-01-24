@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct QuestionAnswerView: View {
-    let question: AddQuestionAnswerModel
-    @StateObject var vm = PlaySoloRedMindWarViewModel()
+    let question: QuestionAnswerModel
+    @Binding var answer: String
     
     var body: some View {
         VStack{
             Text(question.translations.tr.question)
                 .padding(.bottom, 20)
                 .font(.title3)
-            TextField("answer", text: $vm.questionAnswerQuestion)
+            TextField("answer", text: $answer)
                 .appTextFieldStyle()
+                .autocorrectionDisabled()
             HStack() {
                 Image(systemName: "info.circle")
                 Text("Cevabınızı yazarken Türkçe karakterlere ve oluşabilecek yazım hatalarına dikkat ediniz!")
@@ -30,18 +31,18 @@ struct QuestionAnswerView: View {
 }
 
 #Preview {
-    QuestionAnswerView(question: mockQuestionAnswerData)
+    QuestionAnswerView(question: mockQuestionAnswerData, answer: .constant(""))
 }
 
 
-let mockQuestionAnswerData = AddQuestionAnswerModel(
-    translations: AddQuestionAnswerQuestionModel(
-        en: AddQuestionAnswerQuestionDetailModel(
+let mockQuestionAnswerData = QuestionAnswerModel(
+    translations: QuestionAnswerQuestionModel(
+        en: QuestionAnswerQuestionDetailModel(
             question: "What is the capital of France?",
             answers: ["Berlin", "Madrid", "Paris", "Rome"],
             answerDescription: "Paris is the capital and most populous city of France."
         ),
-        tr: AddQuestionAnswerQuestionDetailModel(
+        tr: QuestionAnswerQuestionDetailModel(
             question: "Fransa'nın başkenti nedir?",
             answers: ["Berlin", "Madrid", "Paris", "Roma"],
             answerDescription: "Paris, Fransa'nın başkenti ve en kalabalık şehridir."

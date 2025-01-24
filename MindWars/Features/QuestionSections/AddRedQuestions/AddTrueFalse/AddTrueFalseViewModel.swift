@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @MainActor
-class AddTrueFalseViewModel: BaseViewModel, ObservableObject {
+class AddTrueFalseViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
     
     @Published var answer1: Bool = false
     @Published var answer2: Bool = false

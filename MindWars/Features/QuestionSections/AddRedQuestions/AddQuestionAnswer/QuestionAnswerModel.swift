@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct AddQuestionAnswerModel: BaseQuestionModel, Codable {
-    let translations: AddQuestionAnswerQuestionModel
+struct QuestionAnswerModel: BaseQuestionModel, Codable {
+    @DocumentID var id: String?
+    let translations: QuestionAnswerQuestionModel
     let difficulty: Int
     var correctAnswers: Int = 0
     var incorrectAnswers: Int = 0
@@ -21,13 +23,13 @@ struct AddQuestionAnswerModel: BaseQuestionModel, Codable {
 }
     
 
-struct AddQuestionAnswerQuestionModel: Codable {
-    let en: AddQuestionAnswerQuestionDetailModel
-    let tr: AddQuestionAnswerQuestionDetailModel
+struct QuestionAnswerQuestionModel: Codable {
+    let en: QuestionAnswerQuestionDetailModel
+    let tr: QuestionAnswerQuestionDetailModel
 }
    
 
-struct AddQuestionAnswerQuestionDetailModel: BaseQuestionDetailModel, Codable {
+struct QuestionAnswerQuestionDetailModel: BaseQuestionDetailModel, Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

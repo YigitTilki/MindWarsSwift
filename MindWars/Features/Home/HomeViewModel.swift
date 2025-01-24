@@ -9,7 +9,7 @@ import FirebaseFirestore
 import Combine
 
 @MainActor
-class HomeViewModel: BaseViewModel,ObservableObject {
+class HomeViewModel: AddRedQuestionsBaseViewModel,ObservableObject {
 
     @Published var message: MessageModel?
     

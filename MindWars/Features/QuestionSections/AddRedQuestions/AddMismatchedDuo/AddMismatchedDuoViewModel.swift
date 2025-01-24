@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @MainActor
-class AddMismatchedDuoViewModel: BaseViewModel, ObservableObject {
+class AddMismatchedDuoViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
     
     @Published var answer1: String = ""
     @Published var answer2: String = ""

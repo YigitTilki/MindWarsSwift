@@ -8,7 +8,7 @@
 import Foundation
 
 @MainActor
-class MainQuestionSectionsViewModel: BaseViewModel,ObservableObject {
+class MainQuestionSectionsViewModel: AddRedQuestionsBaseViewModel,ObservableObject {
     
     @Published var mainQuestionSections: [QuestionSectionMainModel] = []
   

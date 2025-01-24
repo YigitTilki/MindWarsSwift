@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 @MainActor
-class AddMultipleChoiceViewModel: BaseViewModel, ObservableObject {
+class AddMultipleChoiceViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
     
     @Published var answer1: String = ""
     @Published var answer2: String = ""
