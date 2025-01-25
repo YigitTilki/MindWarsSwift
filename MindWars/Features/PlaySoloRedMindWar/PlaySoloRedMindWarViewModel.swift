@@ -20,24 +20,49 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     @Published var questionAnswerAnswer: String = ""
     @Published var showAlert: Bool = false
     
+    
+    
     func submitQuestionAnswer() async {
-        let question = questionList[currentQuestionIndex] as! QuestionAnswerModel
+        guard currentQuestionIndex < questionList.count else { return }
+        let question = questionList[currentQuestionIndex]
         
-        if question.translations.tr.answers.contains(questionAnswerAnswer) {
-            
-            score += 1
-            alertItem = AlertItem(title: Text("Correct!"), message: Text(question.translations.tr.answerDescription ?? ""), dismissButton: .default(Text("Next")){
-                self.currentQuestionIndex += 1
-                
-            })
-            await  increaseCorrectAnswerCount(questionId: question.id ?? "")
+        if let question = question as? QuestionAnswerModel {
+            if question.translations.tr.answers.contains(questionAnswerAnswer) {
+                score += 1
+                alertItem = AlertItem(
+                    title: Text("Correct!"),
+                    message: Text(question.translations.tr.answerDescription ?? ""),
+                    dismissButton: .default(Text("Next")) {
+                        self.currentQuestionIndex += 1
+                    }
+                )
+                await increaseCorrectAnswerCount(questionId: question.id ?? "")
+            } else {
+                alertItem = AlertItem(
+                    title: Text("Hata!"),
+                    message: Text(question.translations.tr.answerDescription ?? ""),
+                    dismissButton: .default(Text("Next")) {
+                        self.currentQuestionIndex += 1
+                    }
+                )
+                await increaseInCorrectAnswerCount(questionId: question.id ?? "")
+            }
         } else {
-            alertItem = AlertItem(title: Text("Hata!"), message: Text(question.translations.tr.answerDescription ?? ""), dismissButton: .default(Text("Next")){
-                self.currentQuestionIndex += 1
-            })
-            await increaseInCorrectAnswerCount(questionId: question.id  ?? "")
+            print("Invalid question type.")
         }
+
         questionAnswerAnswer = ""
+    }
+
+    func nextQuestion(questionm: BaseQuestionModel?) async {
+        score += 1
+        alertItem = AlertItem(
+            title: Text("Correct!"),
+            message: Text(questionm. ?? ""),
+            dismissButton: .default(Text("Next")) {
+                self.currentQuestionIndex += 1
+            }
+        )
     }
     
     
