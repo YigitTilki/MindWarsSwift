@@ -26,7 +26,7 @@ struct AddMultipleChoiceQuestionModel: Codable {
     let tr: AddMultipleChoiceQuestionDetailModel
 }
 
-struct AddMultipleChoiceQuestionDetailModel: BaseQuestionDetailModel, Codable {
+struct AddMultipleChoiceQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

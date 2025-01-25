@@ -45,7 +45,7 @@ struct PlaySoloRedMindWarView: View {
                 if vm.currentQuestionIndex < vm.questionList.count {
                     let question = vm.questionList[vm.currentQuestionIndex]
                     switch question {
-                    case let question as AddTrueFalseModel:
+                    case let question as TrueFalseModel:
                         TrueFalseView(question: question)
                     case let question as QuestionAnswerModel:
                         QuestionAnswerView(question: question,answer: $vm.questionAnswerAnswer)
@@ -67,7 +67,7 @@ struct PlaySoloRedMindWarView: View {
                         
                         let question = vm.questionList[vm.currentQuestionIndex]
                         switch question {
-                        case _ as AddTrueFalseModel:
+                        case _ as TrueFalseModel:
                             print("TrueFalseView")
                         case _ as QuestionAnswerModel:
                            Task {

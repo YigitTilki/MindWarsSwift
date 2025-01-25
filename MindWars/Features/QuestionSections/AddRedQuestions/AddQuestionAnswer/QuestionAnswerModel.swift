@@ -29,7 +29,7 @@ struct QuestionAnswerQuestionModel: Codable {
 }
    
 
-struct QuestionAnswerQuestionDetailModel: BaseQuestionDetailModel, Codable {
+struct QuestionAnswerQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

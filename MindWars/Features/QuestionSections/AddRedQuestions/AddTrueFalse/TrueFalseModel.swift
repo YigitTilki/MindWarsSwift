@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AddTrueFalseModel: BaseQuestionModel, Codable {
+struct TrueFalseModel: BaseQuestionModel, Codable {
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -25,7 +25,7 @@ struct AddTrueFalseQuestionModel: Codable {
     let tr: AddTrueFalseQuestionDetailModel
 }
 
-struct AddTrueFalseQuestionDetailModel: BaseQuestionDetailModel, Codable {
+struct AddTrueFalseQuestionDetailModel: Codable {
     let question: String
     let answer: Bool
     let answerDescription: String?

@@ -26,7 +26,7 @@ struct AddMismatchedDuoQuestionModel: Codable {
     let tr: AddMismatchedDuoQuestionDetailModel
 }
 
-struct AddMismatchedDuoQuestionDetailModel: BaseQuestionDetailModel, Codable {
+struct AddMismatchedDuoQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

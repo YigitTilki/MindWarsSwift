@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TrueFalseView: View {
-    let question: AddTrueFalseModel
+    let question: TrueFalseModel
     var body: some View {
         VStack {
             Text(question.translations.tr.question)
@@ -49,7 +49,7 @@ struct TrueFalseView: View {
     TrueFalseView(question: mockAddTrueFalseModel)
 }
 
-let mockAddTrueFalseModel = AddTrueFalseModel(
+let mockAddTrueFalseModel = TrueFalseModel(
     authorId: "12345",
     createdAt: Date(),
     difficulty: 2,
