@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 struct TrueFalseModel: BaseQuestionModel, Codable {
+    @DocumentID var id: String?
     var authorId: String
     var createdAt: Date
     var difficulty: Int

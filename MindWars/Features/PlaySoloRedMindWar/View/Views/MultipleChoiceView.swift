@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct MultipleChoiceView: View {
-    let question: AddMultipleChoiceModel
+    let question: MultipleChoiceModel
     let answerPrefixes = ["A", "B", "C", "D", "E", "F"]
+    @Binding var answer: Int?
     var body: some View {
         VStack {
             Text(question.translations.tr.question)
@@ -17,6 +18,7 @@ struct MultipleChoiceView: View {
                 .font(.title3)
             ForEach(Array(question.translations.tr.answers.enumerated()), id: \.element) { index, answer in
                 Button(action: {
+                    self.answer = index
                 }) {
                     HStack(spacing: 0) {
                         Text("\(answerPrefixes[index]) -")
@@ -29,7 +31,7 @@ struct MultipleChoiceView: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
                     .padding(.horizontal, 15)
-                    .background(.gray.opacity(0.8))
+                    .background(self.answer == index ? .blue.opacity(0.8) : .gray.opacity(0.8))
                     .foregroundStyle(.white)
                     .cornerRadius(10)
                 }
@@ -41,10 +43,10 @@ struct MultipleChoiceView: View {
 }
 
 #Preview {
-    MultipleChoiceView(question: mockMultipleChoiceModel)
+    MultipleChoiceView(question: mockMultipleChoiceModel,answer: .constant(0))
 }
 
-let mockMultipleChoiceModel = AddMultipleChoiceModel(
+let mockMultipleChoiceModel = MultipleChoiceModel(
     authorId: "12345",
     createdAt: Date(),
     difficulty: 3,
@@ -53,14 +55,14 @@ let mockMultipleChoiceModel = AddMultipleChoiceModel(
     language: 1,
     type: 2,
     time: 60,
-    translations: AddMultipleChoiceQuestionModel(
-        en: AddMultipleChoiceQuestionDetailModel(
+    translations: MultipleChoiceQuestionModel(
+        en: MultipleChoiceQuestionDetailModel(
             question: "What is the capital of France?",
             answers: ["Paris", "Berlin", "Madrid", "Rome"],
             answerDescription: "The capital of France is Paris.",
             correctAnswerIndex: 0
         ),
-        tr: AddMultipleChoiceQuestionDetailModel(
+        tr: MultipleChoiceQuestionDetailModel(
             question: "Fransa'nın başkenti neresidir?",
             answers: ["Paris", "Berlin", "Madrid", "Roma"],
             answerDescription: "Fransa'nın başkenti Paris'tir.",

@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct AddMismatchedDuoModel: BaseQuestionModel, Codable {
+struct MismatchedDuoModel: BaseQuestionModel, Codable {
+    @DocumentID var id: String?
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -16,17 +18,17 @@ struct AddMismatchedDuoModel: BaseQuestionModel, Codable {
     var language: Int
     var type: Int
     var time: Int
-    let translations: AddMismatchedDuoQuestionModel
+    let translations: MismatchedDuoQuestionModel
     let imageUrl: String?
     
 }
 
-struct AddMismatchedDuoQuestionModel: Codable {
-    let en: AddMismatchedDuoQuestionDetailModel
-    let tr: AddMismatchedDuoQuestionDetailModel
+struct MismatchedDuoQuestionModel: Codable {
+    let en: MismatchedDuoQuestionDetailModel
+    let tr: MismatchedDuoQuestionDetailModel
 }
 
-struct AddMismatchedDuoQuestionDetailModel: Codable {
+struct MismatchedDuoQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

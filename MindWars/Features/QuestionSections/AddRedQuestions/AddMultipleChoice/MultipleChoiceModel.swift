@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct AddMultipleChoiceModel: BaseQuestionModel, Codable {
+struct MultipleChoiceModel: BaseQuestionModel, Codable {
+    @DocumentID var id: String?
     var authorId: String
     var createdAt: Date
     var difficulty: Int
@@ -16,17 +18,17 @@ struct AddMultipleChoiceModel: BaseQuestionModel, Codable {
     var language: Int
     var type: Int
     var time: Int
-    let translations: AddMultipleChoiceQuestionModel
+    let translations: MultipleChoiceQuestionModel
     let imageUrl: String?
     
 }
 
-struct AddMultipleChoiceQuestionModel: Codable {
-    let en: AddMultipleChoiceQuestionDetailModel
-    let tr: AddMultipleChoiceQuestionDetailModel
+struct MultipleChoiceQuestionModel: Codable {
+    let en: MultipleChoiceQuestionDetailModel
+    let tr: MultipleChoiceQuestionDetailModel
 }
 
-struct AddMultipleChoiceQuestionDetailModel: Codable {
+struct MultipleChoiceQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TrueFalseView: View {
     let question: TrueFalseModel
+    @Binding var answer: Bool?
     var body: some View {
         VStack {
             Text(question.translations.tr.question)
@@ -16,25 +17,25 @@ struct TrueFalseView: View {
                 .font(.title3)
             HStack(spacing: 20) {
                 Button(action: {
-                  
+                    answer = true
                 }) {
                     Text("true")
                         .font(.title3)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.gray.opacity(0.8))
+                        .background(answer ?? false ? .green.opacity(0.8) : .gray.opacity(0.8))
                         .foregroundStyle(.white)
                         .cornerRadius(10)
                 }
                 .frame(maxWidth: 200, maxHeight: 75)
                 Button(action: {
-                  
+                  answer = false
                 }) {
                     Text("false")
                         .font(.title3)
                         .fontWeight(.medium)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(.gray.opacity(0.8))
+                        .background(!(answer ?? true) ? .red.opacity(0.8) : .gray.opacity(0.8))
                         .foregroundStyle(.white)
                         .cornerRadius(10)
                 }
@@ -46,7 +47,7 @@ struct TrueFalseView: View {
 }
 
 #Preview {
-    TrueFalseView(question: mockAddTrueFalseModel)
+    TrueFalseView(question: mockAddTrueFalseModel,answer: .constant(false))
 }
 
 let mockAddTrueFalseModel = TrueFalseModel(

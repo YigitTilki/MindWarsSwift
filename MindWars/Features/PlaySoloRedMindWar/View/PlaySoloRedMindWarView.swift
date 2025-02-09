@@ -46,13 +46,14 @@ struct PlaySoloRedMindWarView: View {
                     let question = vm.questionList[vm.currentQuestionIndex]
                     switch question {
                     case let question as TrueFalseModel:
-                        TrueFalseView(question: question)
+                        TrueFalseView(question: question,answer: $vm.trueFalseAnswer)
                     case let question as QuestionAnswerModel:
                         QuestionAnswerView(question: question,answer: $vm.questionAnswerAnswer)
-                    case let question as AddMismatchedDuoModel:
-                        MismatchedDuoView(question: question)
-                    case let question as AddMultipleChoiceModel:
-                        MultipleChoiceView(question: question)
+                    case let question as MismatchedDuoModel:
+                        MismatchedDuoView(question: question,answers: $vm.mismatchedDuoAnswer)
+                        
+                    case let question as MultipleChoiceModel:
+                        MultipleChoiceView(question: question, answer: $vm.multipleChoiceAnswer)
                     default:
                         Text("Unknown question type")
                     }
@@ -68,15 +69,22 @@ struct PlaySoloRedMindWarView: View {
                         let question = vm.questionList[vm.currentQuestionIndex]
                         switch question {
                         case _ as TrueFalseModel:
-                            print("TrueFalseView")
+                            Task {
+                                await vm.submitQuestionAnswer()
+                            }
                         case _ as QuestionAnswerModel:
                            Task {
                                await vm.submitQuestionAnswer()
                            }
-                        case _ as AddMismatchedDuoModel:
-                            print("MismatchedDuoView")
-                        case _ as AddMultipleChoiceModel:
-                            print("MultipleChoiceView")
+                        case _ as MismatchedDuoModel:
+                            Task {
+                                await vm.submitQuestionAnswer()
+                                print($vm.mismatchedDuoAnswer)
+                            }
+                        case _ as MultipleChoiceModel:
+                            Task {
+                                await vm.submitQuestionAnswer()
+                            }
                         default:
                             print("")
                         }
