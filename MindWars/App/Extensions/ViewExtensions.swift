@@ -19,14 +19,15 @@ extension View {
                     .stroke(Color.gray, lineWidth: 1)
             )
             .autocapitalization(.none)
+            
         
         
     }
-    func loginButtonStyle() -> some View {
+    func loginButtonStyle(isEmpty: Bool) -> some View {
         self
             .frame(maxWidth: 100, maxHeight: 40)
             .foregroundColor(.white)
-            .background(.red)
+            .background(isEmpty ? .gray : .red)
             .cornerRadius(5)
         
     }

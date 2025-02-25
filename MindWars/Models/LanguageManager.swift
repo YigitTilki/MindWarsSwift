@@ -9,5 +9,5 @@ import Foundation
 
 @Observable
 class Language {
-    var locale = Locale(identifier: "en")
+    var locale = Locale(identifier: "tr")
 }

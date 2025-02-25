@@ -8,7 +8,7 @@
 import SwiftUI
 
 class Navigation: ObservableObject {
-    @Published var state: String = "OnBoarding"
+    @Published var state: String = "Main"
 }
 
 struct AppNavigation: View {
@@ -35,8 +35,9 @@ struct AppNavigation: View {
                 } else if navigation.state == "Register" {
                     RegisterView()
                         .environmentObject(navigation)
-                } else if navigation.state == "Home" {
-                    HomeView()
+                        .environmentObject(authState)
+                } else if navigation.state == "Main" {
+                    MainView()
                         .environmentObject(navigation)
                 }
             }
@@ -44,3 +45,4 @@ struct AppNavigation: View {
         }
     }
 }
+

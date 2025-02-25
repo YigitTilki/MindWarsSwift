@@ -17,6 +17,7 @@ struct CommonBackgroundView<Content: View>: View {
     var body: some View {
         ZStack {
             AppBackground()
+                
             Image(.appLogo)
                 .resizable()
                 .frame(width: 300, height: 300)

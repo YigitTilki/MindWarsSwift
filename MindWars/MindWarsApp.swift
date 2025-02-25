@@ -6,11 +6,22 @@
 //
 
 import SwiftUI
+import FirebaseCore
+
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication,
+                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+    FirebaseApp.configure()
+
+    return true
+  }
+}
 
 @main
 struct MindWarsApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var languageSettings = Language()
-    @StateObject var authState = AuthState()
     
     var body: some Scene {
         
@@ -18,7 +29,7 @@ struct MindWarsApp: App {
             AppNavigation()
                 .environment(languageSettings)
                 .environment(\.locale, languageSettings.locale)
-                .environmentObject(authState)
+                
         }
     }
 }

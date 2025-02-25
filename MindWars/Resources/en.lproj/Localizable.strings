@@ -30,4 +30,76 @@
 "Invalid E-mail Address" = "Invalid E-mail Address";
 "Invalid Password" = "Invalid Password";
 "Wrong Password" = "Wrong Password";
+"Passwords Doesn't Match" = "Passwords Doesn't Match";
+//GENERAL
+"language" = "Language";
+"difficulty" = "Difficulty";
+"type" = "Type";
+"answer" = "Answer";
+"add" = "Add";
+"question" = "Question";
+"question_parts" = "Question Parts";
+"part_length" = "Part Length:";
+"none" = "None";
+"turkish" = "Turkish";
+"english" = "English";
+"both" = "Both";
+"very_easy" = "Very Easy";
+"easy" = "Easy";
+"medium" = "Medium";
+"hard" = "Hard";
+"very_hard" = "Very Hard";
+"professor" = "Professor";
+"general" = "General";
+"math" = "Math";
+"science" = "Science";
+"back" = "Back";
+"time" = "Time(Seconds)";
+"select_image" = "Select Image";
+"question_with_image" = "Question With Image";
+"true" = "True";
+"false" = "False";
+"please_enter_answer" = "Please Enter Answer";
+"unknown_question_type" = "Unknown Question Type";
+"all_questions_completed" = "All Questions Completed";
+"next_question" = "Next Question";
+"pass" = "Pass";
+
+//ALERTS
+"unavaliable_service" = "Unavaliable Service";
+"ok" = "OK";
+"unavaliable_service_message" = "This service is currently unavailable. Please try again later";
+"unexpected_error" = "Unexpected Error";
+"unexpected_error_message" = "Something went wrong. Please try again later";
+"question_created" = "Question Created";
+"question_created_message" = "Your question has been created successfully";
+"question_part_cannot_empty" = "Question Part Cannot Empty";
+"question_part_cannot_empty_message" = "Your question part is empty. Check your question part then try again";
+
+//RED QUESTIONS
+"answer_description" = "Answer Description";
+
+//QuestionAnswer Question
+
+"add_qa" = "Add Q&A";
+"add_qa_question" = "Add Q&A Question";
+"possible_answers" = "Possible Answers";
+"qa_answer" = "Q&A Answer";
+"qa_question" = "Q&A Question";
+
+//TrueFalse Question
+
+"add_tf" = "Add True-False";
+"add_tf_question" = "Add True-False Question";
+
+//MultipleChoice Question
+
+"add_mc" = "Add Multiple Choice";
+"add_mc_question" = "Add Multiple Choice Question";
+"answers" = "Answers";
+
+//MismatchedDuo Question
+
+"add_md" = "Add Mismatched Duo";
+"add_md_question" = "Add Mismatched Duo Question";
 
