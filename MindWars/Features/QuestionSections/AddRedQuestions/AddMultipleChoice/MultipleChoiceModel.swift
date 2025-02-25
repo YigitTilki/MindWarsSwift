@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 struct MultipleChoiceModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
+    let part: String
     var authorId: String
     var createdAt: Date
     var difficulty: Int

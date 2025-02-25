@@ -58,6 +58,7 @@ struct MismatchedDuoView: View {
 }
 
 let mockMismatchedDuoModel = MismatchedDuoModel(
+    part: "01",
     authorId: "54321",
     createdAt: Date(),
     difficulty: 4,

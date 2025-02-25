@@ -51,6 +51,7 @@ struct TrueFalseView: View {
 }
 
 let mockAddTrueFalseModel = TrueFalseModel(
+    part: "01",
     authorId: "12345",
     createdAt: Date(),
     difficulty: 2,

@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 struct QuestionAnswerModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
+    let part: String
     let translations: QuestionAnswerQuestionModel
     let difficulty: Int
     var correctAnswers: Int = 0

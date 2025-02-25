@@ -47,6 +47,7 @@ struct MultipleChoiceView: View {
 }
 
 let mockMultipleChoiceModel = MultipleChoiceModel(
+    part: "01",
     authorId: "12345",
     createdAt: Date(),
     difficulty: 3,

@@ -59,6 +59,11 @@
 "question_with_image" = "Fotoğraflı Soru";
 "true" = "Doğru";
 "false" = "Yanlış";
+"please_enter_answer" = "Lütfen Cevap Giriniz";
+"unknown_question_type" = "Bilinmeyen Soru tipi";
+"all_questions_completed" = "Bütün Cevaplar Tamamlandı";
+"next_question" = "Sıradaki Soru";
+"pass" = "Pas";
 
 //ALERTS
 "unavaliable_service" = "Özellik Kullanılamıyor";

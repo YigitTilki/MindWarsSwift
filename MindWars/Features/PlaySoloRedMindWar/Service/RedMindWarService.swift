@@ -60,6 +60,7 @@ struct RedMindWarService {
                         .collection(questionType)
                         .document("parts")
                         .collection(part)
+                        
                 }
                 return try await FirestoreService.fetchCollection(
                     path: path,

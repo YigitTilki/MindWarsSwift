@@ -37,7 +37,7 @@ class AddMismatchedDuoViewModel: AddRedQuestionsBaseViewModel, ObservableObject 
         let tr = MismatchedDuoQuestionDetailModel(question: question1, answers: answers1, answerDescription: answerDescription1, correctAnswerIndexes: correctAnswerIndexes1)
         let en = MismatchedDuoQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2, correctAnswerIndexes: correctAnswerIndexes2)
         let questionModel = MismatchedDuoQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = MismatchedDuoModel(authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: "")
+        let questionAnswerModel = MismatchedDuoModel(part: selectedPart.rawValue, authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: "")
         
         await performLoadingTask { [self] in
             do {

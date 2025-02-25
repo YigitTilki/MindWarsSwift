@@ -29,7 +29,7 @@ class AddMultipleChoiceViewModel: AddRedQuestionsBaseViewModel, ObservableObject
         let tr = MultipleChoiceQuestionDetailModel(question: question1, answers: answers1, answerDescription: answerDescription1, correctAnswerIndex: correctAnswerIndex1)
         let en = MultipleChoiceQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2, correctAnswerIndex: correctAnswerIndex2)
         let questionModel = MultipleChoiceQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = MultipleChoiceModel(authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: "")
+        let questionAnswerModel = MultipleChoiceModel(part: selectedPart.rawValue,authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: "")
         
         await performLoadingTask { [self] in
             do {

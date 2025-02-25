@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 struct MismatchedDuoModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
+    let part: String
     var authorId: String
     var createdAt: Date
     var difficulty: Int

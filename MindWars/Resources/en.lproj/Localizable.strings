@@ -59,6 +59,11 @@
 "question_with_image" = "Question With Image";
 "true" = "True";
 "false" = "False";
+"please_enter_answer" = "Please Enter Answer";
+"unknown_question_type" = "Unknown Question Type";
+"all_questions_completed" = "All Questions Completed";
+"next_question" = "Next Question";
+"pass" = "Pass";
 
 //ALERTS
 "unavaliable_service" = "Unavaliable Service";

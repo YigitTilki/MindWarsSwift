@@ -27,6 +27,7 @@ class AddQuestionAnswerViewModel: AddRedQuestionsBaseViewModel, ObservableObject
         let en = QuestionAnswerQuestionDetailModel(question: question2, answers: answers2, answerDescription: answerDescription2)
         let questionModel = QuestionAnswerQuestionModel(en: en, tr: tr)
         let questionAnswerModel = QuestionAnswerModel(
+            part: selectedPart.rawValue,
             translations: questionModel,
             difficulty: difficulty.intValue,
             language: language.intValue,

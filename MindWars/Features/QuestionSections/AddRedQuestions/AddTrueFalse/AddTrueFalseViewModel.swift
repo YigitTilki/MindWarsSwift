@@ -19,7 +19,7 @@ class AddTrueFalseViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
         let tr = AddTrueFalseQuestionDetailModel(question: question1, answer: answer1, answerDescription: answerDescription1)
         let en = AddTrueFalseQuestionDetailModel(question: question2, answer: answer2, answerDescription: answerDescription2)
         let questionModel = AddTrueFalseQuestionModel(en: en, tr: tr)
-        let questionAnswerModel = TrueFalseModel(authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: ""
+        let questionAnswerModel = TrueFalseModel(part: selectedPart.rawValue,authorId: "SKwlaoAomALQ", createdAt: Date(), difficulty: difficulty.intValue, language: language.intValue, type: type.intValue, time: time.rawValue, translations: questionModel, imageUrl: ""
             
         )
         

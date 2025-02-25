@@ -36,6 +36,7 @@ struct QuestionAnswerView: View {
 
 
 let mockQuestionAnswerData = QuestionAnswerModel(
+    part: "01",
     translations: QuestionAnswerQuestionModel(
         en: QuestionAnswerQuestionDetailModel(
             question: "What is the capital of France?",
