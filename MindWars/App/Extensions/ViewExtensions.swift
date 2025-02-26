@@ -8,21 +8,7 @@
 import SwiftUI
 
 extension View {
-    func appTextFieldStyle() -> some View {
-        self
-            .padding(15)
-            .cornerRadius(5)
-            .font(.subheadline)
-            .background(.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .stroke(Color.gray, lineWidth: 1)
-            )
-            .autocapitalization(.none)
-            
-        
-        
-    }
+   
     func loginButtonStyle(isEmpty: Bool) -> some View {
         self
             .frame(maxWidth: 100, maxHeight: 40)

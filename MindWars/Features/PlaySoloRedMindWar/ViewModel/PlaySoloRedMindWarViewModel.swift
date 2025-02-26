@@ -26,7 +26,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     @Published var multipleChoiceAnswer: Int?
     @Published var mismatchedDuoAnswer: [Int] = []
     
-    let partList = ["01", "02", "03", "04"]
+    var info: RedMindWarInfoModel?
+    
+    
+    
     
     
     //MARK: - Submit Answer
@@ -106,7 +109,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         case is MultipleChoiceModel:
             isError = (multipleChoiceAnswer == nil)
         case is MismatchedDuoModel:
-            isError = mismatchedDuoAnswer.isEmpty
+            isError = mismatchedDuoAnswer.count < 2
         default:
             isError = false
         }
@@ -169,9 +172,15 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         }
     }
     
+    func getRedMindWarInfo() async {
+        let data = await service.getRedMindWarInfo()
+        info = data
+    }
+    
     
     func getQuestions() async {
         await performLoadingTask { [self] in
+            await getRedMindWarInfo()
             await getQuestionAnswer()
             await getTrueFalse()
             await getMultipleChoice()
@@ -187,7 +196,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     }
     
     func getQuestionAnswer() async {
-        let part = partList.randomElement() ?? "01"
+        let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
             part: part,
             questionType: RedQuestionSectionEnum.questionAnswer.collectionName,
@@ -198,7 +207,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     }
     
     func getMultipleChoice() async {
-        let part = partList.randomElement() ?? "01"
+        let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
             part: part,
             questionType: RedQuestionSectionEnum.multipleChoice.collectionName,
@@ -209,7 +218,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     }
     
     func getTrueFalse() async {
-        let part = partList.randomElement() ?? "01"
+        let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
             part: part,
             questionType: RedQuestionSectionEnum.trueFalse.collectionName,
@@ -220,7 +229,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     }
     
     func getMismatchedDuo() async {
-        let part = partList.randomElement() ?? "01"
+        let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
             part: part,
             questionType: RedQuestionSectionEnum.mismatchedDuo.collectionName,

@@ -47,7 +47,7 @@ struct PasswordView: View {
     func passwordTextField() -> some View {
         VStack(alignment: .leading){
             SecureField("Password", text: $authState.password)
-                .appTextFieldStyle()
+                
             
             if authState.error != "" {
                 Text("\(authState.error)").foregroundStyle(.red).font(.caption)

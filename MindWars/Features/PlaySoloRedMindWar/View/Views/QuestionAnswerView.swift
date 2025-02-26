@@ -14,18 +14,12 @@ struct QuestionAnswerView: View {
     var body: some View {
         VStack{
             Text(question.translations.tr.question)
-                .padding(.bottom, 20)
-                .font(.title3)
+                .questionText()
+            
             TextField("answer", text: $answer)
-                .appTextFieldStyle()
-                .autocorrectionDisabled()
-            HStack() {
-                Image(systemName: "info.circle")
-                Text("Cevabınızı yazarken Türkçe karakterlere ve oluşabilecek yazım hatalarına dikkat ediniz!")
-                    .font(.footnote)
-            }
-            .foregroundStyle(.gray)
-            .padding(.vertical, 5)
+                .appTextField()
+                
+            InfoText(title: "pay_attention")
         }
     }
 }
