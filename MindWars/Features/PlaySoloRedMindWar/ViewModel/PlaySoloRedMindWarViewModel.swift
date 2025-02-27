@@ -36,63 +36,78 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     func submitQuestionAnswer() async {
         controlAnswer()
         
-        if isError == false {
+        if !isError {
             if currentQuestionIndex < questionList.count {
                 let question = questionList[currentQuestionIndex]
                 
                 if let question = question as? QuestionAnswerModel {
-                    let answerValue = question.translations.tr.answers.contains(questionAnswerAnswer)
-                    await nextQuestion(
-                        description: question.translations.tr.answerDescription,
-                        id: question.id,
-                        answerValue: answerValue,
-                        questionType: RedQuestionSectionEnum.questionAnswer.collectionName,
-                        questionPart: question.part
-                    )
-                    questionAnswerAnswer = ""
+                    await _submitQuestionAnswer(question: question)
                 }
                 
                 if let question = question as? TrueFalseModel {
-                    let answerValue = question.translations.tr.answer == trueFalseAnswer
-            
-                    await nextQuestion(
-                        description: question.translations.tr.answerDescription,
-                        id: question.id,
-                        answerValue: answerValue,
-                        questionType: RedQuestionSectionEnum.trueFalse.collectionName,
-                        questionPart: question.part
-                    )
-                    trueFalseAnswer = nil
+                    await _submitTrueFalseAnswer(question: question)
                 }
                 
                 if let question = question as? MultipleChoiceModel {
-                    let answerValue = question.translations.tr.correctAnswerIndex == multipleChoiceAnswer
-                    
-                    await nextQuestion(
-                        description: question.translations.tr.answerDescription,
-                        id: question.id,
-                        answerValue: answerValue,
-                        questionType: RedQuestionSectionEnum.multipleChoice.collectionName,
-                        questionPart: question.part
-                    )
-                    multipleChoiceAnswer = nil
+                    await _submitMultipleChoiceAnswer(question: question)
                 }
                 
                 if let question = question as? MismatchedDuoModel {
-                    let answerValue = question.translations.tr.correctAnswerIndexes == mismatchedDuoAnswer
-                    
-                    await nextQuestion(
-                        description: question.translations.tr.answerDescription,
-                        id: question.id,
-                        answerValue: answerValue,
-                        questionType: RedQuestionSectionEnum.mismatchedDuo.collectionName,
-                        questionPart: question.part
-                    )
-                    mismatchedDuoAnswer = []
+                    await _submitMismatchedDuoAnswer(question: question)
                 }
-                
             }
         }
+    }
+    
+    func _submitQuestionAnswer(question: QuestionAnswerModel) async {
+        let answerValue = question.translations.tr.answers.contains(questionAnswerAnswer)
+        await nextQuestion(
+            description: question.translations.tr.answerDescription,
+            id: question.id,
+            answerValue: answerValue,
+            questionType: RedQuestionSectionEnum.questionAnswer.collectionName,
+            questionPart: question.part
+        )
+        questionAnswerAnswer = ""
+    }
+    
+    func _submitTrueFalseAnswer(question: TrueFalseModel) async {
+        let answerValue = question.translations.tr.answer == trueFalseAnswer
+        
+        await nextQuestion(
+            description: question.translations.tr.answerDescription,
+            id: question.id,
+            answerValue: answerValue,
+            questionType: RedQuestionSectionEnum.trueFalse.collectionName,
+            questionPart: question.part
+        )
+        trueFalseAnswer = nil
+    }
+    
+    func _submitMultipleChoiceAnswer(question: MultipleChoiceModel) async {
+        let answerValue = question.translations.tr.correctAnswerIndex == multipleChoiceAnswer
+        
+        await nextQuestion(
+            description: question.translations.tr.answerDescription,
+            id: question.id,
+            answerValue: answerValue,
+            questionType: RedQuestionSectionEnum.multipleChoice.collectionName,
+            questionPart: question.part
+        )
+        multipleChoiceAnswer = nil
+    }
+    
+    func _submitMismatchedDuoAnswer(question: MismatchedDuoModel) async {
+        let answerValue = question.translations.tr.correctAnswerIndexes == mismatchedDuoAnswer
+        
+        await nextQuestion(
+            description: question.translations.tr.answerDescription,
+            id: question.id,
+            answerValue: answerValue,
+            questionType: RedQuestionSectionEnum.mismatchedDuo.collectionName,
+            questionPart: question.part
+        )
+        mismatchedDuoAnswer = []
     }
     
     //MARK: - Validation for Answer
@@ -100,7 +115,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         guard currentQuestionIndex < questionList.count else { return }
         
         let question = questionList[currentQuestionIndex]
-
+        
         switch question {
         case is QuestionAnswerModel:
             isError = questionAnswerAnswer.isEmpty
@@ -114,8 +129,8 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             isError = false
         }
     }
-
-
+    
+    
     
     //MARK: - After submit answer alert process
     func nextQuestion(description: String?, id: String?, answerValue: Bool, questionType: String, questionPart: String) async {
@@ -145,7 +160,6 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     //MARK: - Pass question
     func passQuestion() {
         if currentQuestionIndex < questionList.count {
-            error = nil
             let question = questionList[currentQuestionIndex]
             questionList.append(question)
             self.currentQuestionIndex += 1
@@ -153,7 +167,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     }
     
     
-    //MARK: - Top screen Explanations 
+    //MARK: - Top screen Explanations
     func getExplanationForCurrentQuestion() -> Translations? {
         guard currentQuestionIndex < questionList.count else { return nil }
         let question = questionList[currentQuestionIndex]
@@ -257,3 +271,4 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
     }
 }
+
