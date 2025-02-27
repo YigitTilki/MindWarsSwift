@@ -14,30 +14,19 @@ struct MismatchedDuoView: View {
     var body: some View {
         VStack {
             Text(question.translations.tr.question)
-                .padding(.bottom, 20)
-                .font(.title3)
+                .questionText()
+            
             ForEach(Array(question.translations.tr.answers.enumerated()), id: \.element) { index, answer in
-                Button(action: {
-                    handleSelection(for: index)
-                }) {
-                    HStack(spacing: 0) {
-                        Text("\(answerPrefixes[index]) -")
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .padding(.trailing, 5)
-                        Text(answer)
-                            .font(.callout)
-                            .fontWeight(.medium)
+                
+                QuestionSelectButton(
+                    prefix: "\(answerPrefixes[index]) -",
+                    title: answer,
+                    isSelected: answers.contains(index),
+                    action: {
+                        handleSelection(for: index)
                     }
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                    .padding(.horizontal, 15)
-                    .background(answers.contains(index) ? .blue.opacity(0.8) : .gray.opacity(0.8))
-                    .foregroundStyle(.white)
-                    .cornerRadius(10)
-                }
-                .frame(maxWidth: .infinity, maxHeight: 55)
+                )
             }
-           
         }
     }
     

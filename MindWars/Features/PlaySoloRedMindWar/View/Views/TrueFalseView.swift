@@ -12,35 +12,24 @@ struct TrueFalseView: View {
     @Binding var answer: Bool?
     var body: some View {
         VStack {
+            
             Text(question.translations.tr.question)
-                .padding(.bottom, 20)
-                .font(.title3)
+                .questionText()
+            
             HStack(spacing: 20) {
-                Button(action: {
-                    answer = true
-                }) {
-                    Text("true")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(answer ?? false ? .green.opacity(0.8) : .gray.opacity(0.8))
-                        .foregroundStyle(.white)
-                        .cornerRadius(10)
-                }
-                .frame(maxWidth: 200, maxHeight: 75)
-                Button(action: {
-                  answer = false
-                }) {
-                    Text("false")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(!(answer ?? true) ? .red.opacity(0.8) : .gray.opacity(0.8))
-                        .foregroundStyle(.white)
-                        .cornerRadius(10)
-                }
-                .frame(maxWidth: 200, maxHeight: 75)
                 
+                SelectableButton(
+                    title: "true",
+                    isSelected: answer ?? false,
+                    selectedColor: .green.opacity(0.8),
+                    action: {answer = true}
+                )
+                SelectableButton(
+                    title: "false",
+                    isSelected: !(answer ?? true),
+                    selectedColor: .red.opacity(0.8),
+                    action: {answer = false}
+                )
             }
         }
     }

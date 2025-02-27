@@ -49,8 +49,9 @@ struct EmailView: View {
     func emailTextField() ->  some View {
         VStack(alignment: .leading){
             TextField("Email", text: $authState.email)
+                .appTextField()
                 .keyboardType(.emailAddress)
-                .appTextFieldStyle()
+                
             
             if authState.error != "" {
                 Text("\(authState.error)").foregroundStyle(.red).font(.caption)

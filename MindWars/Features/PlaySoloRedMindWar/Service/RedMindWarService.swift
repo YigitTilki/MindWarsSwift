@@ -46,6 +46,19 @@ struct RedMindWarService {
         )
     }
     
+    func getRedMindWarInfo() async -> RedMindWarInfoModel? {
+        await FirestoreService.execute(request: "Fetch RedMindWarInfo", operation: {
+            let path: () throws -> DocumentReference = {
+                FirestoreService.db.collection("questions").document("1")
+            }
+            return try await FirestoreService.fetch(
+                path: path, responseType: RedMindWarInfoModel.self
+                )
+            
+            }
+        )
+    }
+    
     func getQuestions<T: Decodable>(
         part: String,
         questionType: String,
@@ -60,7 +73,7 @@ struct RedMindWarService {
                         .collection(questionType)
                         .document("parts")
                         .collection(part)
-                        
+                    
                 }
                 return try await FirestoreService.fetchCollection(
                     path: path,

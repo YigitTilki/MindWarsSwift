@@ -35,15 +35,15 @@ struct RegisterView: View {
     func textFields() -> some View {
         VStack {
             TextField("UserName", text: $viewModel.userName)
-                .appTextFieldStyle()
+                .appTextField()
             TextField("Email", text: $authState.email)
-                .appTextFieldStyle()
+                .appTextField()
             TextField("Birth Date", text: $viewModel.birthDate)
-                .appTextFieldStyle()
+                .appTextField()
             TextField("Password", text: $viewModel.password)
-                .appTextFieldStyle()
+                .appTextField()
             TextField("Re-Password", text: $viewModel.rePassword)
-                .appTextFieldStyle()
+                .appTextField()
                 .disabled(viewModel.password.isEmpty)
             
             if authState.error != "" {
