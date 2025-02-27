@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 // MARK: - Generic Firestore Service
-struct FirestoreService {
+struct FirebaseService {
      static let db = Firestore.firestore()
     
     //MARK: - Generic Log
@@ -56,18 +56,30 @@ struct FirestoreService {
         try await documentRef.updateData(data)
     }
     
+    // MARK: - Generic Set
+        static func set(
+            path: () throws -> DocumentReference,
+            data: [String: Any],
+            merge: Bool = true
+        ) async throws {
+            let documentRef = try path()
+            try await documentRef.setData(data, merge: merge)
+        }
+    
+    
     // MARK: - Generic Execute
     static func execute<T>(
         request: String,
         operation: () async throws -> T
-    ) async -> T? {
+    ) async -> Result<T, Error> {
         do {
             let result = try await operation()
-            FirestoreService.log(request: request, result: .success(result))
-            return result
+            FirebaseService.log(request: request, result: .success(result))
+            return .success(result)
         } catch {
-            FirestoreService.log(request: request, result: .failure(error))
-            return nil
+            FirebaseService.log(request: request, result: .failure(error))
+            return .failure(error)
         }
     }
+
 }

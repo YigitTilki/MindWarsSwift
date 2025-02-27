@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct SplashView: View {
-    @EnvironmentObject var navigation: Navigation
+    @State private var isActive = false
+    
     
     var body: some View {
-        ZStack {
-            AppBackground()
-            loadingIndicator()
+        NavigationStack {
+            ZStack {
+                AppBackground()
+                loadingIndicator()
+            }
+            .onAppear {
+                navigate()
+            }
+            .navigationDestination(isPresented: $isActive) {
+                OnBoardingView()
+            }
         }
-        .onAppear {
-            navigate()
-        }
-        
     }
     
     func loadingIndicator() -> some View {
@@ -27,10 +32,13 @@ struct SplashView: View {
     }
     
     func navigate() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1){
-            navigation.state = "Email"
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            isActive = true
         }
     }
 }
 
 
+#Preview {
+    SplashView()
+}

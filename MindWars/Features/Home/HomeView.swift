@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var navigationState: Navigation
     @Environment(Language.self) var languageManager
     @State private var isPresented = false
     

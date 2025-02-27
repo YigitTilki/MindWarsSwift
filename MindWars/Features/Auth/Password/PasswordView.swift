@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct PasswordView: View {
-    @EnvironmentObject var navigationState: Navigation
     @StateObject private var viewModel = PasswordViewModel()
-    @EnvironmentObject var authState: AuthState
+    @State var authState = AuthState()
     
     var body: some View {
         CommonBackgroundView {
@@ -21,7 +20,6 @@ struct PasswordView: View {
                 continueForgetPasswordButton()
                 
             }
-            .appBarBackButton(text: "Change E-Mail", action: {navigationState.state = "Email"})
             .padding()
             .alert(item: $viewModel.alertItem) { alert in
                 Alert(title: alert.title, message: alert.message, dismissButton: alert.dismissButton)
@@ -47,7 +45,7 @@ struct PasswordView: View {
     func passwordTextField() -> some View {
         VStack(alignment: .leading){
             SecureField("Password", text: $authState.password)
-                .appTextFieldStyle()
+                
             
             if authState.error != "" {
                 Text("\(authState.error)").foregroundStyle(.red).font(.caption)
@@ -57,14 +55,14 @@ struct PasswordView: View {
     func continueForgetPasswordButton() -> some View {
         HStack{
             Button("Forget Password?"){
-                viewModel.handleForgetPasswordButton(navigationState: navigationState)
+                
             }
             .font(.subheadline)
             Spacer()
             Button(action: {
-                Task {
-                    await viewModel.handleContinueButton(navigationState: navigationState, authState: authState)
-                }
+//                Task {
+//                    await viewModel.handleContinueButton(navigationState: navigationState, authState: authState)
+//                }
             }, label: {
                 Text("Continue")
                     .loginButtonStyle(isEmpty: authState.password.isEmpty)

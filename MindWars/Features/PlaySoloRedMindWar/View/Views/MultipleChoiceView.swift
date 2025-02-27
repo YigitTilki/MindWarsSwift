@@ -14,30 +14,16 @@ struct MultipleChoiceView: View {
     var body: some View {
         VStack {
             Text(question.translations.tr.question)
-                .padding(.bottom, 20)
-                .font(.title3)
+                .questionText()
+            
             ForEach(Array(question.translations.tr.answers.enumerated()), id: \.element) { index, answer in
-                Button(action: {
-                    self.answer = index
-                }) {
-                    HStack(spacing: 0) {
-                        Text("\(answerPrefixes[index]) -")
-                            .font(.callout)
-                            .fontWeight(.bold)
-                            .padding(.trailing, 5)
-                        Text(answer)
-                            .font(.callout)
-                            .fontWeight(.medium)
-                    }
-                    .frame(maxWidth: .infinity, minHeight: 50, alignment: .leading)
-                    .padding(.horizontal, 15)
-                    .background(self.answer == index ? .blue.opacity(0.8) : .gray.opacity(0.8))
-                    .foregroundStyle(.white)
-                    .cornerRadius(10)
-                }
-                .frame(maxWidth: .infinity, maxHeight: 55)
+                QuestionSelectButton(
+                    prefix: "\(answerPrefixes[index]) -",
+                    title: answer,
+                    isSelected: self.answer == index,
+                    action: {self.answer = index}
+                )
             }
-           
         }
     }
 }

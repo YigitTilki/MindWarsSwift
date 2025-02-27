@@ -68,66 +68,42 @@ struct PlaySoloRedMindWarView: View {
             Text("all_questions_completed")
         }
     }
-
+    
     
     func passButton() -> some View {
-        Button(action: {
-            withAnimation {
-                vm.passQuestion()
+        AppButton(
+            title: "pass",
+            backgroundColor: .purple,
+            action: {
+                withAnimation {
+                    vm.passQuestion()
+                }
             }
-        }) {
-            Text("pass")
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(.indigo)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding(.bottom, 50)
-                .padding(.top, 20)
-        }
+        )
+        .padding(.bottom, 50)
+        .padding(.top, 20)
+        
     }
     
     func nextQuestionButton() -> some View {
-        Button(action: {
-            Task {
-                await vm.submitQuestionAnswer()
-            }
-            
-        }) {
-            Text("next_question")
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.blue)
-                .foregroundColor(.white)
-                .cornerRadius(8)
-                .padding(.bottom, 50)
-                .padding(.top, 20)
-        }
+        AppButton(
+            title: "next_question",
+            action: {
+                Task {
+                    await vm.submitQuestionAnswer()
+                }
+            })
+        .padding(.bottom, 50)
+        .padding(.top, 20)
+        
     }
     
     func explainContainer() -> some View {
-        VStack {
-            Text(vm.getExplanationForCurrentQuestion()?.tr.title ?? "")
-                .padding(.vertical, 5)
-                .font(.title2)
-                .fontWeight(.semibold)
-            Text(vm.getExplanationForCurrentQuestion()?.tr.description ?? "")
-                .padding(.all, 5)
-                .multilineTextAlignment(.center)
-                .fontWeight(.medium)
-        }
-        .frame(maxWidth: .infinity, minHeight: 150)
-        .padding()
-        .background(
-            LinearGradient(gradient: Gradient(colors: [.red, .red.opacity(0.5)]),
-                           startPoint: .center,
-                           endPoint: .bottom)
-        )
-        .foregroundColor(.white)
-        .border(.red.opacity(0.3), width: 3)
-        .cornerRadius(15)
-        .padding(.top, 50)
-        .padding(.bottom, 30)
+        
+        let title = vm.locale == "en_TR" ? vm.getExplanationForCurrentQuestion()?.en.title : vm.getExplanationForCurrentQuestion()?.tr.title
+        let description = vm.locale == "en_TR" ? vm.getExplanationForCurrentQuestion()?.en.description : vm.getExplanationForCurrentQuestion()?.tr.description
+        
+        return ExplainContainer(title: title, description: description, backgroundColor: .red)
     }
 }
 
