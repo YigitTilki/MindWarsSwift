@@ -38,10 +38,10 @@ struct LoginView: View {
     //MARK: - Description
     func descriptionTitle() -> some View {
         VStack(alignment: .leading){
-            Text("LET'S PLAY")
+            Text("lets_play")
                 .font(.title)
                 .fontWeight(.medium)
-            Text("ENTER MIND WARS WORLD")
+            Text("enter_mind_wars_world")
                 .font(.title3)
         }
     }
@@ -52,6 +52,10 @@ struct LoginView: View {
                 .appTextField()
                 .keyboardType(.emailAddress)
             
+            if let error = vm.emailError {
+                Text(error).foregroundColor(.red)
+            }
+            
         }
         
     }
@@ -61,8 +65,8 @@ struct LoginView: View {
             TextField("password", text: $vm.password)
                 .appTextField()
             
-            if vm.isError {
-                Text("invalid_email_or_password").foregroundStyle(.red).font(.caption)
+            if let error = vm.passwordError {
+                Text(error).foregroundColor(.red)
             }
         }
         
@@ -89,7 +93,7 @@ struct LoginView: View {
             Text("dont_have_an_account")
             
             NavigationLink("sign_up", destination: {
-                RegisterView(email: $vm.email)
+                RegisterView()
             })
             
             

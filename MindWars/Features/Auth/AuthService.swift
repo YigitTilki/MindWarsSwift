@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 // MARK: - Auth Service
 struct AuthService {
@@ -22,8 +23,8 @@ struct AuthService {
     }
 
     
-    func signUp(email: String, password: String) async {
-        _ = await FirebaseService.execute(
+    static func signUp(email: String, password: String) async -> Result<User, Error> {
+        await FirebaseService.execute(
             request: "Sign up user",
             operation: {
                 let result = try await Auth.auth().createUser(withEmail: email, password: password)
@@ -31,6 +32,19 @@ struct AuthService {
             }
         )
     }
+    
+    static func signUpFirestore(data: UserCreateModel) async -> Result<Void, Error> {
+        await FirebaseService.execute(
+            request: "Sign up user",
+            operation: {
+                let path: () throws -> DocumentReference = {
+                    FirebaseService.db.collection("users").document(data.id ?? "")
+                    }
+                try await FirebaseService.set(path: path, data: data.toDictionary())
+            }
+        )
+    }
+
     
     func signOut() async throws {
         _ = await FirebaseService.execute(

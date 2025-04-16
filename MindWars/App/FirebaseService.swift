@@ -15,7 +15,7 @@ struct FirebaseService {
     //MARK: - Generic Log
     static func log(request: String, result: Result<Any, Error>) {
         switch result {
-        case .success(let data):
+        case .success(_):
             print("🔥 [SUCCESS] \(request)")
             //print("✅ Response: \(data)")
         case .failure(let error):

@@ -13,24 +13,21 @@ import UIKit
 class LoginViewModel: BaseViewModel, ObservableObject {
     
     @Published var email: String = ""
-    @Published var password: String = ""
-    @Published var navigate: Bool = false
+    @Published var emailError: LocalizedStringKey?
     
-    var isValidForm: Bool {
-        Validation.isValidEmail(email)
-        //&& Validation.isValidPassword(password)
-    }
+    @Published var password: String = ""
+    @Published var passwordError: LocalizedStringKey?
+    
+    @Published var navigate: Bool = false
     
     //MARK: - Login Button Process
     func handleContinueButton() async {
-        if !isValidForm {
-            isError = true
+        let validate = validate()
+        if !validate {
             return
         }
-        
-        
+    
         UIKitFunctions().dismissKeyboard()
-        
         
         await performLoadingTask  { [self] in
             let result = await AuthService.signIn(email: email, password: password)
@@ -52,6 +49,14 @@ class LoginViewModel: BaseViewModel, ObservableObject {
         self.error = nil
         self.email = ""
         self.password = ""
+    }
+    
+    //MARK: - Validation
+    func validate() -> Bool {
+        emailError = Validator.validateEmail(email)
+        passwordError = Validator.validatePassword(password)
+        
+        return [emailError, passwordError].allSatisfy { $0 == nil }
     }
     
     
