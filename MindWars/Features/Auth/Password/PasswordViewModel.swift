@@ -12,7 +12,7 @@ import SwiftUICore
 class PasswordViewModel: ObservableObject {
     @Published var alertItem: AlertItem?
     
-    func handleContinueButton(navigationState: Navigation, authState: AuthState) async {
+    func handleContinueButton( authState: AuthState) async {
     
         if !isPasswordValid(authState: authState) { return }
         
@@ -28,7 +28,7 @@ class PasswordViewModel: ObservableObject {
         }) != nil) {
             
             authState.isLoggedIn = true
-            navigationState.state = "Home"
+       
             
         } else {
             
@@ -40,7 +40,7 @@ class PasswordViewModel: ObservableObject {
         authState.isLoading = false
     }
     
-    func handleForgetPasswordButton(navigationState: Navigation) {
+    func handleForgetPasswordButton() {
     }
     
     func isPasswordValid(authState: AuthState) -> Bool {
@@ -51,7 +51,7 @@ class PasswordViewModel: ObservableObject {
             return false
         }
         
-        if !authState.password.isEmpty, !Validation().isValidPassword(authState.password) {
+        if !authState.password.isEmpty {
             authState.error.append("Invalid Password")
             return false
         }

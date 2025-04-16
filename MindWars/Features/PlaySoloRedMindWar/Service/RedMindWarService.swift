@@ -11,7 +11,7 @@ struct RedMindWarService {
         field: String
     ) async {
         let path: () throws -> DocumentReference = {
-            FirestoreService.db.collection("questions")
+            FirebaseService.db.collection("questions")
                 .document("1")
                 .collection(questionType)
                 .document("parts")
@@ -19,10 +19,10 @@ struct RedMindWarService {
                 .document(questionId)
         }
         
-        await _ = FirestoreService.execute(
+        await _ = FirebaseService.execute(
             request: "Update \(field) for \(questionId)",
             operation: {
-                try await FirestoreService.update(
+                try await FirebaseService.update(
                     path: path,
                     data: [field: FieldValue.increment(Int64(1))]
                 )
@@ -31,14 +31,14 @@ struct RedMindWarService {
         )
     }
     
-    func getExplains() async -> RedQuestionSectionExplainModel? {
-        await FirestoreService.execute(
+    func getExplains() async -> Result<RedQuestionSectionExplainModel?, Error> {
+        await FirebaseService.execute(
             request: "Fetch section explanations",
             operation: {
                 let path: () throws -> DocumentReference = {
-                    FirestoreService.db.collection("sectionDescriptions").document("1")
+                    FirebaseService.db.collection("sectionDescriptions").document("1")
                 }
-                return try await FirestoreService.fetch(
+                return try await FirebaseService.fetch(
                     path: path,
                     responseType: RedQuestionSectionExplainModel.self
                 )
@@ -46,12 +46,12 @@ struct RedMindWarService {
         )
     }
     
-    func getRedMindWarInfo() async -> RedMindWarInfoModel? {
-        await FirestoreService.execute(request: "Fetch RedMindWarInfo", operation: {
+    func getRedMindWarInfo() async -> Result<RedMindWarInfoModel?, Error> {
+        await FirebaseService.execute(request: "Fetch RedMindWarInfo", operation: {
             let path: () throws -> DocumentReference = {
-                FirestoreService.db.collection("questions").document("1")
+                FirebaseService.db.collection("questions").document("1")
             }
-            return try await FirestoreService.fetch(
+            return try await FirebaseService.fetch(
                 path: path, responseType: RedMindWarInfoModel.self
                 )
             
@@ -63,24 +63,24 @@ struct RedMindWarService {
         part: String,
         questionType: String,
         responseType: T.Type
-    ) async -> [T] {
-        await FirestoreService.execute(
+    ) async -> Result<[T], Error>{
+        await FirebaseService.execute(
             request: "Fetch \(questionType) questions for part \(part)",
             operation: {
                 let path: () throws -> Query = {
-                    FirestoreService.db.collection("questions")
+                    FirebaseService.db.collection("questions")
                         .document("1")
                         .collection(questionType)
                         .document("parts")
                         .collection(part)
                     
                 }
-                return try await FirestoreService.fetchCollection(
+                return try await FirebaseService.fetchCollection(
                     path: path,
                     responseType: [T].self
                 )
             }
-        ) ?? []
+        ) ?? .failure(NSError(domain: "", code: 0, userInfo: nil))
     }
     
     

@@ -6,26 +6,44 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 @MainActor
-class RegisterViewModel: ObservableObject {
+class RegisterViewModel: BaseViewModel, ObservableObject {
     @Published var userName: String = ""
     @Published var birthDate: String = ""
     @Published var password: String = ""
     @Published var rePassword: String = ""
+    
+    @Published var user: User?
+    
+    private let authService = AuthService()
+    
+    func signUp(email: String) async {
+//            isLoading = true
+//        isError = false
+//            do {
+//                user = try await authService.signUp(email: email, password: password)
+//            } catch {
+//                isError = true
+//            }
+//            isLoading = false
+        }
+    
+    
 
     
-    func handleSignUpButton(navigationState: Navigation, authState: AuthState) async {
-        if !isValid(authState: authState) { return }
+    func handleSignUpButton() async {
+        //if !isValid(authState: authState) { return }
         UIKitFunctions().dismissKeyboard()
         
-        authState.isLoading = true
+        isLoading = true
         
         try? await Task.sleep(for: .seconds(1))
         
-        navigationState.state = "Home"
+       
         
-        authState.isLoading = false
+        isLoading = false
         
     }
     
@@ -37,21 +55,21 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    func isValid(authState: AuthState) -> Bool {
-        authState.error.removeAll()
-        if !Validation().isValidEmail(authState.email) {
-            authState.error = "Invalid E-mail Address"
-            return false
-        }
-        else if !Validation().isValidPassword(password) {
-            authState.error = "Invalid Password"
-            return false
-        } else if password != rePassword {
-            authState.error = "Passwords Doesn't Match"
-            return false
-        } else {
-            return true
-        }
-        
-    }
+//    func isValid() -> Bool {
+//        authState.error.removeAll()
+//        if !Validation().isValidEmail(authState.email) {
+//            authState.error = "Invalid E-mail Address"
+//            return false
+//        }
+//        else if !Validation().isValidPassword(password) {
+//            authState.error = "Invalid Password"
+//            return false
+//        } else if password != rePassword {
+//            authState.error = "Passwords Doesn't Match"
+//            return false
+//        } else {
+//            return true
+//        }
+//        
+//    }
 }

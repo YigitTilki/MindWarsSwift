@@ -65,6 +65,15 @@
 "next_question" = "Sıradaki Soru";
 "pass" = "Pas";
 
+
+//AUTH
+"email" = "E-Posta";
+"password" = "Şifre";
+"invalid_email_or_password" = "Hatalı E-Posta veya Şifre";
+"dont_have_an_account" = "Henüz bir hesabın yok mu?";
+"sign_up" = "Kayıt Ol";
+
+
 //ALERTS
 "unavaliable_service" = "Özellik Kullanılamıyor";
 "ok" = "Tamam";
@@ -76,11 +85,12 @@
 "question_part_cannot_empty" = "Soru Bölümü Boş Olamaz";
 "question_part_cannot_empty_message" = "Soru bölümü boş. Lütfen doldurun ve tekrar deneyin";
 
+
 //RED QUESTIONS
 "answer_description" = "Cevap Açıklaması";
 
-//QuestionAnswer Question
 
+//QuestionAnswer Question
 "add_qa" = "S&C Ekle";
 "add_qa_question" = "S&C Sorusu Ekle";
 "possible_answers" = "Olabilecek Cevaplar";
@@ -88,17 +98,18 @@
 "qa_question" = "S&C Sorusu";
 "pay_attention" = "Cevabınızı yazarken Türkçe karakterlere ve oluşabilecek yazım hatalarına dikkat ediniz!";
 
-//TrueFalse Question
 
+//TrueFalse Question
 "add_tf" = "Doğru-Yanlış Ekle";
 "add_tf_question" = "Doğru-Yanlış Sorusu Ekle";
+
 
 //MultipleChoice Question
 "add_mc" = "Çoktan Seçmeli Ekle";
 "add_mc_question" = "Çoktan Seçmeli Sorusu Ekle";
 "answers" = "Cevaplar";
 
-//MismatchedDuo Question
 
+//MismatchedDuo Question
 "add_md" = "Uyumsuz İkili Ekle";
 "add_md_question" = "Uyumsuz İkili Sorusu Ekle";

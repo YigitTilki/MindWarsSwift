@@ -8,23 +8,32 @@
 import SwiftUI
 
 struct OnBoardingView: View {
-    @EnvironmentObject var navigation: Navigation
+    
+    @State private var isActive = false
     
     var body: some View {
-        ZStack {
-            AppBackground()
-            VStack {
-                mindWarsText()
-                appImage()
-                startButton()
-            }
-        }
         
+       
+                ZStack {
+                    AppBackground()
+                    VStack {
+                        mindWarsText()
+                        appImage()
+                        startButton()
+                    }
+                }
+                .navigationDestination(isPresented: $isActive) {
+                    LoginView()
+                }
+                .navigationBarBackButtonHidden(true)
+            
+            
+            
     }
     
     func startButton() -> some View {
         Button(action: {
-            navigation.state = "Splash"
+            isActive = true
         }, label: {
             Text("LET'S START")
                 .frame(maxWidth: 300, maxHeight: 65)
