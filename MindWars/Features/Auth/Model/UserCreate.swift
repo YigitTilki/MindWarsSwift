@@ -8,14 +8,25 @@
 import Foundation
 
 class UserCreateModel: Codable, Identifiable {
-    let username, email, birthDate, password: String?
+    let id, username, email: String?
+    let birthDate: Date?
 
-    init(username: String?, email: String?, birthDate: String?, password: String?) {
+    init(id: String?,username: String?, email: String?, birthDate: Date?) {
+        self.id = id
         self.username = username
         self.email = email
         self.birthDate = birthDate
-        self.password = password
     }
 }
 
 typealias UserCreate = [UserCreateModel]
+
+extension UserCreateModel {
+    func toDictionary() -> [String: Any] {
+        guard let data = try? JSONEncoder().encode(self),
+              let dictionary = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            return [:]
+        }
+        return dictionary
+    }
+}

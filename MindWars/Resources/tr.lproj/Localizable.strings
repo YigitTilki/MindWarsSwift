@@ -64,6 +64,11 @@
 "all_questions_completed" = "Bütün Cevaplar Tamamlandı";
 "next_question" = "Sıradaki Soru";
 "pass" = "Pas";
+"continue" = "Devam Et";
+"lets_sign_up" = "HAYDİ KAYIT OL";
+"enter_your_credentials_to_sign_up" = "KAYIT OLMAK İÇİN KİMLİK BİLGİLERİNİ GİR";
+"lets_play" = "HAYDİ BAŞLAYALIM";
+"enter_mind_wars_world" = "MIND WARS DÜNYASINA GİR";
 
 
 //AUTH
@@ -72,6 +77,22 @@
 "invalid_email_or_password" = "Hatalı E-Posta veya Şifre";
 "dont_have_an_account" = "Henüz bir hesabın yok mu?";
 "sign_up" = "Kayıt Ol";
+"birth_date" = "Doğum Tarihi";
+"re_password" = "Şifre Tekrar";
+"password" = "Şifre";
+"username" = "Kullanıcı Adı";
+"already_have_an_account" = "Zaten bir hesabın var mı?";
+"sign_in" = "Giriş Yap";
+
+
+//VALIDATORS
+"invalid_email_addreess" = "Hatalı E-Posta Adresi";
+"password_must_be_at_least_six_characters" = "Şifre en az 6 karakter olmalı";
+"password_must_contain_at_least_one_uppercase" = "Şifre en az bir büyük harf içermeli";
+"password_must_contain_at_least_one_number" = "Şifre en az bir sayı içermeli";
+"invalid_username" = "Hatalı Kullanıcı Adı";
+"you_must_be_over_eightteen_years_old" = "18 yaşından büyük olmalısın";
+"passwords_doesnt_match" = "Şifreler Eşleşmiyor";
 
 
 //ALERTS
