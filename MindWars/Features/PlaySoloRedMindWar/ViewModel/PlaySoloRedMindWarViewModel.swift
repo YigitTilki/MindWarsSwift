@@ -188,7 +188,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     
     func getRedMindWarInfo() async {
         let data = await service.getRedMindWarInfo()
-        info = data
+        //info = data
     }
     
     
@@ -206,7 +206,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
     
     func getExplains() async {
         let explainsData = await RedMindWarService().getExplains()
-        explains = explainsData
+        //explains = explainsData
     }
     
     func getQuestionAnswer() async {
@@ -217,7 +217,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             responseType: QuestionAnswerModel.self
         )
         
-        questionList.append(contentsOf: questions)
+       // questionList.append(contentsOf: questions)
     }
     
     func getMultipleChoice() async {
@@ -228,7 +228,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             responseType: MultipleChoiceModel.self
         )
         
-        questionList.append(contentsOf: questions)
+        //questionList.append(contentsOf: questions)
     }
     
     func getTrueFalse() async {
@@ -239,7 +239,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             responseType: TrueFalseModel.self
         )
         
-        questionList.append(contentsOf: questions)
+        //questionList.append(contentsOf: questions)
     }
     
     func getMismatchedDuo() async {
@@ -250,7 +250,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             responseType: MismatchedDuoModel.self
         )
         
-        questionList.append(contentsOf: questions)
+       //questionList.append(contentsOf: questions)
     }
     
     func increaseCorrectAnswerCount(questionId: String, questionType: String, questionPart: String) async {

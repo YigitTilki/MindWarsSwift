@@ -14,6 +14,7 @@ class BaseViewModel {
     @Published var showAlert: Bool = false
     @Published var isError: Bool = false
     @Published var locale = Locale.current.identifier
+    @Published var error: String?
     
 
 }

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct RegisterView: View {
-    @EnvironmentObject var navigationState: Navigation
-    @EnvironmentObject var authState: AuthState
+
     
-    @StateObject private var viewModel = RegisterViewModel()
+    @StateObject private var vm = RegisterViewModel()
+    @Binding var email: String
     
     var body: some View {
         CommonBackgroundView {
@@ -23,10 +23,10 @@ struct RegisterView: View {
             
             }
             .padding()
-            .animation(.easeInOut, value: !authState.error.isEmpty)
-            .appBarBackButton(text: "Do you already have an account?", action: {navigationState.state = "Email"})
             
-            if authState.isLoading {
+
+            
+            if vm.isLoading  {
                 LoadingView()
             }
         }
@@ -34,21 +34,19 @@ struct RegisterView: View {
     
     func textFields() -> some View {
         VStack {
-            TextField("UserName", text: $viewModel.userName)
+            TextField("UserName", text: $vm.userName)
                 .appTextField()
-            TextField("Email", text: $authState.email)
+            TextField("Email", text: $email)
                 .appTextField()
-            TextField("Birth Date", text: $viewModel.birthDate)
+            TextField("Birth Date", text: $vm.birthDate)
                 .appTextField()
-            TextField("Password", text: $viewModel.password)
+            TextField("Password", text: $vm.password)
                 .appTextField()
-            TextField("Re-Password", text: $viewModel.rePassword)
+            TextField("Re-Password", text: $vm.rePassword)
                 .appTextField()
-                .disabled(viewModel.password.isEmpty)
+                .disabled(vm.password.isEmpty)
             
-            if authState.error != "" {
-                Text("\(authState.error)").foregroundStyle(.red).font(.caption)
-            }
+          
         }
     }
     
@@ -57,13 +55,13 @@ struct RegisterView: View {
             Spacer()
             Button("Sign Up"){
                 Task{
-                    await  viewModel.handleSignUpButton(navigationState: navigationState,authState: authState)                        }
+                    await vm.signUp(email: email)                       }
                 
             }
-            .loginButtonStyle(isEmpty: viewModel.isFieldsEmpty(email: authState.email))
+            .loginButtonStyle(isEmpty: vm.isFieldsEmpty(email: email))
             
         }
-        .disabled(viewModel.isFieldsEmpty(email: authState.email))
+        //.disabled(vm.isFieldsEmpty(email: email))
     }
     
     func descriptionTitle() -> some View {
@@ -77,6 +75,6 @@ struct RegisterView: View {
 }
 
 #Preview {
-    RegisterView()
+    RegisterView(email: .constant("yigittilkiw@gmail.com"))
         .environmentObject(AuthState())
 }

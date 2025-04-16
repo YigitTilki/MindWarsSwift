@@ -31,6 +31,7 @@
 "Invalid Password" = "Invalid Password";
 "Wrong Password" = "Wrong Password";
 "Passwords Doesn't Match" = "Passwords Doesn't Match";
+
 //GENERAL
 "language" = "Language";
 "difficulty" = "Difficulty";
@@ -64,6 +65,16 @@
 "all_questions_completed" = "All Questions Completed";
 "next_question" = "Next Question";
 "pass" = "Pass";
+"continue" = "Continue";
+
+
+//AUTH
+"email" = "E-Mail";
+"password" = "Password";
+"invalid_email_or_password" = "Invalid Email Or Password";
+"dont_have_an_account" = "Don't have an account?";
+"sign_up" = "Sign Up";
+
 
 //ALERTS
 "unavaliable_service" = "Unavaliable Service";
@@ -76,11 +87,12 @@
 "question_part_cannot_empty" = "Question Part Cannot Empty";
 "question_part_cannot_empty_message" = "Your question part is empty. Check your question part then try again";
 
+
 //RED QUESTIONS
 "answer_description" = "Answer Description";
 
-//QuestionAnswer Question
 
+//QuestionAnswer Question
 "add_qa" = "Add Q&A";
 "add_qa_question" = "Add Q&A Question";
 "possible_answers" = "Possible Answers";
@@ -88,19 +100,19 @@
 "qa_question" = "Q&A Question";
 "pay_attention" = "Pay attention to possible spelling mistakes while writing your answer!";
 
-//TrueFalse Question
 
+//TrueFalse Question
 "add_tf" = "Add True-False";
 "add_tf_question" = "Add True-False Question";
 
-//MultipleChoice Question
 
+//MultipleChoice Question
 "add_mc" = "Add Multiple Choice";
 "add_mc_question" = "Add Multiple Choice Question";
 "answers" = "Answers";
 
-//MismatchedDuo Question
 
+//MismatchedDuo Question
 "add_md" = "Add Mismatched Duo";
 "add_md_question" = "Add Mismatched Duo Question";
 
