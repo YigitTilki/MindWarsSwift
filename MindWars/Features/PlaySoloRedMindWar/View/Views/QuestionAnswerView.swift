@@ -10,15 +10,15 @@ import SwiftUI
 struct QuestionAnswerView: View {
     let question: QuestionAnswerModel
     @Binding var answer: String
-    
+
     var body: some View {
-        VStack{
+        VStack {
             Text(question.translations.tr.question)
                 .questionText()
-            
+
             TextField("answer", text: $answer)
                 .appTextField()
-                
+
             InfoText(title: "pay_attention")
         }
     }
@@ -27,7 +27,6 @@ struct QuestionAnswerView: View {
 #Preview {
     QuestionAnswerView(question: mockQuestionAnswerData, answer: .constant(""))
 }
-
 
 let mockQuestionAnswerData = QuestionAnswerModel(
     part: "01",

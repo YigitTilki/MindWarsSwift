@@ -1,5 +1,5 @@
 //
-//  AppButton.swift
+//  WidthButton.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 26.02.2025.
@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct WidthButton: View {
-    
     let title: LocalizedStringKey
     var backgroundColor: Color?
     var foregroundColor: Color?
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Text(title)
@@ -27,5 +26,5 @@ struct WidthButton: View {
 }
 
 #Preview {
-    WidthButton(title: "Hello World",action: {})
+    WidthButton(title: "Hello World", action: {})
 }

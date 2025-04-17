@@ -5,13 +5,13 @@
 //  Created by Yiğit Tilki on 17.04.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 enum CollectionEnums: String {
     case users
-    
+
     var reference: CollectionReference {
-           return FirebaseService.db.collection(self.rawValue)
-       }
+        return FirebaseService.db.collection(rawValue)
+    }
 }

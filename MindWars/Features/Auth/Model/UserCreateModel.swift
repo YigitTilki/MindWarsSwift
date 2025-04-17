@@ -1,5 +1,5 @@
 //
-//  UserCreate.swift
+//  UserCreateModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 22.12.2024.
@@ -12,3 +12,8 @@ struct UserCreateModel: ToJsonConvertible, Identifiable {
     let birthDate: Date?
 }
 
+
+struct CreateFirestoreUserPostModel: Codable {
+    let id, username, email: String?
+    let birthDate: Date?
+}

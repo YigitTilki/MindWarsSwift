@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct InfoText: View {
-    
     let title: LocalizedStringKey
     var foregroundColor: Color?
-    
+
     var body: some View {
-        HStack() {
+        HStack {
             Image(systemName: "info.circle")
             Text(title)
                 .font(.footnote)

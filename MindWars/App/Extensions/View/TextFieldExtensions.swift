@@ -9,8 +9,7 @@ import SwiftUI
 
 extension TextField {
     func appTextField() -> some View {
-        self
-            .padding(15)
+        padding(15)
             .cornerRadius(5)
             .font(.subheadline)
             .background(.white)

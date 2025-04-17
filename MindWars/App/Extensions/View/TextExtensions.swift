@@ -9,8 +9,7 @@ import SwiftUI
 
 extension Text {
     func questionText() -> some View {
-        self
-            .padding(.vertical, 20)
+        padding(.vertical, 20)
             .font(.title3)
     }
 }

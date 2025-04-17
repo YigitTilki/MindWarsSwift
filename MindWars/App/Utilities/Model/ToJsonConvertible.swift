@@ -14,7 +14,8 @@ protocol ToJsonConvertible: Encodable {
 extension ToJsonConvertible {
     func toJson() -> [String: Any] {
         guard let data = try? JSONEncoder().encode(self),
-              let dictionary = try? JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+              let dictionary = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
+        else {
             return [:]
         }
         return dictionary

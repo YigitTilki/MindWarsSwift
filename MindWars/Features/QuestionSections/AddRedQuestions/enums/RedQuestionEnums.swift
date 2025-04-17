@@ -1,5 +1,5 @@
 //
-//  QuestionAnswerEnums.swift
+//  RedQuestionEnums.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 9.01.2025.
@@ -8,22 +8,22 @@
 import Foundation
 
 enum QuestionPart: String, CaseIterable {
-    case none = "none"
+    case none
     case part01 = "01"
     case part02 = "02"
     case part03 = "03"
     case part04 = "04"
-    
+
     var localized: String {
-            return NSLocalizedString(self.rawValue, comment: "")
-        }
+        return NSLocalizedString(rawValue, comment: "")
+    }
 }
 
 enum Languages: String, CaseIterable {
     case tr = "turkish"
     case en = "english"
-    case both = "both"
-    
+    case both
+
     var intValue: Int {
         switch self {
         case .both: return 0
@@ -31,20 +31,20 @@ enum Languages: String, CaseIterable {
         case .en: return 2
         }
     }
-    
+
     var localized: String {
-           return NSLocalizedString(self.rawValue, comment: "")
-       }
+        return NSLocalizedString(rawValue, comment: "")
+    }
 }
 
 enum QuestionDifficulty: String, CaseIterable {
     case veryEasy = "very_easy"
-    case easy = "easy"
-    case medium = "medium"
-    case hard = "hard"
+    case easy
+    case medium
+    case hard
     case veryHard = "very_hard"
     case proffesor = "professor"
-    
+
     var intValue: Int {
         switch self {
         case .veryEasy: return 0
@@ -55,30 +55,28 @@ enum QuestionDifficulty: String, CaseIterable {
         case .proffesor: return 5
         }
     }
-    
+
     var localized: String {
-            return NSLocalizedString(self.rawValue, comment: "")
-        }
+        return NSLocalizedString(rawValue, comment: "")
+    }
 }
 
 enum QuestionType: String, CaseIterable {
-    case general = "general"
-    case math = "math"
-    case science = "science"
-    
-    
+    case general
+    case math
+    case science
+
     var intValue: Int {
         switch self {
         case .general: return 0
         case .math: return 1
         case .science: return 2
-        
         }
     }
-    
+
     var localized: String {
-            return NSLocalizedString(self.rawValue, comment: "")
-        }
+        return NSLocalizedString(rawValue, comment: "")
+    }
 }
 
 enum RedQuestionSectionEnum: Int {
@@ -86,9 +84,7 @@ enum RedQuestionSectionEnum: Int {
     case multipleChoice = 2
     case trueFalse = 3
     case mismatchedDuo = 4
-    
-    
-    
+
     var collectionName: String {
         switch self {
         case .questionAnswer:

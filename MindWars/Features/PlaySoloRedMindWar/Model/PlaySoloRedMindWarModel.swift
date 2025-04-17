@@ -22,7 +22,7 @@ struct RedQuestionSectionExplainModel: Codable {
     let trueFalse: Translations
     let multipleChoice: Translations
     let mismatchedDuo: Translations
-    
+
     init(questionAnswer: Translations, trueFalse: Translations, multipleChoice: Translations, mismatchedDuo: Translations) {
         self.questionAnswer = questionAnswer
         self.trueFalse = trueFalse

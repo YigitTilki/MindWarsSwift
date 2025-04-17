@@ -11,17 +11,16 @@ struct MainView: View {
     var body: some View {
         TabView {
             HomeView()
-                     .tabItem({
-                         Image(systemName: "house")
-                         Text("Home")
-                     })
+                .tabItem {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
             MainQuestionSectionsView()
-                     .tabItem({
-                         Image(systemName: "person")
-                         Text("Account")
-                     })
-             }
-             
+                .tabItem {
+                    Image(systemName: "person")
+                    Text("Account")
+                }
+        }
     }
 }
 

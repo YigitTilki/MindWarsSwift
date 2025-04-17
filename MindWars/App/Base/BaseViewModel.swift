@@ -15,21 +15,19 @@ class BaseViewModel {
     @Published var isError: Bool = false
     @Published var locale = Locale.current.identifier
     @Published var error: String?
-    
-
 }
 
 extension BaseViewModel {
     func performLoadingTask(_ task: @escaping () async throws -> Void) async {
-          guard !isLoading else { return }
-          isLoading = true
-          defer { isLoading = false }
-          
-          do {
-              print(task)
-              try await task()
-          } catch {
-              print("🔥Error: \(error)")
-          }
-      }
-  }
+        guard !isLoading else { return }
+        isLoading = true
+        defer { isLoading = false }
+
+        do {
+            print(task)
+            try await task()
+        } catch {
+            print("🔥Error: \(error)")
+        }
+    }
+}

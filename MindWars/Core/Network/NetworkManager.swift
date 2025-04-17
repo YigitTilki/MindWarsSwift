@@ -1,0 +1,80 @@
+//
+//  NetworkManager.swift
+//  MindWars
+//
+//  Created by Yiğit Tilki on 4.07.2025.
+//
+
+import Alamofire
+import Foundation
+
+class NetworkManager: NetworkManagerProtocol {
+    func get<T: Codable>(
+        baseUrl: String,
+        path: String,
+        type _: T.Type,
+        headers: HTTPHeaders? = nil
+    ) async -> Result<T?, Error> {
+        let dataRequest = AF.request(
+            "\(baseUrl)\(path)",
+            method: .get,
+            headers: headers
+        )
+        .validate()
+        .serializingDecodable(T.self)
+
+        let result = await dataRequest.response
+
+        guard let value = result.value else {
+            print("ERROR: \(String(describing: result.error))")
+            return .failure(
+                result.error
+                    ?? NSError(domain: "NetworkError", code: -1, userInfo: nil)
+            )
+        }
+        print("SUCCESS: \(value)")
+
+        return .success(value)
+    }
+
+    func post<T: Codable, R: Encodable>(
+        baseUrl: String,
+        path: String,
+        model: R,
+        type _: T.Type,
+        headers: HTTPHeaders? = nil
+    ) async -> Result<T, Error> {
+        let jsonEncoder = JSONEncoder()
+        guard let data = try? jsonEncoder.encode(model) else {
+            return .failure(NetworkError.unkown)
+        }
+        guard String(data: data, encoding: .utf8) != nil else {
+            return .failure(NetworkError.unkown)
+        }
+        let dataRequest = AF.request(
+            "\(baseUrl)\(path)",
+            method: .post,
+            parameters: model,
+            encoder: JSONParameterEncoder.default,
+            headers: headers
+        )
+        .validate()
+        .serializingDecodable(T.self)
+        
+        print("📤 Request: \(baseUrl)\(path)")
+        print("📦 Request body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+        
+        let result = await dataRequest.response
+
+            guard let value = result.value else {
+                print("❌ ERROR: \(String(describing: result.error))")
+                if let data = result.data {
+                    print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+                }
+                return .failure(result.error ?? NetworkError.unkown)
+            }
+
+            print("✅ SUCCESS: \(value)")
+            return .success(value)
+    }
+}

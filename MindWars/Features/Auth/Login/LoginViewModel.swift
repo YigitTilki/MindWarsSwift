@@ -1,5 +1,5 @@
 //
-//  EmailViewModel.swift
+//  LoginViewModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 21.12.2024.
@@ -11,56 +11,62 @@ import UIKit
 
 @MainActor
 class LoginViewModel: BaseViewModel, ObservableObject {
-    
     @Published var email: String = ""
-    @Published var emailError: LocalizedStringKey?
-    
     @Published var password: String = ""
-    @Published var passwordError: LocalizedStringKey?
-    
+    @Published var isValid: Bool = false
     @Published var navigate: Bool = false
-    
-    //MARK: - Login Button Process
-    func handleContinueButton() async {
-        let validate = validate()
-        if !validate {
-            return
-        }
-    
+
+    private let authRepository = AuthRepository()
+
+    private var realmDatabase: StorageManagerProtocol!
+
+    init(realm: StorageManagerProtocol = RealmDatabase()) {
+        self.realmDatabase = realm
+    }
+
+    // MARK: - Clear Fields
+
+    func clearForm() {
+        email = ""
+        password = ""
+    }
+
+    // MARK: - Validation
+
+    func validate() -> Bool {
+        isValid = !email.isEmpty && !password.isEmpty
+
+        return isValid
+    }
+
+    //MARK: - Login Button Action
+
+    func onTapLogin() async {
+        guard validate() else { return }
+
+        let model = AuthUserPostModel(email: email, password: password)
+
         UIKitFunctions().dismissKeyboard()
-        
-        await performLoadingTask  { [self] in
-            let result = await AuthService.signIn(email: email, password: password)
-            
+
+        await performLoadingTask { [self] in
+            let result = await authRepository.signIn(model: model)
+
             switch result {
-            case .success(_):
+
+            case .success(let tokenResponse):
+                let token = TokenModel()
+                token.idToken = tokenResponse.idToken
+                token.refreshToken = tokenResponse.refreshToken
+                token.expiresIn = tokenResponse.expiresIn
+
+                realmDatabase.add(model: token)
+
                 self.navigate = true
                 clearForm()
-                
+
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
             }
         }
     }
-    
-    //MARK: - Clear Fields
-    func clearForm() {
-        self.error = nil
-        self.email = ""
-        self.password = ""
-    }
-    
-    //MARK: - Validation
-    func validate() -> Bool {
-        emailError = Validator.validateEmail(email)
-        passwordError = Validator.validatePassword(password)
-        
-        return [emailError, passwordError].allSatisfy { $0 == nil }
-    }
-    
-    
 }
-
-
-

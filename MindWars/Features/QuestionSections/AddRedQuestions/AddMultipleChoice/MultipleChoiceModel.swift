@@ -1,12 +1,12 @@
 //
-//  AddMultipleChoiceModel.swift
+//  MultipleChoiceModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 11.01.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 struct MultipleChoiceModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
@@ -21,7 +21,6 @@ struct MultipleChoiceModel: BaseQuestionModel, Codable {
     var time: Int
     let translations: MultipleChoiceQuestionModel
     let imageUrl: String?
-    
 }
 
 struct MultipleChoiceQuestionModel: Codable {

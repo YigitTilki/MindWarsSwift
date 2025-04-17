@@ -12,23 +12,21 @@ struct TrueFalseView: View {
     @Binding var answer: Bool?
     var body: some View {
         VStack {
-            
             Text(question.translations.tr.question)
                 .questionText()
-            
+
             HStack(spacing: 20) {
-                
                 SelectableButton(
                     title: "true",
                     isSelected: answer ?? false,
                     selectedColor: .green.opacity(0.8),
-                    action: {answer = true}
+                    action: { answer = true }
                 )
                 SelectableButton(
                     title: "false",
                     isSelected: !(answer ?? true),
                     selectedColor: .red.opacity(0.8),
-                    action: {answer = false}
+                    action: { answer = false }
                 )
             }
         }
@@ -36,7 +34,7 @@ struct TrueFalseView: View {
 }
 
 #Preview {
-    TrueFalseView(question: mockAddTrueFalseModel,answer: .constant(false))
+    TrueFalseView(question: mockAddTrueFalseModel, answer: .constant(false))
 }
 
 let mockAddTrueFalseModel = TrueFalseModel(
