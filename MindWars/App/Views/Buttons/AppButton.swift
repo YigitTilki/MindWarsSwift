@@ -2,30 +2,17 @@
 //  AppButton.swift
 //  MindWars
 //
-//  Created by Yiğit Tilki on 26.02.2025.
+//  Created by Yiğit Tilki on 17.04.2025.
 //
 
 import SwiftUI
 
 struct AppButton: View {
-    
-    let title: LocalizedStringKey
-    var backgroundColor: Color?
-    var foregroundColor: Color?
-    let action: () -> Void
-    
     var body: some View {
-        Button(action: action) {
-            Text(title)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(backgroundColor ?? .blue)
-                .foregroundColor(foregroundColor ?? .white)
-                .cornerRadius(8)
-        }
+        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 #Preview {
-    AppButton(title: "Hello World",action: {})
+    AppButton()
 }

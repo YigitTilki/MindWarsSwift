@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 // MARK: - Generic Firestore Service
 struct FirebaseService {
-     static let db = Firestore.firestore()
+    static let db = Firestore.firestore()
     
     //MARK: - Generic Log
     static func log(request: String, result: Result<Any, Error>) {
