@@ -27,4 +27,10 @@ struct CommonBackgroundView<Content: View>: View {
     }
 }
 
+#Preview {
+    CommonBackgroundView {
+        Text("Hello World!")
+    }
+}
+
 

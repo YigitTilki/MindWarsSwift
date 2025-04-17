@@ -71,7 +71,7 @@ struct PlaySoloRedMindWarView: View {
     
     
     func passButton() -> some View {
-        AppButton(
+        WidthButton(
             title: "pass",
             backgroundColor: .purple,
             action: {
@@ -86,7 +86,7 @@ struct PlaySoloRedMindWarView: View {
     }
     
     func nextQuestionButton() -> some View {
-        AppButton(
+        WidthButton(
             title: "next_question",
             action: {
                 Task {

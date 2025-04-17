@@ -8,11 +8,22 @@
 import SwiftUI
 
 struct AppButton: View {
+    let title: LocalizedStringKey
+    var backgroundColor: Color?
+    var foregroundColor: Color?
+    let action: () -> Void
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Button(action: action) {
+            Text(title)
+                .padding(10)
+                .background(backgroundColor ?? .blue)
+                .foregroundColor(foregroundColor ?? .white)
+                .cornerRadius(5)
+        }
     }
 }
 
 #Preview {
-    AppButton()
+    AppButton(title: "Hello World",action: {})
 }

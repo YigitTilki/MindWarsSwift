@@ -113,14 +113,17 @@ struct RegisterView: View {
     func signUpButton() -> some View {
         HStack{
             Spacer()
-            Button("sign_up"){
-                Task{
-                    await vm.handleSignUpButton()
+            AppButton(
+                title: "sign_up",
+                backgroundColor: vm.isFieldsEmpty ? .gray : .blue,
+                action: {
+                Task {
+                    await vm.signUpButtonOnPressed()
                 }
-            }
-            .loginButtonStyle(isEmpty: vm.isFieldsEmpty)
+            })
+            .disabled(vm.isFieldsEmpty)
         }
-        .disabled(vm.isFieldsEmpty)
+        
     }
     //MARK: - Description
     func descriptionTitle() -> some View {

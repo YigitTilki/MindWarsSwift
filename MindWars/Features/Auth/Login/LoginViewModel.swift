@@ -23,10 +23,8 @@ class LoginViewModel: BaseViewModel, ObservableObject {
     //MARK: - Login Button Process
     func handleContinueButton() async {
         let validate = validate()
-        if !validate {
-            return
-        }
-    
+        if !validate { return }
+        
         UIKitFunctions().dismissKeyboard()
         
         await performLoadingTask  { [self] in
@@ -39,14 +37,12 @@ class LoginViewModel: BaseViewModel, ObservableObject {
                 
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
             }
         }
     }
     
     //MARK: - Clear Fields
     func clearForm() {
-        self.error = nil
         self.email = ""
         self.password = ""
     }

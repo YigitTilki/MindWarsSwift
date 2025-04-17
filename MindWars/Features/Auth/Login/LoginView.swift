@@ -75,15 +75,15 @@ struct LoginView: View {
     func continueButton() -> some View {
         HStack{
             Spacer()
-            Button(action: {
+            AppButton(
+                title: "continue",
+                backgroundColor: vm.email.isEmpty || vm.password.isEmpty ? .gray : .blue,
+                action: {
                 Task {
                     await vm.handleContinueButton()
                 }
-            }, label: {
-                Text("continue")
-                    .loginButtonStyle(isEmpty: vm.email.isEmpty || vm.password.isEmpty)
-                
-            }).disabled(vm.email.isEmpty || vm.password.isEmpty)
+            })
+            .disabled(vm.email.isEmpty || vm.password.isEmpty)
         }
     }
     //MARK: - Go Register Row

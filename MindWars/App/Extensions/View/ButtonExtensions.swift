@@ -5,4 +5,7 @@
 //  Created by Yiğit Tilki on 17.04.2025.
 //
 
-import Foundation
+import SwiftUI
+
+extension Button {
+}

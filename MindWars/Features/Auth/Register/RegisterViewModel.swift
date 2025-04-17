@@ -29,20 +29,14 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
     @Published var navigateToHome: Bool = false
     
     
-    @Published var user: User?
-    
     var isFieldsEmpty: Bool {
         userName.isEmpty || email.isEmpty || password.isEmpty || rePassword.isEmpty
     }
     
-    private let authService = AuthService()
-    
-    
-    func handleSignUpButton() async {
+    //MARK: - Sign Up Button OnPressed
+    func signUpButtonOnPressed() async {
         let validate = validate()
-        if !validate {
-            return
-        }
+        if !validate { return }
         
         UIKitFunctions().dismissKeyboard()
         
@@ -51,7 +45,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
             
             switch result {
             case .success(let user):
-                let result =  await AuthService.signUpFirestore(data: UserCreateModel(id: user.uid, username: userName, email: user.email, birthDate: birthDate))
+                let result =  await AuthService.saveUserToFirestore(data: UserCreateModel(id: user.uid, username: userName, email: user.email, birthDate: birthDate))
                 
                 switch result {
                     case .success(_):
@@ -60,7 +54,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
                     case .failure(let error):
                         print("Error: \(error.localizedDescription)")
                     }
-                
+                //TODO: Remove prints add modal
             case .failure(let error):
                 print("Error: \(error.localizedDescription)")
                 self.error = error.localizedDescription
@@ -68,7 +62,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
             }
         }
     }
-    
+    //MARK: - Clear Forms
     func clearForm() {
         email = ""
         userName = ""
@@ -76,7 +70,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
         password = ""
         rePassword = ""
     }
-    
+    //MARK: - Is Forms Validate
     func validate() -> Bool {
             emailError = Validator.validateEmail(email)
             passwordError = Validator.validatePassword(password)
