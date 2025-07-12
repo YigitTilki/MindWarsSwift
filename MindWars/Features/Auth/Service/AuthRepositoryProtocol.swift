@@ -11,5 +11,6 @@ protocol AuthRepositoryProtocol {
     func signUp(model: AuthUserPostModel) async -> Result<AuthUserResponseModel, Error>
     func signIn(model: AuthUserPostModel) async -> Result<AuthUserResponseModel, Error>
     func getToken(model: TokenPostModel) async -> Result<TokenResponseModel, Error>
-    func createFirestoreUser(model: CreateFirestoreUserPostModel) async -> Result<CreateFirestoreUserPostModel, Error>
+    func createFirestoreUser(model: FirestorePostModel<CreateFirestoreUserModel>, token: String) async
+        -> Result<FirestoreResponseModel<CreateFirestoreUserModel>, Error>
 }

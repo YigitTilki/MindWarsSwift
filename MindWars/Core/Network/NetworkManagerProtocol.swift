@@ -9,23 +9,29 @@ import Foundation
 import Alamofire
 
 protocol NetworkManagerProtocol {
-    func send<T: Decodable>(
-        path: NetworkPathProtocol,
-        method: NetworkMethod,
-        type: T.Type,
-        body: Encodable?,
-        parameter: Parameters?
+    func get<T: Codable>(
+        baseUrl: String,
+        path: String,
+        type _: T.Type,
+        headers: HTTPHeaders?
+    ) async -> Result<T?, Error>
+    
+    func post<T: Codable, R: Encodable>(
+        baseUrl: String,
+        path: String,
+        model: R,
+        type _: T.Type,
+        headers: HTTPHeaders?
     ) async -> Result<T, Error>
 }
 
 extension NetworkManagerProtocol {
-    func send<T: Decodable>(
-        path: NetworkPathProtocol,
-        method: NetworkMethod,
-        type: T.Type,
-        body: Encodable? = nil,
-        parameter: Parameters? = nil
+    func post<T: Codable, R: Encodable>(
+        baseUrl: String,
+        path: String,
+        model: R,
+        type: T.Type
     ) async -> Result<T, Error> {
-        return await send(path: path, method: method, type: type, body: body, parameter: parameter)
+        await post(baseUrl: baseUrl, path: path, model: model, type: type, headers: nil)
     }
 }

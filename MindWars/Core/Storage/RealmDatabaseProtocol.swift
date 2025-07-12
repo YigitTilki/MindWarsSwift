@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-protocol StorageManagerProtocol {
+protocol RealmDatabaseProtocol {
     func add<T: Object>(model: T)
     func clearAll<T: Object>(model: T.Type)
     func getItems<T: Object>() -> [T]
@@ -15,10 +15,10 @@ protocol StorageManagerProtocol {
     func delete<T: Object>(model: T)
     func deleteFromId<T: Object>(model: T.Type, id: String)
 
-    func listenChanges<T: Object>(model: T.Type, result: @escaping (StorageManagerUpdate, [Int]) -> Void)
+    func listenChanges<T: Object>(model: T.Type, result: @escaping (RealmDatabaseUpdate, [Int]) -> Void)
 }
 
-enum StorageManagerUpdate {
+enum RealmDatabaseUpdate {
     case delete
     case insert
     case modify

@@ -16,57 +16,67 @@ class LoginViewModel: BaseViewModel, ObservableObject {
     @Published var isValid: Bool = false
     @Published var navigate: Bool = false
 
-    private let authRepository = AuthRepository()
+    private let authRepository: AuthRepositoryProtocol
 
-    private var realmDatabase: StorageManagerProtocol!
-
-    init(realm: StorageManagerProtocol = RealmDatabase()) {
+    private var realmDatabase: RealmDatabaseProtocol
+    
+    //MARK: - Init
+    init(
+        realm: RealmDatabaseProtocol = RealmDatabase(),
+        authRepository: AuthRepositoryProtocol = AuthRepository()
+    ) {
         self.realmDatabase = realm
+        self.authRepository = authRepository
     }
 
     // MARK: - Clear Fields
-
-    func clearForm() {
+    private func clearForm() {
         email = ""
         password = ""
     }
 
     // MARK: - Validation
-
-    func validate() -> Bool {
+    private func validate() -> Bool {
         isValid = !email.isEmpty && !password.isEmpty
 
         return isValid
     }
 
     //MARK: - Login Button Action
-
     func onTapLogin() async {
         guard validate() else { return }
-
-        let model = AuthUserPostModel(email: email, password: password)
-
         UIKitFunctions().dismissKeyboard()
 
         await performLoadingTask { [self] in
-            let result = await authRepository.signIn(model: model)
-
-            switch result {
-
-            case .success(let tokenResponse):
-                let token = TokenModel()
-                token.idToken = tokenResponse.idToken
-                token.refreshToken = tokenResponse.refreshToken
-                token.expiresIn = tokenResponse.expiresIn
-
-                realmDatabase.add(model: token)
-
-                self.navigate = true
-                clearForm()
-
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-            }
+           await loginUser()
         }
     }
+    
+    //MARK: - Login User
+    private func loginUser() async {
+        let model = AuthUserPostModel(email: email, password: password)
+        let result = await authRepository.signIn(model: model)
+
+        switch result {
+
+        case .success(let data):
+            saveToken(data: data)
+            clearForm()
+            self.navigate = true
+            
+        case .failure(_):
+            break
+        }
+    }
+    
+    //MARK: - Save User Token to Realm Database
+    private func saveToken(data: AuthUserResponseModel) {
+        let token = TokenModel()
+        token.idToken = data.idToken
+        token.refreshToken = data.refreshToken
+        token.expiresIn = data.expiresIn
+
+        realmDatabase.add(model: token)
+    }
+
 }

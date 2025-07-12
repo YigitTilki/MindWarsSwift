@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AppButton: View {
-    let title: LocalizedStringKey
+    let title: String
     var backgroundColor: Color?
     var foregroundColor: Color?
     let action: () -> Void

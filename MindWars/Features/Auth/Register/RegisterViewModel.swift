@@ -28,51 +28,27 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
 
     @Published var navigateToHome: Bool = false
     
-    private let authRepository = AuthRepository()
-
-    private var realmDatabase: StorageManagerProtocol!
-
-    init(realm: StorageManagerProtocol = RealmDatabase()) {
-        self.realmDatabase = realm
-    }
-
     var isFieldsEmpty: Bool {
-        userName.isEmpty || email.isEmpty || password.isEmpty || rePassword.isEmpty
+        userName.isEmpty || email.isEmpty || password.isEmpty
+            || rePassword.isEmpty
     }
 
-    // MARK: - Sign Up Button OnPressed
+    private let authRepository: AuthRepositoryProtocol
 
-    func signUpButtonOnPressed() async {
-        let validate = validate()
-        if !validate { return }
+    private var realmDatabase: RealmDatabaseProtocol
 
-        UIKitFunctions().dismissKeyboard()
-
-        await performLoadingTask { [self] in
-            let result = await AuthService.signUp(email: email, password: password)
-
-            switch result {
-            case let .success(user):
-                let result = await AuthService.saveUserToFirestore(data: UserCreateModel(id: user.uid, username: userName, email: user.email, birthDate: birthDate))
-
-                switch result {
-                case .success:
-                    navigateToHome = true
-
-                case let .failure(error):
-                    print("Error: \(error.localizedDescription)")
-                }
-            // TODO: Remove prints add modal
-            case let .failure(error):
-                print("Error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
-            }
-        }
+    //MARK: - Init
+    init(
+        realm: RealmDatabaseProtocol = RealmDatabase(),
+        authRepository: AuthRepositoryProtocol = AuthRepository()
+    ) {
+        self.realmDatabase = realm
+        self.authRepository = authRepository
     }
+
 
     // MARK: - Clear Forms
-
-    func clearForm() {
+    private func clearForm() {
         email = ""
         userName = ""
         birthDate = Date()
@@ -81,45 +57,73 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
     }
 
     // MARK: - Is Forms Validate
-
-    func validate() -> Bool {
+    private func validate() -> Bool {
         emailError = Validator.validateEmail(email)
         passwordError = Validator.validatePassword(password)
         rePasswordError = Validator.validateRePassword(password, rePassword)
         userNameError = Validator.validateUsername(userName)
         birthDateError = Validator.validateBirthdate(birthDate)
 
-        return [emailError, passwordError, userNameError, birthDateError].allSatisfy { $0 == nil }
+        return [emailError, passwordError, userNameError, birthDateError]
+            .allSatisfy { $0 == nil }
     }
-    
+
     // MARK: - Sign Up Button Action
-
     func onTapSignUp() async {
-        
-        let model = AuthUserPostModel(email: email, password: password)
         guard validate() else { return }
-
         UIKitFunctions().dismissKeyboard()
 
         await performLoadingTask { [self] in
-            let result = await authRepository.signUp(model: model)
+            await registerUser()
+        }
+    }
 
-            switch result {
-            case let .success(user):
-                let result = await AuthService.saveUserToFirestore(data: UserCreateModel(id: user.localId, username: userName, email: user.email, birthDate: birthDate))
+    //MARK: - Register User for Auth - 1.
+    private func registerUser() async {
+        let authModel = AuthUserPostModel(email: email, password: password)
+        let result = await authRepository.signUp(model: authModel)
 
-                switch result {
-                case .success:
-                    navigateToHome = true
+        switch result {
+        case .success(let data):
+            await handleAuthSuccess(data: data)
+        case .failure(let error):
+            self.error = error.localizedDescription
+        }
+    }
 
-                case let .failure(error):
-                    print("Error: \(error.localizedDescription)")
-                }
-            // TODO: Remove prints add modal
-            case let .failure(error):
-                print("Error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
-            }
+    //MARK: - Save User Token to Realm Database
+    private func saveToken(data: AuthUserResponseModel) {
+        let token = TokenModel()
+        token.idToken = data.idToken
+        token.refreshToken = data.refreshToken
+        token.expiresIn = data.expiresIn
+
+        realmDatabase.add(model: token)
+    }
+
+    //MARK: - Register User for Firestore - 2.
+    private func handleAuthSuccess(data: AuthUserResponseModel) async {
+        saveToken(data: data)
+
+        let userCredentials = CreateFirestoreUserModel(
+            id: data.localId,
+            email: data.email,
+            userName: userName,
+            birthDate: birthDate
+        )
+        let firestoreModel = FirestorePostModel(fields: userCredentials)
+
+        let result = await authRepository.createFirestoreUser(
+            model: firestoreModel,
+            token: data.idToken
+        )
+
+        switch result {
+        case .success:
+            clearForm()
+            navigateToHome = true
+        case .failure(let error):
+            print("Firestore Error: \(error.localizedDescription)")
         }
     }
 }

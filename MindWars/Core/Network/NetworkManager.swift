@@ -46,10 +46,10 @@ class NetworkManager: NetworkManagerProtocol {
     ) async -> Result<T, Error> {
         let jsonEncoder = JSONEncoder()
         guard let data = try? jsonEncoder.encode(model) else {
-            return .failure(NetworkError.unkown)
+            return .failure(NSError(domain: "NetworkError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Failed to encode model to JSON"]))
         }
         guard String(data: data, encoding: .utf8) != nil else {
-            return .failure(NetworkError.unkown)
+            return .failure(NSError(domain: "NetworkError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Invalid JSON encoding"]))
         }
         let dataRequest = AF.request(
             "\(baseUrl)\(path)",
@@ -63,6 +63,7 @@ class NetworkManager: NetworkManagerProtocol {
         
         print("📤 Request: \(baseUrl)\(path)")
         print("📦 Request body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+        print("📦 Request headers: \(String(describing: headers))")
         
         let result = await dataRequest.response
 
@@ -71,7 +72,7 @@ class NetworkManager: NetworkManagerProtocol {
                 if let data = result.data {
                     print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
                 }
-                return .failure(result.error ?? NetworkError.unkown)
+                return .failure(result.error ?? NSError(domain: "NetworkError", code: -1, userInfo: nil))
             }
 
             print("✅ SUCCESS: \(value)")

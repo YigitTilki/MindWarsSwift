@@ -35,10 +35,10 @@ struct LoginView: View {
 
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
-            Text("lets_play")
+            Text(LocaleKeys.Login.letsPlay.localized)
                 .font(.title)
                 .fontWeight(.medium)
-            Text("enter_mind_wars_world")
+            Text(LocaleKeys.Login.emww.localized)
                 .font(.title3)
         }
     }
@@ -47,13 +47,9 @@ struct LoginView: View {
 
     func emailTextField() -> some View {
         VStack(alignment: .leading) {
-            TextField("email", text: $vm.email)
+            TextField(LocaleKeys.email.localized, text: $vm.email)
                 .appTextField()
                 .keyboardType(.emailAddress)
-
-            if let error = vm.emailError {
-                Text(error).foregroundColor(.red)
-            }
         }
     }
 
@@ -61,12 +57,12 @@ struct LoginView: View {
 
     func passwordTextField() -> some View {
         VStack(alignment: .leading) {
-            TextField("password", text: $vm.password)
+            TextField(LocaleKeys.password.localized, text: $vm.password)
                 .appTextField()
 
-            if let error = vm.passwordError {
-                Text(error).foregroundColor(.red)
-            }
+//            if let error = !vm.isValid {
+//                Text(error).foregroundColor(.red)
+//            }
         }
     }
 
@@ -76,7 +72,7 @@ struct LoginView: View {
         HStack {
             Spacer()
             AppButton(
-                title: "continue",
+                title: LocaleKeys.continueValue.localized,
                 backgroundColor: vm.email.isEmpty || vm.password.isEmpty ? .gray : .blue,
                 action: {
                     Task {
@@ -92,9 +88,9 @@ struct LoginView: View {
 
     func goRegisterRow() -> some View {
         HStack {
-            Text("dont_have_an_account")
+            Text(LocaleKeys.Login.dhacc.localized)
 
-            NavigationLink("sign_up", destination: {
+            NavigationLink(LocaleKeys.signUp.localized, destination: {
                 RegisterView()
             })
         }

@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class RealmDatabase: StorageManagerProtocol {
+final class RealmDatabase: RealmDatabaseProtocol {
     
     
     private let realm: Realm
@@ -64,7 +64,7 @@ final class RealmDatabase: StorageManagerProtocol {
         }
     }
     
-    func listenChanges<T>(model: T.Type, result: @escaping (StorageManagerUpdate, [Int]) -> Void) where T: Object {
+    func listenChanges<T>(model: T.Type, result: @escaping (RealmDatabaseUpdate, [Int]) -> Void) where T: Object {
         let results = realm.objects(model.self)
         _ = results.observe { changes in
             switch changes {

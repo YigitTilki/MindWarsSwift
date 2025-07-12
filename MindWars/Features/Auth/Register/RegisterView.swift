@@ -127,7 +127,7 @@ struct RegisterView: View {
                 backgroundColor: vm.isFieldsEmpty ? .gray : .blue,
                 action: {
                     Task {
-                        await vm.signUpButtonOnPressed()
+                        await vm.onTapSignUp()
                     }
                 }
             )
