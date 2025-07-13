@@ -138,7 +138,7 @@ struct RegisterView: View {
             Button(LocaleKeys.signUp.localized) {
                 Task { await vm.onTapSignUp() }
             }
-            .buttonStyle(AuthButtonStyle(isDisabled: vm.isFieldsEmpty))
+            .buttonStyle(AppButtonStyle(isDisabled: vm.isFieldsEmpty))
             .disabled(vm.isFieldsEmpty)
         }
         .padding(.top, 10)

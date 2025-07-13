@@ -67,7 +67,7 @@ struct LoginView: View {
             Button(LocaleKeys.continueValue.localized) {
                 Task { await vm.onTapLogin() }
             }
-            .buttonStyle(AuthButtonStyle(isDisabled: isDisabled))
+            .buttonStyle(AppButtonStyle(isDisabled: isDisabled))
             .disabled(isDisabled)
         }
         .padding(.top, 10)

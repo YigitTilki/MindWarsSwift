@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AuthButtonStyle: ButtonStyle {
+struct AppButtonStyle: ButtonStyle {
     var backgroundColor: Color = .clickBlue
     var foregroundColor: Color = .white
     var cornerRadius: CGFloat = 5
