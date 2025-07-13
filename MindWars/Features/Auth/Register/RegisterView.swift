@@ -8,33 +8,30 @@
 import SwiftUI
 
 struct RegisterView: View {
-    
-    
     @StateObject private var vm = RegisterViewModel()
-    
+
     var body: some View {
         CommonBackgroundView {
-            VStack(alignment: .leading){
+            VStack(alignment: .leading) {
                 descriptionTitle()
                 fields()
                 signUpButton()
                 goLoginRow()
-                
             }
             .padding()
             .navigationBarBackButtonHidden(true)
-            .navigationDestination(isPresented: $vm.navigateToHome){
+            .navigationDestination(isPresented: $vm.navigateToHome) {
                 HomeView()
             }
-            
-            
-            
-            if vm.isLoading  {
+
+            if vm.isLoading {
                 LoadingView()
             }
         }
     }
-    //MARK: - All Fields
+
+    // MARK: - All Fields
+
     func fields() -> some View {
         VStack {
             userNameField()
@@ -44,9 +41,11 @@ struct RegisterView: View {
             datePickerField()
         }
     }
-    //MARK: - Go Login Row
+
+    // MARK: - Go Login Row
+
     func goLoginRow() -> some View {
-        HStack{
+        HStack {
             Text("already_have_an_account")
             NavigationLink("sign_in", destination: {
                 LoginView()
@@ -54,10 +53,10 @@ struct RegisterView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 50)
-        
-        
     }
-    //MARK: - User Name Field
+
+    // MARK: - User Name Field
+
     func userNameField() -> some View {
         VStack {
             TextField("username", text: $vm.userName)
@@ -67,7 +66,9 @@ struct RegisterView: View {
             }
         }
     }
-    //MARK: - Email Field
+
+    // MARK: - Email Field
+
     func emailField() -> some View {
         VStack {
             TextField("email", text: $vm.email)
@@ -77,7 +78,9 @@ struct RegisterView: View {
             }
         }
     }
-    //MARK: - Password Field
+
+    // MARK: - Password Field
+
     func passwordField() -> some View {
         VStack {
             TextField("password", text: $vm.password)
@@ -87,7 +90,9 @@ struct RegisterView: View {
             }
         }
     }
-    //MARK: - Re-Password Field
+
+    // MARK: - Re-Password Field
+
     func rePasswordField() -> some View {
         VStack {
             TextField("re_password", text: $vm.rePassword)
@@ -98,7 +103,9 @@ struct RegisterView: View {
             }
         }
     }
-    //MARK: - Date Picker Field
+
+    // MARK: - Date Picker Field
+
     func datePickerField() -> some View {
         VStack {
             DatePicker("birth_date", selection: $vm.birthDate, displayedComponents: .date)
@@ -109,22 +116,29 @@ struct RegisterView: View {
             }
         }
     }
-    //MARK: - Sign Up Button
+
+    // MARK: - Sign Up Button
+
     func signUpButton() -> some View {
-        HStack{
+        HStack {
             Spacer()
-            Button("sign_up"){
-                Task{
-                    await vm.handleSignUpButton()
+            AppButton(
+                title: "sign_up",
+                backgroundColor: vm.isFieldsEmpty ? .gray : .blue,
+                action: {
+                    Task {
+                        await vm.onTapSignUp()
+                    }
                 }
-            }
-            .loginButtonStyle(isEmpty: vm.isFieldsEmpty)
+            )
+            .disabled(vm.isFieldsEmpty)
         }
-        .disabled(vm.isFieldsEmpty)
     }
-    //MARK: - Description
+
+    // MARK: - Description
+
     func descriptionTitle() -> some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             Text("lets_sign_up")
                 .font(.title)
             Text("enter_your_credentials_to_sign_up")
@@ -132,7 +146,9 @@ struct RegisterView: View {
         }
     }
 }
-//MARK: - Preview
+
+// MARK: - Preview
+
 #Preview {
     RegisterView()
 }

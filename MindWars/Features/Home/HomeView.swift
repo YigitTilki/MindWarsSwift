@@ -10,11 +10,10 @@ import SwiftUI
 struct HomeView: View {
     @Environment(Language.self) var languageManager
     @State private var isPresented = false
-    
+
     @StateObject private var viewModel = HomeViewModel()
     @State var showAlert = false
-    
-    
+
     var body: some View {
         NavigationStack {
             CommonBackgroundView {
@@ -23,7 +22,7 @@ struct HomeView: View {
                         showAlert = true
                     }, label: {
                         Text("Play")
-                            .frame(maxWidth: .infinity,maxHeight: 200)
+                            .frame(maxWidth: .infinity, maxHeight: 200)
                             .font(.title)
                             .foregroundColor(.white)
                             .padding()
@@ -35,14 +34,12 @@ struct HomeView: View {
                 }
             }
             .languageSelectionDialog(isPresented: $isPresented, languageManager: languageManager)
-            .navigationDestination(isPresented: $showAlert, destination: {PlaySoloRedMindWarView()})
+            .navigationDestination(isPresented: $showAlert, destination: { PlaySoloRedMindWarView() })
         }
-        
     }
 }
 
 #Preview {
     HomeView()
         .environment(Language())
-    
 }

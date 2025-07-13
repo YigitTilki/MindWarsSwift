@@ -10,5 +10,4 @@ import Foundation
 struct MessageModel {
     var title: String = ""
     var message: String = ""
-    
 }

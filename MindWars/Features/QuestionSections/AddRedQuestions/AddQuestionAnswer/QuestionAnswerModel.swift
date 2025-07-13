@@ -5,8 +5,8 @@
 //  Created by Yiğit Tilki on 9.01.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 struct QuestionAnswerModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
@@ -22,18 +22,14 @@ struct QuestionAnswerModel: BaseQuestionModel, Codable {
     let authorId: String
     let imageUrl: String?
 }
-    
 
 struct QuestionAnswerQuestionModel: Codable {
     let en: QuestionAnswerQuestionDetailModel
     let tr: QuestionAnswerQuestionDetailModel
 }
-   
 
 struct QuestionAnswerQuestionDetailModel: Codable {
     let question: String
     let answers: [String]
     let answerDescription: String?
 }
-
-

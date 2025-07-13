@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct ExplainContainer: View {
-    
     let title: String?
     let description: String?
     let backgroundColor: Color
     var foregroundColor: Color?
-    
+
     var body: some View {
         VStack {
             Text(title ?? "")
@@ -36,11 +35,9 @@ struct ExplainContainer: View {
         .border(.gray.opacity(0.3), width: 3)
         .cornerRadius(15)
         .padding(.top, 50)
-       
-    
     }
 }
 
 #Preview {
-    ExplainContainer(title: "Hello", description: "World",backgroundColor: .yellow)
+    ExplainContainer(title: "Hello", description: "World", backgroundColor: .yellow)
 }

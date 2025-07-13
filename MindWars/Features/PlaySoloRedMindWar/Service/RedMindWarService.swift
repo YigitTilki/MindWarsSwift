@@ -1,9 +1,9 @@
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 // MARK: - Red Mind War Service
+
 struct RedMindWarService {
-    
     func increaseAnswerCount(
         questionId: String,
         part: String,
@@ -18,7 +18,7 @@ struct RedMindWarService {
                 .collection(part)
                 .document(questionId)
         }
-        
+
         await _ = FirebaseService.execute(
             request: "Update \(field) for \(questionId)",
             operation: {
@@ -30,7 +30,7 @@ struct RedMindWarService {
             }
         )
     }
-    
+
     func getExplains() async -> Result<RedQuestionSectionExplainModel?, Error> {
         await FirebaseService.execute(
             request: "Fetch section explanations",
@@ -45,7 +45,7 @@ struct RedMindWarService {
             }
         )
     }
-    
+
     func getRedMindWarInfo() async -> Result<RedMindWarInfoModel?, Error> {
         await FirebaseService.execute(request: "Fetch RedMindWarInfo", operation: {
             let path: () throws -> DocumentReference = {
@@ -53,17 +53,15 @@ struct RedMindWarService {
             }
             return try await FirebaseService.fetch(
                 path: path, responseType: RedMindWarInfoModel.self
-                )
-            
-            }
-        )
+            )
+        })
     }
-    
+
     func getQuestions<T: Decodable>(
         part: String,
         questionType: String,
-        responseType: T.Type
-    ) async -> Result<[T], Error>{
+        responseType _: T.Type
+    ) async -> Result<[T], Error> {
         await FirebaseService.execute(
             request: "Fetch \(questionType) questions for part \(part)",
             operation: {
@@ -73,7 +71,6 @@ struct RedMindWarService {
                         .collection(questionType)
                         .document("parts")
                         .collection(part)
-                    
                 }
                 return try await FirebaseService.fetchCollection(
                     path: path,
@@ -82,8 +79,4 @@ struct RedMindWarService {
             }
         ) ?? .failure(NSError(domain: "", code: 0, userInfo: nil))
     }
-    
-    
 }
-
-

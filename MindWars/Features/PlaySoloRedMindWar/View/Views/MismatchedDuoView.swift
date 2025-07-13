@@ -15,9 +15,8 @@ struct MismatchedDuoView: View {
         VStack {
             Text(question.translations.tr.question)
                 .questionText()
-            
+
             ForEach(Array(question.translations.tr.answers.enumerated()), id: \.element) { index, answer in
-                
                 QuestionSelectButton(
                     prefix: "\(answerPrefixes[index]) -",
                     title: answer,
@@ -29,21 +28,21 @@ struct MismatchedDuoView: View {
             }
         }
     }
-    
+
     private func handleSelection(for index: Int) {
-           if answers.contains(index) {
-               answers.removeAll { $0 == index }
-           } else if answers.count < 2 {
-               answers.append(index)
-           } else {
-               answers.removeFirst()
-               answers.append(index)
-           }
-       }
+        if answers.contains(index) {
+            answers.removeAll { $0 == index }
+        } else if answers.count < 2 {
+            answers.append(index)
+        } else {
+            answers.removeFirst()
+            answers.append(index)
+        }
+    }
 }
 
 #Preview {
-    MismatchedDuoView(question: mockMismatchedDuoModel,answers: .constant([0,2]))
+    MismatchedDuoView(question: mockMismatchedDuoModel, answers: .constant([0, 2]))
 }
 
 let mockMismatchedDuoModel = MismatchedDuoModel(

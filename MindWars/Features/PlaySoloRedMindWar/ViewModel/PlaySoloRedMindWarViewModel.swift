@@ -1,64 +1,59 @@
 //
-//  PlaySolorRedMindWarView.swift
+//  PlaySoloRedMindWarViewModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 12.01.2025.
 //
 
+import FirebaseFirestore
 import Foundation
 import SwiftUICore
-import FirebaseFirestore
-
 
 @MainActor
 class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
-    
     let service = RedMindWarService()
-    
+
     @Published var questionList: [BaseQuestionModel] = []
     @Published var explains: RedQuestionSectionExplainModel?
-    
+
     @Published var currentQuestionIndex: Int = 0
     @Published var score: Int = 0
-    
+
     @Published var questionAnswerAnswer: String = ""
     @Published var trueFalseAnswer: Bool?
     @Published var multipleChoiceAnswer: Int?
     @Published var mismatchedDuoAnswer: [Int] = []
-    
+
     var info: RedMindWarInfoModel?
-    
-    
-    
-    
-    
-    //MARK: - Submit Answer
+
+    // MARK: - Submit Answer
+
     func submitQuestionAnswer() async {
         controlAnswer()
-        
+
         if !isError {
             if currentQuestionIndex < questionList.count {
                 let question = questionList[currentQuestionIndex]
-                
+
                 if let question = question as? QuestionAnswerModel {
                     await _submitQuestionAnswer(question: question)
                 }
-                
+
                 if let question = question as? TrueFalseModel {
                     await _submitTrueFalseAnswer(question: question)
                 }
-                
+
                 if let question = question as? MultipleChoiceModel {
                     await _submitMultipleChoiceAnswer(question: question)
                 }
-                
+
                 if let question = question as? MismatchedDuoModel {
                     await _submitMismatchedDuoAnswer(question: question)
                 }
             }
         }
     }
-    
+
     func _submitQuestionAnswer(question: QuestionAnswerModel) async {
         let answerValue = question.translations.tr.answers.contains(questionAnswerAnswer)
         await nextQuestion(
@@ -70,10 +65,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
         questionAnswerAnswer = ""
     }
-    
+
     func _submitTrueFalseAnswer(question: TrueFalseModel) async {
         let answerValue = question.translations.tr.answer == trueFalseAnswer
-        
+
         await nextQuestion(
             description: question.translations.tr.answerDescription,
             id: question.id,
@@ -83,10 +78,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
         trueFalseAnswer = nil
     }
-    
+
     func _submitMultipleChoiceAnswer(question: MultipleChoiceModel) async {
         let answerValue = question.translations.tr.correctAnswerIndex == multipleChoiceAnswer
-        
+
         await nextQuestion(
             description: question.translations.tr.answerDescription,
             id: question.id,
@@ -96,10 +91,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
         multipleChoiceAnswer = nil
     }
-    
+
     func _submitMismatchedDuoAnswer(question: MismatchedDuoModel) async {
         let answerValue = question.translations.tr.correctAnswerIndexes == mismatchedDuoAnswer
-        
+
         await nextQuestion(
             description: question.translations.tr.answerDescription,
             id: question.id,
@@ -109,13 +104,14 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
         mismatchedDuoAnswer = []
     }
-    
-    //MARK: - Validation for Answer
+
+    // MARK: - Validation for Answer
+
     func controlAnswer() {
         guard currentQuestionIndex < questionList.count else { return }
-        
+
         let question = questionList[currentQuestionIndex]
-        
+
         switch question {
         case is QuestionAnswerModel:
             isError = questionAnswerAnswer.isEmpty
@@ -129,10 +125,9 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             isError = false
         }
     }
-    
-    
-    
-    //MARK: - After submit answer alert process
+
+    // MARK: - After submit answer alert process
+
     func nextQuestion(description: String?, id: String?, answerValue: Bool, questionType: String, questionPart: String) async {
         if answerValue {
             score += 1
@@ -143,7 +138,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
                     self.currentQuestionIndex += 1
                 }
             )
-            await increaseCorrectAnswerCount(questionId: id ?? "",questionType: questionType, questionPart: questionPart )
+            await increaseCorrectAnswerCount(questionId: id ?? "", questionType: questionType, questionPart: questionPart)
         } else {
             alertItem = AlertItem(
                 title: Text("Hata!"),
@@ -152,26 +147,26 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
                     self.currentQuestionIndex += 1
                 }
             )
-            await increaseInCorrectAnswerCount(questionId: id ?? "",questionType: questionType, questionPart: questionPart)
+            await increaseInCorrectAnswerCount(questionId: id ?? "", questionType: questionType, questionPart: questionPart)
         }
-        
     }
-    
-    //MARK: - Pass question
+
+    // MARK: - Pass question
+
     func passQuestion() {
         if currentQuestionIndex < questionList.count {
             let question = questionList[currentQuestionIndex]
             questionList.append(question)
-            self.currentQuestionIndex += 1
+            currentQuestionIndex += 1
         }
     }
-    
-    
-    //MARK: - Top screen Explanations
+
+    // MARK: - Top screen Explanations
+
     func getExplanationForCurrentQuestion() -> Translations? {
         guard currentQuestionIndex < questionList.count else { return nil }
         let question = questionList[currentQuestionIndex]
-        
+
         switch question {
         case is TrueFalseModel:
             return explains?.trueFalse
@@ -185,13 +180,12 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             return nil
         }
     }
-    
+
     func getRedMindWarInfo() async {
         let data = await service.getRedMindWarInfo()
-        //info = data
+        // info = data
     }
-    
-    
+
     func getQuestions() async {
         await performLoadingTask { [self] in
             await getRedMindWarInfo()
@@ -199,16 +193,16 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             await getTrueFalse()
             await getMultipleChoice()
             await getMismatchedDuo()
-            
+
             questionList = Array(questionList.shuffled().prefix(3))
         }
     }
-    
+
     func getExplains() async {
         let explainsData = await RedMindWarService().getExplains()
-        //explains = explainsData
+        // explains = explainsData
     }
-    
+
     func getQuestionAnswer() async {
         let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
@@ -216,10 +210,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             questionType: RedQuestionSectionEnum.questionAnswer.collectionName,
             responseType: QuestionAnswerModel.self
         )
-        
-       // questionList.append(contentsOf: questions)
+
+        // questionList.append(contentsOf: questions)
     }
-    
+
     func getMultipleChoice() async {
         let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
@@ -227,10 +221,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             questionType: RedQuestionSectionEnum.multipleChoice.collectionName,
             responseType: MultipleChoiceModel.self
         )
-        
-        //questionList.append(contentsOf: questions)
+
+        // questionList.append(contentsOf: questions)
     }
-    
+
     func getTrueFalse() async {
         let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
@@ -238,10 +232,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             questionType: RedQuestionSectionEnum.trueFalse.collectionName,
             responseType: TrueFalseModel.self
         )
-        
-        //questionList.append(contentsOf: questions)
+
+        // questionList.append(contentsOf: questions)
     }
-    
+
     func getMismatchedDuo() async {
         let part = info?.parts.randomElement() ?? "01"
         let questions = await service.getQuestions(
@@ -249,10 +243,10 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             questionType: RedQuestionSectionEnum.mismatchedDuo.collectionName,
             responseType: MismatchedDuoModel.self
         )
-        
-       //questionList.append(contentsOf: questions)
+
+        // questionList.append(contentsOf: questions)
     }
-    
+
     func increaseCorrectAnswerCount(questionId: String, questionType: String, questionPart: String) async {
         await service.increaseAnswerCount(
             questionId: questionId,
@@ -261,7 +255,7 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
             field: "correctAnswers"
         )
     }
-    
+
     func increaseInCorrectAnswerCount(questionId: String, questionType: String, questionPart: String) async {
         await service.increaseAnswerCount(
             questionId: questionId,
@@ -271,4 +265,3 @@ class PlaySoloRedMindWarViewModel: BaseViewModel, ObservableObject {
         )
     }
 }
-

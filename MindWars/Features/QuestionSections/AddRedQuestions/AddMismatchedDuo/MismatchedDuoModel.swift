@@ -1,12 +1,12 @@
 //
-//  AddMismatchedDuoModel.swift
+//  MismatchedDuoModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 12.01.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 struct MismatchedDuoModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?
@@ -21,7 +21,6 @@ struct MismatchedDuoModel: BaseQuestionModel, Codable {
     var time: Int
     let translations: MismatchedDuoQuestionModel
     let imageUrl: String?
-    
 }
 
 struct MismatchedDuoQuestionModel: Codable {

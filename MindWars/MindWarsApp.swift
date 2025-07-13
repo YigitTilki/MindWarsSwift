@@ -5,32 +5,29 @@
 //  Created by Yiğit Tilki on 18.12.2024.
 //
 
-import SwiftUI
 import FirebaseCore
-
+import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-    FirebaseApp.configure()
+    func application(_: UIApplication,
+                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
+    {
+        FirebaseApp.configure()
 
-    return true
-  }
+        return true
+    }
 }
 
 @main
 struct MindWarsApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var languageSettings = Language()
-    
+
     var body: some Scene {
-        
         WindowGroup {
             SplashView()
                 .environment(languageSettings)
                 .environment(\.locale, languageSettings.locale)
-                
         }
     }
 }
-

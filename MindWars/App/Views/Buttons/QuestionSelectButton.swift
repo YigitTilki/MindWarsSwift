@@ -1,5 +1,5 @@
 //
-//  QuestionButton.swift
+//  QuestionSelectButton.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 26.02.2025.
@@ -37,5 +37,5 @@ struct QuestionSelectButton: View {
 }
 
 #Preview {
-    QuestionSelectButton(prefix: "A-", title: "Hello World",isSelected: true,action: {})
+    QuestionSelectButton(prefix: "A-", title: "Hello World", isSelected: true, action: {})
 }

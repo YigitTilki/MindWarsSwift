@@ -5,8 +5,8 @@
 //  Created by Yiğit Tilki on 10.01.2025.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
     @Binding var selectedImage: UIImage?
@@ -21,7 +21,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
+    func updateUIViewController(_: PHPickerViewController, context _: Context) {}
 
     func makeCoordinator() -> Coordinator {
         Coordinator(self)

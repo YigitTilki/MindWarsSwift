@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct SelectableButton: View {
-    
     let title: LocalizedStringKey
     let isSelected: Bool
     var selectedColor: Color?

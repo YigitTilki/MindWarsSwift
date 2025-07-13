@@ -10,26 +10,23 @@ import SwiftUI
 struct QuestionSectionView: View {
     @StateObject var vm = QuestionSectionViewModel()
     let sectionId: String
-    
+
     var body: some View {
-            VStack{
-                List {
-                    ForEach(vm.questionSections) { section in
-                        NavigationLink(section.name, destination: {
-                            AddRedQuestionsView(sectionId: section.id)
-                        })
-                            
-                            
-                    }
+        VStack {
+            List {
+                ForEach(vm.questionSections) { section in
+                    NavigationLink(section.name, destination: {
+                        AddRedQuestionsView(sectionId: section.id)
+                    })
                 }
-                .navigationBarTitleDisplayMode(.large)
-                .navigationTitle("Sections")
             }
-        
+            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("Sections")
+        }
+
         .task {
             await vm.getQuestionSections(sectionId: sectionId)
         }
-        
     }
 }
 

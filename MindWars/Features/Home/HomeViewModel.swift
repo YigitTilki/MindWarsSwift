@@ -5,13 +5,10 @@
 //  Created by Yiğit Tilki on 21.12.2024.
 //
 
-import FirebaseFirestore
 import Combine
+import FirebaseFirestore
 
 @MainActor
-class HomeViewModel: AddRedQuestionsBaseViewModel,ObservableObject {
-
+class HomeViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
     @Published var message: MessageModel?
-    
-    
 }

@@ -5,8 +5,8 @@
 //  Created by Yiğit Tilki on 7.01.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 struct AnswerQuestionModel: Identifiable, Codable {
     @DocumentID var id: String?

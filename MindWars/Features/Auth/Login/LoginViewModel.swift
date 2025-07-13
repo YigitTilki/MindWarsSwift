@@ -1,5 +1,5 @@
 //
-//  EmailViewModel.swift
+//  LoginViewModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 21.12.2024.
@@ -11,56 +11,72 @@ import UIKit
 
 @MainActor
 class LoginViewModel: BaseViewModel, ObservableObject {
-    
     @Published var email: String = ""
-    @Published var emailError: LocalizedStringKey?
-    
     @Published var password: String = ""
-    @Published var passwordError: LocalizedStringKey?
-    
+    @Published var isValid: Bool = false
     @Published var navigate: Bool = false
+
+    private let authRepository: AuthRepositoryProtocol
+
+    private var realmDatabase: RealmDatabaseProtocol
     
-    //MARK: - Login Button Process
-    func handleContinueButton() async {
-        let validate = validate()
-        if !validate {
-            return
-        }
-    
+    //MARK: - Init
+    init(
+        realm: RealmDatabaseProtocol = RealmDatabase(),
+        authRepository: AuthRepositoryProtocol = AuthRepository()
+    ) {
+        self.realmDatabase = realm
+        self.authRepository = authRepository
+    }
+
+    // MARK: - Clear Fields
+    private func clearForm() {
+        email = ""
+        password = ""
+    }
+
+    // MARK: - Validation
+    private func validate() -> Bool {
+        isValid = !email.isEmpty && !password.isEmpty
+
+        return isValid
+    }
+
+    //MARK: - Login Button Action
+    func onTapLogin() async {
+        guard validate() else { return }
         UIKitFunctions().dismissKeyboard()
-        
-        await performLoadingTask  { [self] in
-            let result = await AuthService.signIn(email: email, password: password)
-            
-            switch result {
-            case .success(_):
-                self.navigate = true
-                clearForm()
-                
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.error = error.localizedDescription
-            }
+
+        await performLoadingTask { [self] in
+           await loginUser()
         }
     }
     
-    //MARK: - Clear Fields
-    func clearForm() {
-        self.error = nil
-        self.email = ""
-        self.password = ""
+    //MARK: - Login User
+    private func loginUser() async {
+        let model = AuthUserPostModel(email: email, password: password)
+        let result = await authRepository.signIn(model: model)
+
+        switch result {
+
+        case .success(let data):
+            saveToken(data: data)
+            clearForm()
+            self.navigate = true
+            
+        case .failure(_):
+            break
+        }
     }
     
-    //MARK: - Validation
-    func validate() -> Bool {
-        emailError = Validator.validateEmail(email)
-        passwordError = Validator.validatePassword(password)
-        
-        return [emailError, passwordError].allSatisfy { $0 == nil }
+    //MARK: - Save User Token to Realm Database
+    private func saveToken(data: AuthUserResponseModel) {
+        let token = TokenModel()
+        token.idToken = data.idToken
+        token.refreshToken = data.refreshToken
+        token.expiresIn = data.expiresIn
+
+        realmDatabase.add(model: token)
     }
-    
-    
+
 }
-
-
-

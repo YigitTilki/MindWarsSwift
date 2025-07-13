@@ -1,12 +1,12 @@
 //
-//  AddTrueFalseModel.swift
+//  TrueFalseModel.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 11.01.2025.
 //
 
-import Foundation
 import FirebaseFirestore
+import Foundation
 
 struct TrueFalseModel: BaseQuestionModel, Codable {
     @DocumentID var id: String?

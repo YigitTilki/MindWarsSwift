@@ -15,13 +15,13 @@ struct MultipleChoiceView: View {
         VStack {
             Text(question.translations.tr.question)
                 .questionText()
-            
+
             ForEach(Array(question.translations.tr.answers.enumerated()), id: \.element) { index, answer in
                 QuestionSelectButton(
                     prefix: "\(answerPrefixes[index]) -",
                     title: answer,
                     isSelected: self.answer == index,
-                    action: {self.answer = index}
+                    action: { self.answer = index }
                 )
             }
         }
@@ -29,7 +29,7 @@ struct MultipleChoiceView: View {
 }
 
 #Preview {
-    MultipleChoiceView(question: mockMultipleChoiceModel,answer: .constant(0))
+    MultipleChoiceView(question: mockMultipleChoiceModel, answer: .constant(0))
 }
 
 let mockMultipleChoiceModel = MultipleChoiceModel(
