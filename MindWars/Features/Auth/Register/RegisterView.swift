@@ -46,8 +46,8 @@ struct RegisterView: View {
 
     func goLoginRow() -> some View {
         HStack {
-            Text("already_have_an_account")
-            NavigationLink("sign_in", destination: {
+            Text(LocaleKeys.Register.ahaacc.localized)
+            NavigationLink(LocaleKeys.signIn.localized, destination: {
                 LoginView()
             })
         }
@@ -59,7 +59,7 @@ struct RegisterView: View {
 
     func userNameField() -> some View {
         VStack {
-            TextField("username", text: $vm.userName)
+            TextField(LocaleKeys.userName.localized, text: $vm.userName)
                 .appTextField()
             if let error = vm.userNameError {
                 Text(error).foregroundColor(.red)
@@ -71,7 +71,7 @@ struct RegisterView: View {
 
     func emailField() -> some View {
         VStack {
-            TextField("email", text: $vm.email)
+            TextField(LocaleKeys.email.localized, text: $vm.email)
                 .appTextField()
             if let error = vm.emailError {
                 Text(error).foregroundColor(.red)
@@ -83,7 +83,7 @@ struct RegisterView: View {
 
     func passwordField() -> some View {
         VStack {
-            TextField("password", text: $vm.password)
+            TextField(LocaleKeys.password.localized, text: $vm.password)
                 .appTextField()
             if let error = vm.passwordError {
                 Text(error).foregroundColor(.red)
@@ -95,7 +95,7 @@ struct RegisterView: View {
 
     func rePasswordField() -> some View {
         VStack {
-            TextField("re_password", text: $vm.rePassword)
+            TextField(LocaleKeys.rePassword.localized, text: $vm.rePassword)
                 .appTextField()
                 .disabled(vm.password.isEmpty)
             if let error = vm.rePasswordError {
@@ -108,7 +108,7 @@ struct RegisterView: View {
 
     func datePickerField() -> some View {
         VStack {
-            DatePicker("birth_date", selection: $vm.birthDate, displayedComponents: .date)
+            DatePicker(LocaleKeys.birthDate.localized, selection: $vm.birthDate, displayedComponents: .date)
                 .datePickerStyle(.compact)
                 .padding(.vertical)
             if let error = vm.birthDateError {
@@ -123,7 +123,7 @@ struct RegisterView: View {
         HStack {
             Spacer()
             AppButton(
-                title: "sign_up",
+                title: LocaleKeys.userName.localized,
                 backgroundColor: vm.isFieldsEmpty ? .gray : .blue,
                 action: {
                     Task {
@@ -139,9 +139,9 @@ struct RegisterView: View {
 
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
-            Text("lets_sign_up")
+            Text(LocaleKeys.Register.letsSignUp.localized)
                 .font(.title)
-            Text("enter_your_credentials_to_sign_up")
+            Text(LocaleKeys.Register.eyctsu.localized)
                 .font(.callout)
         }
     }
