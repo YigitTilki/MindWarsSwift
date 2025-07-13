@@ -13,17 +13,17 @@ struct LoginView: View {
     var body: some View {
         CommonBackgroundView {
             VStack(alignment: .leading) {
+                Spacer()
                 descriptionTitle()
                 emailTextField()
                 passwordTextField()
                 continueButton()
                 goRegisterRow()
+
             }
-            .padding()
+            .padding(15)
             .navigationBarBackButtonHidden(true)
-            .navigationDestination(isPresented: $vm.navigate) {
-                HomeView()
-            }
+            .navigationDestination(isPresented: $vm.navigate) { HomeView() }
 
             if vm.isLoading {
                 LoadingView()
@@ -32,75 +32,66 @@ struct LoginView: View {
     }
 
     // MARK: - Description
-
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
             Text(LocaleKeys.Login.letsPlay.localized)
-                .font(.title)
-                .fontWeight(.medium)
+                .font(.system(size: 36, weight: .semibold))
             Text(LocaleKeys.Login.emww.localized)
-                .font(.title3)
+                .font(.system(size: 20, weight: .regular))
         }
     }
 
     // MARK: - Email Field
-
     func emailTextField() -> some View {
-        VStack(alignment: .leading) {
-            TextField(LocaleKeys.email.localized, text: $vm.email)
-                .appTextField()
-                .keyboardType(.emailAddress)
-        }
+        TextField(LocaleKeys.email.localized, text: $vm.email)
+            .modifier(TextFieldViewModifier(keyboardType: .emailAddress))
     }
 
     // MARK: - PasswordField
-
     func passwordTextField() -> some View {
         VStack(alignment: .leading) {
-            TextField(LocaleKeys.password.localized, text: $vm.password)
-                .appTextField()
+            SecureField(LocaleKeys.password.localized, text: $vm.password)
+                .modifier(TextFieldViewModifier())
 
-//            if let error = !vm.isValid {
-//                Text(error).foregroundColor(.red)
-//            }
+            Text(vm.errorMessage ?? "").foregroundColor(.red)
+
         }
     }
 
     // MARK: - Login Button
-
     func continueButton() -> some View {
-        HStack {
+        let isDisabled = vm.email.isEmpty || vm.password.isEmpty
+
+        return HStack {
             Spacer()
-            AppButton(
-                title: LocaleKeys.continueValue.localized,
-                backgroundColor: vm.email.isEmpty || vm.password.isEmpty ? .gray : .blue,
-                action: {
-                    Task {
-                        await vm.onTapLogin()
-                    }
-                }
-            )
-            .disabled(vm.email.isEmpty || vm.password.isEmpty)
+            Button(LocaleKeys.continueValue.localized) {
+                Task { await vm.onTapLogin() }
+            }
+            .buttonStyle(AuthButtonStyle(isDisabled: isDisabled))
+            .disabled(isDisabled)
         }
     }
 
     // MARK: - Go Register Row
-
     func goRegisterRow() -> some View {
         HStack {
             Text(LocaleKeys.Login.dhacc.localized)
+                .font(.system(size: 16, weight: .regular))
 
-            NavigationLink(LocaleKeys.signUp.localized, destination: {
-                RegisterView()
-            })
+            NavigationLink(
+                LocaleKeys.signUp.localized,
+                destination: { RegisterView() }
+            )
+            .foregroundStyle(.clickBlue)
+            .font(.system(size: 16, weight: .regular))
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.top, 50)
+        .padding(.top, 60)
+        .padding(.bottom, 100)
     }
 }
 
 // MARK: - Preview
-
 #Preview {
     LoginView()
 }

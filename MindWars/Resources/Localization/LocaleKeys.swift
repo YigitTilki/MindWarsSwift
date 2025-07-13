@@ -23,6 +23,7 @@ enum LocaleKeys: String, Localizable {
         case letsPlay = "lets_play"
         case emww = "enter_mind_wars_world"
         case dhacc = "dont_have_an_account"
+        case invalideop = "invalid_email_or_password"
     }
     
    
