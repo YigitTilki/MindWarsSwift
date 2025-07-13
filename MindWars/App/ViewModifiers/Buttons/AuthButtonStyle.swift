@@ -11,7 +11,7 @@ struct AuthButtonStyle: ButtonStyle {
     var backgroundColor: Color = .clickBlue
     var foregroundColor: Color = .white
     var cornerRadius: CGFloat = 5
-    var font: Font = .system(size: 16, weight: .regular)
+    var font: Font = AppFont.button
     var isDisabled: Bool = false
 
     func makeBody(configuration: Configuration) -> some View {

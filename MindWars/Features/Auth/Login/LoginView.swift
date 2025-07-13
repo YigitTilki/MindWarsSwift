@@ -35,9 +35,9 @@ struct LoginView: View {
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
             Text(LocaleKeys.Login.letsPlay.localized)
-                .font(.system(size: 36, weight: .semibold))
+                .font(AppFont.title)
             Text(LocaleKeys.Login.emww.localized)
-                .font(.system(size: 20, weight: .regular))
+                .font(AppFont.subtitle)
         }
     }
 
@@ -53,7 +53,7 @@ struct LoginView: View {
             SecureField(LocaleKeys.password.localized, text: $vm.password)
                 .modifier(TextFieldViewModifier())
 
-            Text(vm.errorMessage ?? "").foregroundColor(.red)
+            Text(vm.errorMessage ?? "").modifier(ValidationErrorViewModifier())
 
         }
     }
@@ -70,20 +70,21 @@ struct LoginView: View {
             .buttonStyle(AuthButtonStyle(isDisabled: isDisabled))
             .disabled(isDisabled)
         }
+        .padding(.top, 10)
     }
 
     // MARK: - Go Register Row
     func goRegisterRow() -> some View {
         HStack {
             Text(LocaleKeys.Login.dhacc.localized)
-                .font(.system(size: 16, weight: .regular))
+                .font(AppFont.body1)
 
             NavigationLink(
                 LocaleKeys.signUp.localized,
                 destination: { RegisterView() }
             )
             .foregroundStyle(.clickBlue)
-            .font(.system(size: 16, weight: .regular))
+            .font(AppFont.body1)
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 60)

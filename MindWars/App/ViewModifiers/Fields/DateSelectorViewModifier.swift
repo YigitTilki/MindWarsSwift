@@ -1,5 +1,5 @@
 //
-//  TextFieldViewModifier.swift
+//  DateSelectorViewModifier.swift
 //  MindWars
 //
 //  Created by Yiğit Tilki on 13.07.2025.
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct TextFieldViewModifier: ViewModifier {
+struct DateSelectorViewModifier: ViewModifier {
     var keyboardType: UIKeyboardType = .default
 
     func body(content: Content) -> some View {
         content
-            .padding(15)
-            .font(AppFont.body2)
+            .padding(.vertical, 8)
+            .padding(.horizontal, 15)
+            .font(.system(size: 14, weight: .light))
             .background(.white)
             .foregroundStyle(.mainGrey)
             .overlay(
@@ -25,5 +26,3 @@ struct TextFieldViewModifier: ViewModifier {
             .keyboardType(keyboardType)
     }
 }
-
-
