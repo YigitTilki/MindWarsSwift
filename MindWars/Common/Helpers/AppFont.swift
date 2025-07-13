@@ -9,7 +9,9 @@ import SwiftUI
 
 enum AppFont {
     static let title = Font.system(size: 36, weight: .semibold)
+    static let bigTitle = Font.system(size: 48, weight: .semibold)
     static let subtitle = Font.system(size: 20, weight: .regular)
+    static let button2 = Font.system(size: 24, weight: .semibold)
     static let button = Font.system(size: 16, weight: .medium)
     static let body1 = Font.system(size: 16, weight: .regular)
     static let body2 = Font.system(size: 14, weight: .light)
