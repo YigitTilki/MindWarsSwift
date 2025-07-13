@@ -25,9 +25,10 @@ struct MindWarsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            SplashView()
-                .environment(languageSettings)
-                .environment(\.locale, languageSettings.locale)
+            OnBoardingView()
+//            SplashView()
+//                .environment(languageSettings)
+//                .environment(\.locale, languageSettings.locale)
         }
     }
 }

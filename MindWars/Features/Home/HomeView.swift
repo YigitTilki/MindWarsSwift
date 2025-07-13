@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(Language.self) var languageManager
+//    @Environment(Language.self) var languageManager
     @State private var isPresented = false
 
     @StateObject private var viewModel = HomeViewModel()
@@ -33,7 +33,7 @@ struct HomeView: View {
                     })
                 }
             }
-            .languageSelectionDialog(isPresented: $isPresented, languageManager: languageManager)
+//            .languageSelectionDialog(isPresented: $isPresented, languageManager: languageManager)
             .navigationDestination(isPresented: $showAlert, destination: { PlaySoloRedMindWarView() })
         }
     }
@@ -41,5 +41,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environment(Language())
+       // .environment(Language())
 }
