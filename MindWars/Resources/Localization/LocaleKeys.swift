@@ -17,13 +17,25 @@ enum LocaleKeys: String, Localizable {
     case signUp = "sign_up"
     case email = "email"
     case password = "password"
+    case birthDate = "birth_date"
+    case rePassword = "re_password"
+    case userName = "username"
+    case signIn = "sign_in"
     
 
     enum Login: String, Localizable {
         case letsPlay = "lets_play"
         case emww = "enter_mind_wars_world"
         case dhacc = "dont_have_an_account"
+        case invalideop = "invalid_email_or_password"
     }
+    
+    enum Register: String, Localizable {
+        case letsSignUp = "lets_sign_up"
+        case eyctsu = "enter_your_credentials_to_sign_up"
+        case ahaacc = "already_have_an_account"
+    }
+    
     
    
 }

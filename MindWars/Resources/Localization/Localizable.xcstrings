@@ -1,6 +1,28 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "already_have_an_account" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already Have An Account?"
+          }
+        }
+      }
+    },
+    "birth_date" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Birth Date"
+          }
+        }
+      }
+    },
     "continue" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -51,17 +73,27 @@
         }
       }
     },
-    "Key 4" : {
-      "extractionState" : "manual"
+    "enter_your_credentials_to_sign_up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ENTER YOUR CREDENTIALS TO SIGN UP"
+          }
+        }
+      }
     },
-    "Key 5" : {
-      "extractionState" : "manual"
-    },
-    "Key 6" : {
-      "extractionState" : "manual"
-    },
-    "Key 7" : {
-      "extractionState" : "manual"
+    "invalid_email_or_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid E-Mail or Password"
+          }
+        }
+      }
     },
     "lets_play" : {
       "extractionState" : "manual",
@@ -70,6 +102,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "LET’S PLAY"
+          }
+        }
+      }
+    },
+    "lets_sign_up" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "LET’S SIGN UP"
           }
         }
       }
@@ -85,6 +128,28 @@
         }
       }
     },
+    "re_password" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Re-Password"
+          }
+        }
+      }
+    },
+    "sign_in" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        }
+      }
+    },
     "sign_up" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -92,6 +157,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sign Up"
+          }
+        }
+      }
+    },
+    "username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
           }
         }
       }

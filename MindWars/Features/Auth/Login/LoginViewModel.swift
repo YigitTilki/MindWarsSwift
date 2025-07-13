@@ -13,11 +13,11 @@ import UIKit
 class LoginViewModel: BaseViewModel, ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
-    @Published var isValid: Bool = false
     @Published var navigate: Bool = false
-
+    @Published var errorMessage: String?
+    
+    private var isValid: Bool = false
     private let authRepository: AuthRepositoryProtocol
-
     private var realmDatabase: RealmDatabaseProtocol
     
     //MARK: - Init
@@ -38,7 +38,7 @@ class LoginViewModel: BaseViewModel, ObservableObject {
     // MARK: - Validation
     private func validate() -> Bool {
         isValid = !email.isEmpty && !password.isEmpty
-
+            
         return isValid
     }
 
@@ -65,6 +65,7 @@ class LoginViewModel: BaseViewModel, ObservableObject {
             self.navigate = true
             
         case .failure(_):
+            errorMessage = LocaleKeys.Login.invalideop.localized
             break
         }
     }

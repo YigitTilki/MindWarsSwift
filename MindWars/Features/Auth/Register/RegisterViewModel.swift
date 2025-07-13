@@ -123,6 +123,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
             clearForm()
             navigateToHome = true
         case .failure(let error):
+            //TODO: add dialog
             print("Firestore Error: \(error.localizedDescription)")
         }
     }

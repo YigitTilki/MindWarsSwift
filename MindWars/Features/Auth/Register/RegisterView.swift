@@ -13,6 +13,7 @@ struct RegisterView: View {
     var body: some View {
         CommonBackgroundView {
             VStack(alignment: .leading) {
+                Spacer()
                 descriptionTitle()
                 fields()
                 signUpButton()
@@ -46,23 +47,30 @@ struct RegisterView: View {
 
     func goLoginRow() -> some View {
         HStack {
-            Text("already_have_an_account")
-            NavigationLink("sign_in", destination: {
-                LoginView()
-            })
+            Text(LocaleKeys.Register.ahaacc.localized)
+                .font(AppFont.body1)
+            NavigationLink(
+                LocaleKeys.signIn.localized,
+                destination: {
+                    LoginView()
+                }
+            )
+            .foregroundStyle(.clickBlue)
+            .font(AppFont.body1)
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.top, 50)
+        .padding(.top, 60)
+        .padding(.bottom, 100)
     }
 
     // MARK: - User Name Field
 
     func userNameField() -> some View {
-        VStack {
-            TextField("username", text: $vm.userName)
-                .appTextField()
+        VStack(alignment: .leading) {
+            TextField(LocaleKeys.userName.localized, text: $vm.userName)
+                .modifier(TextFieldViewModifier())
             if let error = vm.userNameError {
-                Text(error).foregroundColor(.red)
+                Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
@@ -70,11 +78,11 @@ struct RegisterView: View {
     // MARK: - Email Field
 
     func emailField() -> some View {
-        VStack {
-            TextField("email", text: $vm.email)
-                .appTextField()
+        VStack(alignment: .leading) {
+            TextField(LocaleKeys.email.localized, text: $vm.email)
+                .modifier(TextFieldViewModifier())
             if let error = vm.emailError {
-                Text(error).foregroundColor(.red)
+                Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
@@ -82,11 +90,11 @@ struct RegisterView: View {
     // MARK: - Password Field
 
     func passwordField() -> some View {
-        VStack {
-            TextField("password", text: $vm.password)
-                .appTextField()
+        VStack(alignment: .leading) {
+            TextField(LocaleKeys.password.localized, text: $vm.password)
+                .modifier(TextFieldViewModifier())
             if let error = vm.passwordError {
-                Text(error).foregroundColor(.red)
+                Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
@@ -94,12 +102,12 @@ struct RegisterView: View {
     // MARK: - Re-Password Field
 
     func rePasswordField() -> some View {
-        VStack {
-            TextField("re_password", text: $vm.rePassword)
-                .appTextField()
+        VStack(alignment: .leading) {
+            TextField(LocaleKeys.rePassword.localized, text: $vm.rePassword)
+                .modifier(TextFieldViewModifier())
                 .disabled(vm.password.isEmpty)
             if let error = vm.rePasswordError {
-                Text(error).foregroundColor(.red)
+                Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
@@ -107,12 +115,17 @@ struct RegisterView: View {
     // MARK: - Date Picker Field
 
     func datePickerField() -> some View {
-        VStack {
-            DatePicker("birth_date", selection: $vm.birthDate, displayedComponents: .date)
-                .datePickerStyle(.compact)
-                .padding(.vertical)
+        VStack(alignment: .leading) {
+            DatePicker(
+                LocaleKeys.birthDate.localized,
+                selection: $vm.birthDate,
+                displayedComponents: .date
+            )
+            .datePickerStyle(.compact)
+            .modifier(DateSelectorViewModifier())
+
             if let error = vm.birthDateError {
-                Text(error).foregroundColor(.red)
+                Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
@@ -122,27 +135,23 @@ struct RegisterView: View {
     func signUpButton() -> some View {
         HStack {
             Spacer()
-            AppButton(
-                title: "sign_up",
-                backgroundColor: vm.isFieldsEmpty ? .gray : .blue,
-                action: {
-                    Task {
-                        await vm.onTapSignUp()
-                    }
-                }
-            )
+            Button(LocaleKeys.signUp.localized) {
+                Task { await vm.onTapSignUp() }
+            }
+            .buttonStyle(AuthButtonStyle(isDisabled: vm.isFieldsEmpty))
             .disabled(vm.isFieldsEmpty)
         }
+        .padding(.top, 10)
     }
 
     // MARK: - Description
 
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
-            Text("lets_sign_up")
-                .font(.title)
-            Text("enter_your_credentials_to_sign_up")
-                .font(.callout)
+            Text(LocaleKeys.Register.letsSignUp.localized)
+                .font(AppFont.title)
+            Text(LocaleKeys.Register.eyctsu.localized)
+                .font(AppFont.subtitle)
         }
     }
 }
