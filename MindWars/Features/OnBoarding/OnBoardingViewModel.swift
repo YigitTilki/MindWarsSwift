@@ -24,7 +24,7 @@ class OnBoardingViewModel: BaseViewModel, ObservableObject {
         self.authRepository = authRepository
     }
 
-    private func getToken() -> TokenModel? {
+    private func getToken() -> StorageTokenModel? {
         return realmDatabase.getItem(key: StorageKeys.authToken.rawValue)
     }
 
@@ -53,7 +53,7 @@ class OnBoardingViewModel: BaseViewModel, ObservableObject {
     }
     
     private func saveToken(data: TokenResponseModel) {
-        let token = TokenModel()
+        let token = StorageTokenModel()
         token.idToken = data.idToken
         token.refreshToken = data.refreshToken
         token.expiresIn = data.expiresIn

@@ -14,7 +14,7 @@ class NetworkManager: NetworkManagerProtocol {
         path: String,
         type _: T.Type,
         headers: HTTPHeaders? = nil
-    ) async -> Result<T?, Error> {
+    ) async -> Result<T, Error> {
         let dataRequest = AF.request(
             "\(baseUrl)\(path)",
             method: .get,

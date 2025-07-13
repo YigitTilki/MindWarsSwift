@@ -93,7 +93,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
 
     //MARK: - Save User Token to Realm Database
     private func saveToken(data: AuthUserResponseModel) {
-        let token = TokenModel()
+        let token = StorageTokenModel()
         token.idToken = data.idToken
         token.refreshToken = data.refreshToken
         token.expiresIn = data.expiresIn
@@ -105,7 +105,7 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
     private func handleAuthSuccess(data: AuthUserResponseModel) async {
         saveToken(data: data)
 
-        let userCredentials = CreateFirestoreUserModel(
+        let userCredentials = FirestoreUserPostModel(
             id: data.localId,
             email: data.email,
             userName: userName,
@@ -119,12 +119,34 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
         )
 
         switch result {
-        case .success:
+        case .success(let data):
+            saveUser(data: data)
             clearForm()
             navigateToHome = true
         case .failure(let error):
             //TODO: add dialog
             print("Firestore Error: \(error.localizedDescription)")
         }
+    }
+    
+//    private func getUser(userId: String, token: String) async {
+//        let result = await authRepository.getFirestoreUser(userId: userId, token: token)
+//        
+//        switch result {
+//        case .success(let data):
+//            saveUser(data: data)
+//        case .failure(let error):
+//            print("Firestore Error: \(error.localizedDescription)")
+//        }
+//    }
+    
+    private func saveUser(data: FirestoreResponseModel<FirestoreUserPostModel>) {
+        let storage = StorageUserModel()
+        storage.userId = data.fields.id
+        storage.email = data.fields.email
+        storage.birthDate = data.fields.birthDate
+        storage.username = data.fields.userName
+
+        realmDatabase.add(model: storage)
     }
 }

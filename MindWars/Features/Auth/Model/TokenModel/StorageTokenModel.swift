@@ -8,8 +8,8 @@
 import RealmSwift
 import Foundation
 
-final class TokenModel: Object {
-    @Persisted(primaryKey: true) var id: String = "auth_token"
+final class StorageTokenModel: Object {
+    @Persisted(primaryKey: true) var keyId: String = "auth_token"
     @Persisted var idToken: String
     @Persisted var refreshToken: String
     @Persisted var expiresIn: String

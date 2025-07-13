@@ -58,15 +58,28 @@ struct AuthRepository: AuthRepositoryProtocol {
         return response
     }
 
-    func createFirestoreUser(model: FirestorePostModel<CreateFirestoreUserModel>, token: String) async
-        -> Result<FirestoreResponseModel<CreateFirestoreUserModel>, Error>
+    func createFirestoreUser(model: FirestorePostModel<FirestoreUserPostModel>, token: String) async
+        -> Result<FirestoreResponseModel<FirestoreUserPostModel>, Error>
     {
-        let path = "users/"
+        let path = "users?documentId=\(model.fields.id)"
         let response = await networkManager.post(
             baseUrl: Env.fireStoreBaseUrl,
             path: path,
             model: model,
-            type: FirestoreResponseModel<CreateFirestoreUserModel>.self,
+            type: FirestoreResponseModel<FirestoreUserPostModel>.self,
+            headers: ["Authorization": "Bearer \(token)"]
+        )
+        return response
+    }
+    
+    func getFirestoreUser(userId: String, token: String) async
+        -> Result<FirestoreResponseModel<FirestoreUserResponseModel>, Error>
+    {
+        let path = "users?documentId=\(userId)"
+        let response = await networkManager.get(
+            baseUrl: Env.fireStoreBaseUrl,
+            path: path,
+            type: FirestoreResponseModel<FirestoreUserResponseModel>.self,
             headers: ["Authorization": "Bearer \(token)"]
         )
         return response
