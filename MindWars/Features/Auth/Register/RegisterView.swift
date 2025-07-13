@@ -32,7 +32,6 @@ struct RegisterView: View {
     }
 
     // MARK: - All Fields
-
     func fields() -> some View {
         VStack {
             userNameField()
@@ -44,7 +43,6 @@ struct RegisterView: View {
     }
 
     // MARK: - Go Login Row
-
     func goLoginRow() -> some View {
         HStack {
             Text(LocaleKeys.Register.ahaacc.localized)
@@ -64,7 +62,6 @@ struct RegisterView: View {
     }
 
     // MARK: - User Name Field
-
     func userNameField() -> some View {
         VStack(alignment: .leading) {
             TextField(LocaleKeys.userName.localized, text: $vm.userName)
@@ -76,7 +73,6 @@ struct RegisterView: View {
     }
 
     // MARK: - Email Field
-
     func emailField() -> some View {
         VStack(alignment: .leading) {
             TextField(LocaleKeys.email.localized, text: $vm.email)
@@ -88,11 +84,11 @@ struct RegisterView: View {
     }
 
     // MARK: - Password Field
-
     func passwordField() -> some View {
         VStack(alignment: .leading) {
             TextField(LocaleKeys.password.localized, text: $vm.password)
                 .modifier(TextFieldViewModifier())
+            
             if let error = vm.passwordError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
@@ -100,7 +96,6 @@ struct RegisterView: View {
     }
 
     // MARK: - Re-Password Field
-
     func rePasswordField() -> some View {
         VStack(alignment: .leading) {
             TextField(LocaleKeys.rePassword.localized, text: $vm.rePassword)
@@ -113,7 +108,6 @@ struct RegisterView: View {
     }
 
     // MARK: - Date Picker Field
-
     func datePickerField() -> some View {
         VStack(alignment: .leading) {
             DatePicker(
@@ -131,21 +125,19 @@ struct RegisterView: View {
     }
 
     // MARK: - Sign Up Button
-
     func signUpButton() -> some View {
         HStack {
             Spacer()
             Button(LocaleKeys.signUp.localized) {
                 Task { await vm.onTapSignUp() }
             }
-            .buttonStyle(AuthButtonStyle(isDisabled: vm.isFieldsEmpty))
+            .buttonStyle(AppButtonStyle(isDisabled: vm.isFieldsEmpty))
             .disabled(vm.isFieldsEmpty)
         }
         .padding(.top, 10)
     }
 
     // MARK: - Description
-
     func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
             Text(LocaleKeys.Register.letsSignUp.localized)
@@ -157,7 +149,6 @@ struct RegisterView: View {
 }
 
 // MARK: - Preview
-
 #Preview {
     RegisterView()
 }
