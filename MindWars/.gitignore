@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/swiftpackagemanager,swift,xcode,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=swiftpackagemanager,swift,xcode,macos
 
+# Env File
+Resources/Config/Env.swift
+
+
 ### macOS ###
 # General
 .DS_Store
@@ -138,7 +142,5 @@ xcuserdata
 !*.xcodeproj/xcshareddata/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
-
-Env.swift
 
 # End of https://www.toptal.com/developers/gitignore/api/swiftpackagemanager,swift,xcode,macos
