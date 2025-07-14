@@ -9,9 +9,11 @@ import FirebaseCore
 import SwiftUI
 
 class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_: UIApplication,
-                     didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool
-    {
+    func application(
+        _: UIApplication,
+        didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey:
+            Any]? = nil
+    ) -> Bool {
         FirebaseApp.configure()
 
         return true
@@ -21,14 +23,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct MindWarsApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var languageSettings = Language()
 
     var body: some Scene {
         WindowGroup {
             OnBoardingView()
-//            SplashView()
-//                .environment(languageSettings)
-//                .environment(\.locale, languageSettings.locale)
         }
     }
 }
