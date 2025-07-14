@@ -10,5 +10,21 @@ import FirebaseFirestore
 
 @MainActor
 class HomeViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
-    @Published var message: MessageModel?
+    
+    private let authRepository: AuthRepositoryProtocol
+
+    private var realmDatabase: RealmDatabaseProtocol
+
+    //MARK: - Init
+    init(
+        realm: RealmDatabaseProtocol = RealmDatabase(),
+        authRepository: AuthRepositoryProtocol = AuthRepository()
+    ) {
+        self.realmDatabase = realm
+        self.authRepository = authRepository
+    }
+    
+    func getUser() -> StorageUserModel? {
+        return realmDatabase.getItem(key: StorageKeys.userDetails.rawValue)
+    }
 }

@@ -9,5 +9,6 @@ import Foundation
 
 enum StorageKeys: String {
     case authToken = "authToken"
+    case userDetails = "user_details"
     
 }

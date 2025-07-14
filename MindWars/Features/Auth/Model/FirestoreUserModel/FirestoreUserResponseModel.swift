@@ -1,13 +1,13 @@
 //
-//  CreateFirestoreUserResponseModel.swift
+//  FirestoreUserResponseModel.swift
 //  MindWars
 //
-//  Created by Yiğit Tilki on 12.07.2025.
+//  Created by Yiğit Tilki on 13.07.2025.
 //
 
 import Foundation
 
-struct CreateFirestoreUserModel: Codable {
+struct FirestoreUserResponseModel: Codable {
     @FirestoreField var id: String
     @FirestoreField var email: String
     @FirestoreField var userName: String

@@ -72,7 +72,7 @@ class LoginViewModel: BaseViewModel, ObservableObject {
     
     //MARK: - Save User Token to Realm Database
     private func saveToken(data: AuthUserResponseModel) {
-        let token = TokenModel()
+        let token = StorageTokenModel()
         token.idToken = data.idToken
         token.refreshToken = data.refreshToken
         token.expiresIn = data.expiresIn

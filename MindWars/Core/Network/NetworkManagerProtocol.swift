@@ -14,7 +14,7 @@ protocol NetworkManagerProtocol {
         path: String,
         type _: T.Type,
         headers: HTTPHeaders?
-    ) async -> Result<T?, Error>
+    ) async -> Result<T, Error>
     
     func post<T: Codable, R: Encodable>(
         baseUrl: String,
