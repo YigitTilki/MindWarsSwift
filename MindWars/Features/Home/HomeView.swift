@@ -14,7 +14,8 @@ struct HomeView: View {
 
     var body: some View {
             NavigationStack {
-                CommonBackgroundView {
+                ZStack {
+                    AppBackground()
                    
                 }
                 .toolbar {

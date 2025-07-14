@@ -11,7 +11,6 @@ struct OnBoardingView: View {
     @StateObject private var vm = OnBoardingViewModel()
 
     var body: some View {
-        NavigationStack {
             ZStack {
                 AppBackground()
                 pageBody()
@@ -25,8 +24,6 @@ struct OnBoardingView: View {
                 HomeView()
                     .navigationBarBackButtonHidden(true)
             }
-            
-        }
     }
     
     func pageBody() -> some View {
@@ -81,5 +78,7 @@ struct OnBoardingView: View {
 }
 
 #Preview {
-    OnBoardingView()
+    NavigationStack {
+        OnBoardingView()
+    }
 }

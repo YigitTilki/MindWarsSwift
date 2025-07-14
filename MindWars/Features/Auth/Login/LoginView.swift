@@ -11,7 +11,8 @@ struct LoginView: View {
     @StateObject private var vm = LoginViewModel()
 
     var body: some View {
-        CommonBackgroundView {
+        ZStack {
+            AppBackground()
             VStack(alignment: .leading) {
                 Spacer()
                 descriptionTitle()

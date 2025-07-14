@@ -11,7 +11,8 @@ struct RegisterView: View {
     @StateObject private var vm = RegisterViewModel()
 
     var body: some View {
-        CommonBackgroundView {
+        ZStack {
+            AppBackground()
             VStack(alignment: .leading) {
                 Spacer()
                 descriptionTitle()

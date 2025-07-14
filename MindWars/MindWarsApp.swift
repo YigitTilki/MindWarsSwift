@@ -12,7 +12,9 @@ struct MindWarsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            OnBoardingView()
+            NavigationStack {
+                OnBoardingView()
+            }
         }
     }
 }
