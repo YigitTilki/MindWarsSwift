@@ -5,7 +5,6 @@
 //  Created by Yiğit Tilki on 21.12.2024.
 //
 
-import FirebaseAuth
 import Foundation
 import SwiftUICore
 

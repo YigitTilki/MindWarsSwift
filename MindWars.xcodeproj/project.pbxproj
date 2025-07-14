@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		430D3C372E1836460077B733 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 430D3C362E1836460077B733 /* Alamofire */; };
 		4332755F2D15E2D900864551 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 4332755E2D15E2D900864551 /* Lottie */; };
-		434157792D2D913500162130 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 434157782D2D913500162130 /* FirebaseAuth */; };
-		4341577B2D2D913500162130 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4341577A2D2D913500162130 /* FirebaseCore */; };
-		4341577D2D2D913500162130 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 4341577C2D2D913500162130 /* FirebaseFirestore */; };
 		4388CAEF2E228E29002E44C7 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 4388CAEE2E228E29002E44C7 /* RealmSwift */; };
 /* End PBXBuildFile section */
 
@@ -35,9 +32,6 @@
 				430D3C372E1836460077B733 /* Alamofire in Frameworks */,
 				4388CAEF2E228E29002E44C7 /* RealmSwift in Frameworks */,
 				4332755F2D15E2D900864551 /* Lottie in Frameworks */,
-				4341577D2D2D913500162130 /* FirebaseFirestore in Frameworks */,
-				4341577B2D2D913500162130 /* FirebaseCore in Frameworks */,
-				434157792D2D913500162130 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,9 +75,6 @@
 			name = MindWars;
 			packageProductDependencies = (
 				4332755E2D15E2D900864551 /* Lottie */,
-				434157782D2D913500162130 /* FirebaseAuth */,
-				4341577A2D2D913500162130 /* FirebaseCore */,
-				4341577C2D2D913500162130 /* FirebaseFirestore */,
 				430D3C362E1836460077B733 /* Alamofire */,
 				4388CAEE2E228E29002E44C7 /* RealmSwift */,
 			);
@@ -118,7 +109,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				4332755D2D15E2D900864551 /* XCRemoteSwiftPackageReference "lottie-ios" */,
-				434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				430D3C352E1836460077B733 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				4388CAEB2E228E29002E44C7 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
@@ -376,14 +366,6 @@
 				minimumVersion = 4.5.0;
 			};
 		};
-		434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 11.6.0;
-			};
-		};
 		4388CAEB2E228E29002E44C7 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
@@ -404,21 +386,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4332755D2D15E2D900864551 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
-		};
-		434157782D2D913500162130 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		4341577A2D2D913500162130 /* FirebaseCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCore;
-		};
-		4341577C2D2D913500162130 /* FirebaseFirestore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 434157772D2D913500162130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseFirestore;
 		};
 		4388CAEE2E228E29002E44C7 /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -1,22 +1,18 @@
 //
-//  AppBackground.swift
+//  ImageExtensions.swift
 //  MindWars
 //
-//  Created by Yiğit Tilki on 21.12.2024.
+//  Created by Yiğit Tilki on 14.07.2025.
 //
 
 import SwiftUI
 
-struct AppBackground: View {
-    var body: some View {
-        Image(.appBackground)
+extension Image {
+    func fillScreen() -> some View {
+        self
             .resizable()
             .scaledToFill()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .ignoresSafeArea()
     }
-}
-
-#Preview {
-    AppBackground()
 }

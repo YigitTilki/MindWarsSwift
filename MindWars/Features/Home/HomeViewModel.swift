@@ -5,11 +5,10 @@
 //  Created by Yiğit Tilki on 21.12.2024.
 //
 
-import Combine
-import FirebaseFirestore
+import Foundation
 
 @MainActor
-class HomeViewModel: AddRedQuestionsBaseViewModel, ObservableObject {
+class HomeViewModel: ObservableObject {
     
     private let authRepository: AuthRepositoryProtocol
 
