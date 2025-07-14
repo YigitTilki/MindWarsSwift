@@ -33,7 +33,7 @@ struct LoginView: View {
     }
 
     // MARK: - Description
-    func descriptionTitle() -> some View {
+    private func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
             Text(LocaleKeys.Login.letsPlay.localized)
                 .font(AppFont.title)
@@ -43,7 +43,7 @@ struct LoginView: View {
     }
 
     // MARK: - Email Field
-    func emailTextField() -> some View {
+    private func emailTextField() -> some View {
         TextField(LocaleKeys.email.localized, text: $vm.email)
             .modifier(TextFieldViewModifier(keyboardType: .emailAddress))
     }
@@ -60,7 +60,7 @@ struct LoginView: View {
     }
 
     // MARK: - Login Button
-    func continueButton() -> some View {
+    private func continueButton() -> some View {
         let isDisabled = vm.email.isEmpty || vm.password.isEmpty
 
         return HStack {
@@ -75,7 +75,7 @@ struct LoginView: View {
     }
 
     // MARK: - Go Register Row
-    func goRegisterRow() -> some View {
+    private func goRegisterRow() -> some View {
         HStack {
             Text(LocaleKeys.Login.dhacc.localized)
                 .font(AppFont.body1)
@@ -95,5 +95,7 @@ struct LoginView: View {
 
 // MARK: - Preview
 #Preview {
-    LoginView()
+    NavigationStack {
+        LoginView()
+    }
 }

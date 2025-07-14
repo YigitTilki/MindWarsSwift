@@ -12,9 +12,6 @@ class BaseViewModel {
     @Published var isLoading: Bool = false
     @Published var alertItem: AlertItem?
     @Published var showAlert: Bool = false
-    @Published var isError: Bool = false
-    @Published var locale = Locale.current.identifier
-    @Published var error: String?
 }
 
 extension BaseViewModel {

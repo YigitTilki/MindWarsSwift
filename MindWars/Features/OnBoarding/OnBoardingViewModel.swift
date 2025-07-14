@@ -7,7 +7,7 @@
 
 import Foundation
 
-class OnBoardingViewModel: BaseViewModel, ObservableObject {
+final class OnBoardingViewModel: BaseViewModel, ObservableObject {
 
     @Published var navigateLogin = false
     @Published var navigateHome = false
@@ -24,31 +24,41 @@ class OnBoardingViewModel: BaseViewModel, ObservableObject {
         self.authRepository = authRepository
     }
 
-    private func getToken() -> StorageTokenModel? {
-        return realmDatabase.getItem(key: StorageKeys.authToken.rawValue)
-    }
-
     func onTapLetsStart() async {
         await performLoadingTask { [self] in
             let getToken = getToken()
             let refreshToken = getToken?.refreshToken ?? ""
-            
+
             guard !refreshToken.isEmpty else {
                 navigateLogin = true
                 return
             }
-            
-            let model = TokenPostModel(refresh_token: refreshToken)
 
+            let model = TokenPostModel(refresh_token: refreshToken)
             let result = await authRepository.getToken(model: model)
 
             switch result {
             case .success(let data):
                 saveToken(data: data)
-                navigateHome = true
+                await getUser(userId: data.userId, token: data.idToken)
             case .failure(let error):
                 print(error.localizedDescription)
             }
+        }
+    }
+
+    private func getUser(userId: String, token: String) async {
+        let result = await authRepository.getFirestoreUser(
+            userId: userId,
+            token: token
+        )
+        switch result {
+        case .success(let data):
+            saveUser(data: data)
+            navigateHome = true
+            
+        case .failure(let error):
+            print("Error fetching user: \(error.localizedDescription)")
         }
     }
     
@@ -60,4 +70,21 @@ class OnBoardingViewModel: BaseViewModel, ObservableObject {
 
         realmDatabase.add(model: token)
     }
+
+    private func saveUser(
+        data: FirestoreResponseModel<FirestoreUserResponseModel>
+    ) {
+        let storage = StorageUserModel()
+        storage.userId = data.fields.id
+        storage.email = data.fields.email
+        storage.birthDate = data.fields.birthDate
+        storage.userName = data.fields.userName
+        
+        realmDatabase.add(model: storage)
+    }
+    
+    private func getToken() -> StorageTokenModel? {
+        return realmDatabase.getItem(key: StorageKeys.authToken.rawValue)
+    }
+
 }

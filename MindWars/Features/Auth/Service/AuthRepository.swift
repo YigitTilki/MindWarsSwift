@@ -75,7 +75,7 @@ struct AuthRepository: AuthRepositoryProtocol {
     func getFirestoreUser(userId: String, token: String) async
         -> Result<FirestoreResponseModel<FirestoreUserResponseModel>, Error>
     {
-        let path = "users?documentId=\(userId)"
+        let path = "users/\(userId)"
         let response = await networkManager.get(
             baseUrl: Env.fireStoreBaseUrl,
             path: path,

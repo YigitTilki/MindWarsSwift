@@ -128,23 +128,12 @@ class RegisterViewModel: BaseViewModel, ObservableObject {
         }
     }
     
-//    private func getUser(userId: String, token: String) async {
-//        let result = await authRepository.getFirestoreUser(userId: userId, token: token)
-//        
-//        switch result {
-//        case .success(let data):
-//            saveUser(data: data)
-//        case .failure(let error):
-//            print("Firestore Error: \(error.localizedDescription)")
-//        }
-//    }
-    
     private func saveUser(data: FirestoreResponseModel<FirestoreUserPostModel>) {
         let storage = StorageUserModel()
         storage.userId = data.fields.id
         storage.email = data.fields.email
         storage.birthDate = data.fields.birthDate
-        storage.username = data.fields.userName
+        storage.userName = data.fields.userName
 
         realmDatabase.add(model: storage)
     }

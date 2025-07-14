@@ -15,7 +15,7 @@ struct TextFieldViewModifier: ViewModifier {
             .padding(15)
             .font(AppFont.body2)
             .background(.white)
-            .foregroundStyle(.mainGrey)
+            .foregroundColor(.black)
             .overlay(
                 RoundedRectangle(cornerRadius: 5)
                     .stroke(Color.mainGrey, lineWidth: 1)
@@ -25,5 +25,4 @@ struct TextFieldViewModifier: ViewModifier {
             .keyboardType(keyboardType)
     }
 }
-
 

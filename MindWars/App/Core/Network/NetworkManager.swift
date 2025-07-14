@@ -22,18 +22,21 @@ class NetworkManager: NetworkManagerProtocol {
         )
         .validate()
         .serializingDecodable(T.self)
+        
+        print("📤 Request: \(baseUrl)\(path)")
+        print("📦 Request headers: \(String(describing: headers))")
 
         let result = await dataRequest.response
 
         guard let value = result.value else {
-            print("ERROR: \(String(describing: result.error))")
-            return .failure(
-                result.error
-                    ?? NSError(domain: "NetworkError", code: -1, userInfo: nil)
-            )
+            print("❌ ERROR: \(String(describing: result.error))")
+            if let data = result.data {
+                print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+            }
+            return .failure(result.error ?? NSError(domain: "NetworkError", code: -1, userInfo: nil))
         }
-        print("SUCCESS: \(value)")
-
+        
+        print("✅ SUCCESS: \(value)")
         return .success(value)
     }
 

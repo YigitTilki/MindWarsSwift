@@ -13,16 +13,15 @@ struct HomeView: View {
 
 
     var body: some View {
-            NavigationStack {
                 ZStack {
                     AppBackground()
                    
                 }
                 .toolbar {
                     settingsIcon()
-                    title(title: vm.getUser()?.username)
+                    title(title: vm.getUser()?.userName)
                 }
-            }
+                .navigationBarBackButtonHidden(true)
     }
     
     
@@ -56,7 +55,9 @@ struct HomeView: View {
 }
 
 #Preview {
-    HomeView()
+    NavigationStack {
+        HomeView()
+    }
        
 }
 

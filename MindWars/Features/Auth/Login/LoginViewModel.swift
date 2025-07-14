@@ -61,8 +61,7 @@ class LoginViewModel: BaseViewModel, ObservableObject {
 
         case .success(let data):
             saveToken(data: data)
-            clearForm()
-            self.navigate = true
+            await getUser(userId: data.localId, token: data.idToken)
             
         case .failure(_):
             errorMessage = LocaleKeys.Login.invalideop.localized
@@ -78,6 +77,33 @@ class LoginViewModel: BaseViewModel, ObservableObject {
         token.expiresIn = data.expiresIn
 
         realmDatabase.add(model: token)
+    }
+    
+    private func getUser(userId: String, token: String) async {
+        let result = await authRepository.getFirestoreUser(
+            userId: userId,
+            token: token
+        )
+        switch result {
+        case .success(let data):
+            saveUser(data: data)
+            self.navigate = true
+            clearForm()
+        case .failure(let error):
+            print("Error fetching user: \(error.localizedDescription)")
+        }
+    }
+    
+    private func saveUser(
+        data: FirestoreResponseModel<FirestoreUserResponseModel>
+    ) {
+        let storage = StorageUserModel()
+        storage.userId = data.fields.id
+        storage.email = data.fields.email
+        storage.birthDate = data.fields.birthDate
+        storage.userName = data.fields.userName
+
+        realmDatabase.add(model: storage)
     }
 
 }

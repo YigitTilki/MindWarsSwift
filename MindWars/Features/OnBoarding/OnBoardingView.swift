@@ -11,32 +11,28 @@ struct OnBoardingView: View {
     @StateObject private var vm = OnBoardingViewModel()
 
     var body: some View {
-            ZStack {
-                AppBackground()
-                pageBody()
-                if vm.isLoading { LoadingView() }
-            }
-            .navigationDestination(isPresented: $vm.navigateLogin) {
-                LoginView()
-                    .navigationBarBackButtonHidden(true)
-            }
-            .navigationDestination(isPresented: $vm.navigateHome) {
-                HomeView()
-                    .navigationBarBackButtonHidden(true)
-            }
+        ZStack {
+            AppBackground()
+            pageBody()
+            if vm.isLoading { LoadingView() }
+        }
+        .navigationDestination(isPresented: $vm.navigateLogin) {
+            LoginView()
+        }
+        .navigationDestination(isPresented: $vm.navigateHome) {
+            HomeView()
+        }
     }
-    
-    func pageBody() -> some View {
+
+    private func pageBody() -> some View {
         VStack {
             mindWarsText()
             appImage()
             startButton()
         }
     }
-    
-    
 
-    func startButton() -> some View {
+    private func startButton() -> some View {
         Button(
             action: {
                 Task { await vm.onTapLetsStart() }
@@ -61,7 +57,7 @@ struct OnBoardingView: View {
         )
     }
 
-    func mindWarsText() -> some View {
+    private func mindWarsText() -> some View {
         Text(
             "\(Text("M").foregroundStyle(.appRed))\(Text("I\(Text("N\(Text("D").foregroundStyle(.appBlue))").foregroundStyle(.appGreen))").foregroundStyle(.appYellow)) WARS"
         )
@@ -69,7 +65,7 @@ struct OnBoardingView: View {
         .font(AppFont.bigTitle)
     }
 
-    func appImage() -> some View {
+    private func appImage() -> some View {
         Image(.appLogo)
             .resizable()
             .frame(width: 250, height: 250)

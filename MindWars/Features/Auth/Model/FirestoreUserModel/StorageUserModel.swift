@@ -10,7 +10,7 @@ import Foundation
 
 final class StorageUserModel: Object {
     @Persisted(primaryKey: true) var keyId: String = "user_details"
-    @Persisted var username: String
+    @Persisted var userName: String
     @Persisted var userId: String
     @Persisted var email: String
     @Persisted var birthDate: Date
