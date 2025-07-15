@@ -221,7 +221,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Password Must Be Contain 1 UpperCase"
+            "value" : "Password Must Contain At Least One Uppercase Letter"
           }
         }
       }
