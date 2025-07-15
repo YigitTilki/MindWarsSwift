@@ -45,14 +45,14 @@ struct LoginView: View {
     // MARK: - Email Field
     private func emailTextField() -> some View {
         TextField(LocaleKeys.email.localized, text: $vm.email)
-            .modifier(TextFieldViewModifier(keyboardType: .emailAddress))
+            .modifier(TextFieldViewModifier(keyboardType: .emailAddress,textContentType: .emailAddress))
     }
 
     // MARK: - PasswordField
     func passwordTextField() -> some View {
         VStack(alignment: .leading) {
             SecureField(LocaleKeys.password.localized, text: $vm.password)
-                .modifier(TextFieldViewModifier())
+                .modifier(TextFieldViewModifier(textContentType: .password))
 
             Text(vm.errorMessage ?? "").modifier(ValidationErrorViewModifier())
 

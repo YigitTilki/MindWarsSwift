@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TextFieldViewModifier: ViewModifier {
     var keyboardType: UIKeyboardType = .default
+    var textContentType: UITextContentType? = nil
 
     func body(content: Content) -> some View {
         content
@@ -23,6 +24,7 @@ struct TextFieldViewModifier: ViewModifier {
             .autocapitalization(.none)
             .autocorrectionDisabled()
             .keyboardType(keyboardType)
+            .textContentType(textContentType)
     }
 }
 
