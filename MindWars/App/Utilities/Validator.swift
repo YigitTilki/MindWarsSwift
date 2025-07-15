@@ -53,7 +53,7 @@ class Validator {
     static func validateBirthdate(_ birthdate: Date) -> String? {
         let calendar = Calendar.current
         let ageComponents = calendar.dateComponents([.year], from: birthdate, to: Date())
-        guard let age = ageComponents.year else { return "invalid_birthdate" }
+        guard let age = ageComponents.year else { return LocaleKeys.Errors.invalidBirthdate.localized }
 
         if age < 18 {
             return LocaleKeys.Errors.mustbe18.localized
