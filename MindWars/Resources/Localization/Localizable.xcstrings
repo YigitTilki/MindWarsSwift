@@ -232,7 +232,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Passwords Doesn’t Match"
+            "value" : "Passwords Don't Match"
           }
         }
       }
