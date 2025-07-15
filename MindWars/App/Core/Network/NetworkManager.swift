@@ -28,16 +28,22 @@ class NetworkManager: NetworkManagerProtocol {
         
         let result = await dataRequest.response
         
-        guard let value = result.value else {
+        if let value = result.value {
+            print("✅ SUCCESS: \(value)")
+            return .success(value)
+        } else {
             print("❌ ERROR: \(String(describing: result.error))")
+            
             if let data = result.data {
                 print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+                
+                if let firebaseError = try? JSONDecoder().decode(FirebaseErrorResponse.self, from: data) {
+                    return .failure(firebaseError)
+                }
             }
+            
             return .failure(result.error ?? NSError(domain: "NetworkError", code: -1, userInfo: nil))
         }
-        
-        print("✅ SUCCESS: \(value)")
-        return .success(value)
     }
     
     func post<T: Codable, R: Encodable>(

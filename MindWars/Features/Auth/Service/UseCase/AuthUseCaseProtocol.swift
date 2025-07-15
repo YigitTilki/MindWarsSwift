@@ -9,4 +9,5 @@ import Foundation
 
 protocol AuthUseCaseProtocol {
     func signUp(state: RegisterState) async -> Result<Void, Error>
+    func refreshAndLoadUser(refreshToken: String) async -> Result<Void, Error>
 }

@@ -8,6 +8,7 @@
 import Foundation
 
 final class AuthUseCase: AuthUseCaseProtocol {
+    
     private let authRepository: AuthRepositoryProtocol
     private let realmDatabase: RealmDatabaseProtocol
 
@@ -57,25 +58,44 @@ final class AuthUseCase: AuthUseCaseProtocol {
         }
 
     }
+    
+    func refreshAndLoadUser(refreshToken: String) async -> Result<Void, Error> {
+        let model = TokenPostModel(refreshToken: refreshToken)
+        let result = await authRepository.getToken(model: model)
+
+        switch result {
+        case .success(let tokenData):
+            await MainActor.run { saveToken(data: tokenData) }
+
+            let userResult = await authRepository.getFirestoreUser(
+                userId: tokenData.userId,
+                token: tokenData.idToken
+            )
+
+            switch userResult {
+            case .success(let userData):
+                await MainActor.run { saveUser(data: userData) }
+                return .success(())
+            case .failure(let error):
+                return .failure(error)
+            }
+
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
 
     @MainActor
-    private func saveToken(data: AuthUserResponseModel) {
+    private func saveUser<T: FirestoreUserStorageProtocol>(data: FirestoreResponseModel<T>) {
+        let user = StorageUserModel(from: data.fields)
+        realmDatabase.add(model: user)
+    }
 
-        let token = StorageTokenModel()
-        token.idToken = data.idToken
-        token.refreshToken = data.refreshToken
-        token.expiresIn = data.expiresIn
+    @MainActor
+    private func saveToken<T: TokenStorageProtocol>(data: T) {
+        let token = StorageTokenModel(from: data)
         realmDatabase.add(model: token)
     }
 
-    @MainActor
-    private func saveUser(data: FirestoreResponseModel<FirestoreUserPostModel>)
-    {
-        let user = StorageUserModel()
-        user.userId = data.fields.id
-        user.email = data.fields.email
-        user.birthDate = data.fields.birthDate
-        user.userName = data.fields.userName
-        realmDatabase.add(model: user)
-    }
 }
