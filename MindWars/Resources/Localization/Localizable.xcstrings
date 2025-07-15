@@ -199,7 +199,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Password Must Be Least 6 Characters"
+            "value" : "Password Must Be At Least 6 Characters"
           }
         }
       }
