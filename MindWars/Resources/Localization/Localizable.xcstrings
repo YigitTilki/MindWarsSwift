@@ -210,7 +210,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Password Must Be Contain 1 number"
+            "value" : "Password Must Contain At Least One Number"
           }
         }
       }
