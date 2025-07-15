@@ -21,3 +21,5 @@ struct TokenResponseModel: Codable {
         case accessToken = "access_token"
     }
 }
+
+extension TokenResponseModel: TokenStorageProtocol {}

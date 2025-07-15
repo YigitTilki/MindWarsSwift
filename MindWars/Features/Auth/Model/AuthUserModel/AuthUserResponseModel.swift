@@ -10,3 +10,5 @@ import Foundation
 struct AuthUserResponseModel: Codable {
     let idToken, localId, expiresIn, refreshToken, email, kind: String
 }
+
+extension AuthUserResponseModel: TokenStorageProtocol {}

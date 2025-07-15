@@ -15,3 +15,13 @@ final class StorageUserModel: Object {
     @Persisted var email: String
     @Persisted var birthDate: Date
 }
+
+extension StorageUserModel {
+    convenience init(from model: FirestoreUserStorageProtocol) {
+        self.init()
+        self.userId = model.id
+        self.email = model.email
+        self.userName = model.userName
+        self.birthDate = model.birthDate
+    }
+}

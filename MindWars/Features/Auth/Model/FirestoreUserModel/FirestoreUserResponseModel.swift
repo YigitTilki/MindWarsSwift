@@ -13,3 +13,5 @@ struct FirestoreUserResponseModel: Codable {
     @FirestoreField var userName: String
     @FirestoreField var birthDate: Date
 }
+
+extension FirestoreUserResponseModel: FirestoreUserStorageProtocol {}

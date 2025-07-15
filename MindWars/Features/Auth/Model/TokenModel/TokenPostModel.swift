@@ -8,6 +8,11 @@
 import Foundation
 
 struct TokenPostModel: Encodable {
-    let grant_type: String = "refresh_token"
-    let refresh_token: String
+    let grantType: String = "refresh_token"
+    let refreshToken: String
+    
+    enum CodingKeys: String, CodingKey {
+        case grantType = "grant_type"
+        case refreshToken = "refresh_token"
+    }
 }

@@ -14,3 +14,12 @@ final class StorageTokenModel: Object {
     @Persisted var refreshToken: String
     @Persisted var expiresIn: String
 }
+
+extension StorageTokenModel {
+    convenience init(from model: TokenStorageProtocol) {
+        self.init()
+        self.idToken = model.idToken
+        self.refreshToken = model.refreshToken
+        self.expiresIn = model.expiresIn
+    }
+}
