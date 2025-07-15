@@ -102,7 +102,7 @@ struct RegisterView: View {
     private func rePasswordField() -> some View {
         VStack(alignment: .leading) {
             SecureField(LocaleKeys.rePassword.localized, text: $vm.state.rePassword)
-                .modifier(TextFieldViewModifier())
+                .modifier(TextFieldViewModifier(textContentType: .password))
                 .disabled(vm.state.password.isEmpty)
             if let error = vm.state.rePasswordError {
                 Text(error).modifier(ValidationErrorViewModifier())
