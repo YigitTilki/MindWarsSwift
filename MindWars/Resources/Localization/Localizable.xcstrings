@@ -68,7 +68,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "E-Mail Address Exist"
+            "value" : "E-Mail Address Already Exists"
           }
         }
       }
