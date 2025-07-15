@@ -13,6 +13,7 @@ class BaseViewModel {
     @Published var alertItem: AlertItem?
     @Published var showAlert: Bool = false
     @Published var error: String?
+    @Published var toast: Toast? = nil
 }
 
 extension BaseViewModel {

@@ -9,15 +9,15 @@ import Foundation
 import SwiftUICore
 
 class Validator {
-    static func validateEmail(_ email: String) -> LocalizedStringKey? {
+    static func validateEmail(_ email: String) -> String? {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailPredicate.evaluate(with: email) ? nil : "invalid_email_addreess"
+        return emailPredicate.evaluate(with: email) ? nil :  LocaleKeys.Errors.invalidEmail.localized
     }
 
-    static func validatePassword(_ password: String) -> LocalizedStringKey? {
+    static func validatePassword(_ password: String) -> String? {
         if password.count < 6 {
-            return "password_must_be_at_least_six_characters"
+            return  LocaleKeys.Errors.password6.localized
         }
         let upperCaseRegEx = ".*[A-Z]+.*"
         let digitRegEx = ".*[0-9]+.*"
@@ -26,40 +26,37 @@ class Validator {
         let digitPredicate = NSPredicate(format: "SELF MATCHES %@", digitRegEx)
 
         if !upperCasePredicate.evaluate(with: password) {
-            return "password_must_contain_at_least_one_uppercase"
+            return  LocaleKeys.Errors.passwordUC.localized
         }
         if !digitPredicate.evaluate(with: password) {
-            return "password_must_contain_at_least_one_number"
+            return  LocaleKeys.Errors.passwordN.localized
         }
 
         return nil
     }
 
-    static func validateRePassword(_ password: String, _ rePassword: String) -> LocalizedStringKey? {
+    static func validateRePassword(_ password: String, _ rePassword: String) -> String? {
         if !password.isEmpty, password != rePassword {
-            return "passwords_doesnt_match"
+            return  LocaleKeys.Errors.passwordDM.localized
         }
 
         return nil
     }
 
-    static func validateUsername(_ username: String) -> LocalizedStringKey? {
-        if username.isEmpty {
-            return "invalid_username"
-        }
+    static func validateUsername(_ username: String) -> String? {
         if username.count < 3 {
-            return "invalid_username"
+            return  LocaleKeys.Errors.invalidUsername.localized
         }
         return nil
     }
 
-    static func validateBirthdate(_ birthdate: Date) -> LocalizedStringKey? {
+    static func validateBirthdate(_ birthdate: Date) -> String? {
         let calendar = Calendar.current
         let ageComponents = calendar.dateComponents([.year], from: birthdate, to: Date())
-        guard let age = ageComponents.year else { return "Doğum tarihi geçersiz" }
+        guard let age = ageComponents.year else { return LocaleKeys.Errors.invalidBirthdate.localized }
 
         if age < 18 {
-            return "you_must_be_over_eightteen_years_old"
+            return LocaleKeys.Errors.mustbe18.localized
         }
         return nil
     }

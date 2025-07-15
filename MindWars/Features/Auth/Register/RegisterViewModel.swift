@@ -9,132 +9,56 @@ import Foundation
 import SwiftUICore
 
 @MainActor
-class RegisterViewModel: BaseViewModel, ObservableObject {
-    @Published var userName: String = ""
-    @Published var userNameError: LocalizedStringKey?
-
-    @Published var email: String = ""
-    @Published var emailError: LocalizedStringKey?
-
-    @Published var birthDate: Date = .init()
-    @Published var birthDateError: LocalizedStringKey?
-
-    @Published var password: String = ""
-    @Published var passwordError: LocalizedStringKey?
-
-    @Published var rePassword: String = ""
-    @Published var rePasswordError: LocalizedStringKey?
-
+final class RegisterViewModel: BaseViewModel, ObservableObject {
+    @Published var state = RegisterState()
     @Published var navigateToHome: Bool = false
-    
-    var isFieldsEmpty: Bool {
-        userName.isEmpty || email.isEmpty || password.isEmpty
-            || rePassword.isEmpty
+
+    private let authUseCase: AuthUseCaseProtocol
+
+    init(authUseCase: AuthUseCaseProtocol = AuthUseCase()) {
+        self.authUseCase = authUseCase
     }
-
-    private let authRepository: AuthRepositoryProtocol
-
-    private var realmDatabase: RealmDatabaseProtocol
-
-    //MARK: - Init
-    init(
-        realm: RealmDatabaseProtocol = RealmDatabase(),
-        authRepository: AuthRepositoryProtocol = AuthRepository()
-    ) {
-        self.realmDatabase = realm
-        self.authRepository = authRepository
-    }
-
 
     // MARK: - Clear Forms
-    private func clearForm() {
-        email = ""
-        userName = ""
-        birthDate = Date()
-        password = ""
-        rePassword = ""
-    }
+    private func clearForm() { state = RegisterState() }
 
     // MARK: - Is Forms Validate
-    private func validate() -> Bool {
-        emailError = Validator.validateEmail(email)
-        passwordError = Validator.validatePassword(password)
-        rePasswordError = Validator.validateRePassword(password, rePassword)
-        userNameError = Validator.validateUsername(userName)
-        birthDateError = Validator.validateBirthdate(birthDate)
-
-        return [emailError, passwordError, userNameError, birthDateError]
-            .allSatisfy { $0 == nil }
-    }
+    private func validate() {
+        state.emailError = Validator.validateEmail(state.email)
+        state.passwordError = Validator.validatePassword(state.password)
+        state.rePasswordError = Validator.validateRePassword(state.password, state.rePassword)
+        state.userNameError = Validator.validateUsername(state.userName)
+        state.birthDateError = Validator.validateBirthdate(state.birthDate)
+        }
 
     // MARK: - Sign Up Button Action
     func onTapSignUp() async {
-        guard validate() else { return }
+        validate()
+        
+        guard state.isValid else { return }
+        
         UIKitFunctions().dismissKeyboard()
 
         await performLoadingTask { [self] in
-            await registerUser()
+            await handleSignUp()
         }
     }
 
-    //MARK: - Register User for Auth - 1.
-    private func registerUser() async {
-        let authModel = AuthUserPostModel(email: email, password: password)
-        let result = await authRepository.signUp(model: authModel)
+    private func handleSignUp() async {
+
+        let result = await authUseCase.signUp(state: state)
 
         switch result {
-        case .success(let data):
-            await handleAuthSuccess(data: data)
-        case .failure(let error):
-            self.error = error.localizedDescription
-        }
-    }
-
-    //MARK: - Save User Token to Realm Database
-    private func saveToken(data: AuthUserResponseModel) {
-        let token = StorageTokenModel()
-        token.idToken = data.idToken
-        token.refreshToken = data.refreshToken
-        token.expiresIn = data.expiresIn
-
-        realmDatabase.add(model: token)
-    }
-
-    //MARK: - Register User for Firestore - 2.
-    private func handleAuthSuccess(data: AuthUserResponseModel) async {
-        saveToken(data: data)
-
-        let userCredentials = FirestoreUserPostModel(
-            id: data.localId,
-            email: data.email,
-            userName: userName,
-            birthDate: birthDate
-        )
-        let firestoreModel = FirestorePostModel(fields: userCredentials)
-
-        let result = await authRepository.createFirestoreUser(
-            model: firestoreModel,
-            token: data.idToken
-        )
-
-        switch result {
-        case .success(let data):
-            saveUser(data: data)
+        case .success:
             clearForm()
             navigateToHome = true
         case .failure(let error):
-            //TODO: add dialog
-            print("Firestore Error: \(error.localizedDescription)")
+            toast = Toast(
+                style: .error,
+                message: ErrorMessageProvider.authMessage(error: error)
+            )
         }
     }
-    
-    private func saveUser(data: FirestoreResponseModel<FirestoreUserPostModel>) {
-        let storage = StorageUserModel()
-        storage.userId = data.fields.id
-        storage.email = data.fields.email
-        storage.birthDate = data.fields.birthDate
-        storage.userName = data.fields.userName
 
-        realmDatabase.add(model: storage)
-    }
 }
+

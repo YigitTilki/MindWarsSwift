@@ -35,6 +35,19 @@ enum LocaleKeys: String, Localizable {
         case eyctsu = "enter_your_credentials_to_sign_up"
         case ahaacc = "already_have_an_account"
     }
+    enum Errors: String, Localizable {
+        case invalidEmail = "invalid_email_address"
+        case password6 = "password_must_be_at_least_six_characters"
+        case passwordUC = "password_must_contain_at_least_one_uppercase"
+        case passwordN = "password_must_contain_at_least_one_number"
+        case passwordDM = "passwords_doesnt_match"
+        case invalidUsername = "invalid_username"
+        case invalidBirthdate = "invalid_birthdate"
+        case mustbe18 = "you_must_be_over_eightteen_years_old"
+        case unExpectedError = "unexpected_error"
+        case emailExists = "email_address_exist"
+        case operationNotAllowed = "operation_not_allowed"
+    }
     
     
    

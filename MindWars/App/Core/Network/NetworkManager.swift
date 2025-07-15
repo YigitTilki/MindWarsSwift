@@ -20,14 +20,14 @@ class NetworkManager: NetworkManagerProtocol {
             method: .get,
             headers: headers
         )
-        .validate()
-        .serializingDecodable(T.self)
+            .validate()
+            .serializingDecodable(T.self)
         
         print("📤 Request: \(baseUrl)\(path)")
         print("📦 Request headers: \(String(describing: headers))")
-
+        
         let result = await dataRequest.response
-
+        
         guard let value = result.value else {
             print("❌ ERROR: \(String(describing: result.error))")
             if let data = result.data {
@@ -39,7 +39,7 @@ class NetworkManager: NetworkManagerProtocol {
         print("✅ SUCCESS: \(value)")
         return .success(value)
     }
-
+    
     func post<T: Codable, R: Encodable>(
         baseUrl: String,
         path: String,
@@ -61,24 +61,30 @@ class NetworkManager: NetworkManagerProtocol {
             encoder: JSONParameterEncoder.default,
             headers: headers
         )
-        .validate()
-        .serializingDecodable(T.self)
+            .validate()
+            .serializingDecodable(T.self)
         
         print("📤 Request: \(baseUrl)\(path)")
         print("📦 Request body: \(String(data: data, encoding: .utf8) ?? "N/A")")
         print("📦 Request headers: \(String(describing: headers))")
         
         let result = await dataRequest.response
-
-            guard let value = result.value else {
-                print("❌ ERROR: \(String(describing: result.error))")
-                if let data = result.data {
-                    print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
-                }
-                return .failure(result.error ?? NSError(domain: "NetworkError", code: -1, userInfo: nil))
-            }
-
+        
+        if let value = result.value {
             print("✅ SUCCESS: \(value)")
             return .success(value)
+        } else {
+            print("❌ ERROR: \(String(describing: result.error))")
+            
+            if let data = result.data {
+                print("📦 Response body: \(String(data: data, encoding: .utf8) ?? "N/A")")
+                
+                if let firebaseError = try? JSONDecoder().decode(FirebaseErrorResponse.self, from: data) {
+                    return .failure(firebaseError)
+                }
+            }
+            
+            return .failure(result.error ?? NSError(domain: "NetworkError", code: -1, userInfo: nil))
+        }
     }
 }

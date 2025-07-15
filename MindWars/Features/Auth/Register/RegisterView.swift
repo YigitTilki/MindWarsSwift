@@ -25,6 +25,7 @@ struct RegisterView: View {
             .navigationDestination(isPresented: $vm.navigateToHome) {
                 HomeView()
             }
+            .toastView(toast: $vm.toast)
 
             if vm.isLoading {
                 LoadingView()
@@ -65,88 +66,81 @@ struct RegisterView: View {
     }
 
     // MARK: - User Name Field
-
     private func userNameField() -> some View {
         VStack(alignment: .leading) {
-            TextField(LocaleKeys.userName.localized, text: $vm.userName)
-                .modifier(TextFieldViewModifier())
-            if let error = vm.userNameError {
+            TextField(LocaleKeys.userName.localized, text: $vm.state.userName)
+                .modifier(TextFieldViewModifier(textContentType: .username))
+            if let error = vm.state.userNameError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
 
     // MARK: - Email Field
-
     private func emailField() -> some View {
         VStack(alignment: .leading) {
-            TextField(LocaleKeys.email.localized, text: $vm.email)
-                .modifier(TextFieldViewModifier())
-            if let error = vm.emailError {
+            TextField(LocaleKeys.email.localized, text: $vm.state.email)
+                .modifier(TextFieldViewModifier(textContentType: .emailAddress))
+            if let error = vm.state.emailError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
 
     // MARK: - Password Field
-
     private func passwordField() -> some View {
         VStack(alignment: .leading) {
-            SecureField(LocaleKeys.password.localized, text: $vm.password)
-                .modifier(TextFieldViewModifier())
-            if let error = vm.passwordError {
+            SecureField(LocaleKeys.password.localized, text: $vm.state.password)
+                .modifier(TextFieldViewModifier(textContentType: .newPassword))
+            if let error = vm.state.passwordError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
 
     // MARK: - Re-Password Field
-
     private func rePasswordField() -> some View {
         VStack(alignment: .leading) {
-            SecureField(LocaleKeys.rePassword.localized, text: $vm.rePassword)
-                .modifier(TextFieldViewModifier())
-                .disabled(vm.password.isEmpty)
-            if let error = vm.rePasswordError {
+            SecureField(LocaleKeys.rePassword.localized, text: $vm.state.rePassword)
+                .modifier(TextFieldViewModifier(textContentType: .password))
+                .disabled(vm.state.password.isEmpty)
+            if let error = vm.state.rePasswordError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
 
     // MARK: - Date Picker Field
-
     private func datePickerField() -> some View {
         VStack(alignment: .leading) {
             DatePicker(
                 LocaleKeys.birthDate.localized,
-                selection: $vm.birthDate,
+                selection: $vm.state.birthDate,
                 displayedComponents: .date
             )
             .datePickerStyle(.compact)
             .modifier(DateSelectorViewModifier())
 
-            if let error = vm.birthDateError {
+            if let error = vm.state.birthDateError {
                 Text(error).modifier(ValidationErrorViewModifier())
             }
         }
     }
 
     // MARK: - Sign Up Button
-
     private func signUpButton() -> some View {
         HStack {
             Spacer()
             Button(LocaleKeys.signUp.localized) {
                 Task { await vm.onTapSignUp() }
             }
-            .buttonStyle(AppButtonStyle(isDisabled: vm.isFieldsEmpty))
-            .disabled(vm.isFieldsEmpty)
+            .buttonStyle(AppButtonStyle(isDisabled: vm.state.isFieldsEmpty))
+            .disabled(vm.state.isFieldsEmpty)
         }
         .padding(.top, 10)
     }
 
     // MARK: - Description
-
     private func descriptionTitle() -> some View {
         VStack(alignment: .leading) {
             Text(LocaleKeys.Register.letsSignUp.localized)
@@ -158,7 +152,6 @@ struct RegisterView: View {
 }
 
 // MARK: - Preview
-
 #Preview {
     NavigationStack {
         RegisterView()

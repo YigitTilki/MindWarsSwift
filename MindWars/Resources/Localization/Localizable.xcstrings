@@ -1,16 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@%@ WARS" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$@%2$@ WARS"
-          }
-        }
-      }
-    },
     "already_have_an_account" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -50,12 +40,6 @@
         }
       }
     },
-    "D" : {
-
-    },
-    "Doğum tarihi geçersiz" : {
-
-    },
     "dont_have_an_account" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -74,6 +58,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "E-Mail"
+          }
+        }
+      }
+    },
+    "email_address_exist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "E-Mail Address Already Exists"
           }
         }
       }
@@ -100,11 +95,37 @@
         }
       }
     },
-    "I%@" : {
-
+    "invalid_birthdate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid BirthDate"
+          }
+        }
+      }
     },
     "invalid_email_addreess" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid E-Mail Address"
+          }
+        }
+      }
+    },
+    "invalid_email_address" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid E-Mail Address"
+          }
+        }
+      }
     },
     "invalid_email_or_password" : {
       "extractionState" : "manual",
@@ -118,10 +139,15 @@
       }
     },
     "invalid_username" : {
-
-    },
-    "LET'S START" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid Username"
+          }
+        }
+      }
     },
     "lets_play" : {
       "extractionState" : "manual",
@@ -145,17 +171,16 @@
         }
       }
     },
-    "M" : {
-
-    },
-    "N%@" : {
-
-    },
-    "ok" : {
-
-    },
-    "OK" : {
-
+    "operation_not_allowed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Operation Not Allowed"
+          }
+        }
+      }
     },
     "password" : {
       "extractionState" : "manual",
@@ -169,28 +194,48 @@
       }
     },
     "password_must_be_at_least_six_characters" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password Must Be At Least 6 Characters"
+          }
+        }
+      }
     },
     "password_must_contain_at_least_one_number" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password Must Contain At Least One Number"
+          }
+        }
+      }
     },
     "password_must_contain_at_least_one_uppercase" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password Must Contain At Least One Uppercase Letter"
+          }
+        }
+      }
     },
     "passwords_doesnt_match" : {
-
-    },
-    "question_created" : {
-
-    },
-    "question_created_message" : {
-
-    },
-    "question_part_cannot_empty" : {
-
-    },
-    "question_part_cannot_empty_message" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwords Don't Match"
+          }
+        }
+      }
     },
     "re_password" : {
       "extractionState" : "manual",
@@ -225,17 +270,16 @@
         }
       }
     },
-    "unavaliable_service" : {
-
-    },
-    "unavaliable_service_message" : {
-
-    },
     "unexpected_error" : {
-
-    },
-    "unexpected_error_message" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unexpected Error: %@"
+          }
+        }
+      }
     },
     "username" : {
       "extractionState" : "manual",
@@ -248,14 +292,16 @@
         }
       }
     },
-    "Wrong Password" : {
-
-    },
     "you_must_be_over_eightteen_years_old" : {
-
-    },
-    "Your password is wrong. Check your password and email then try again" : {
-
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You Must Be Over 18 Years Old"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
