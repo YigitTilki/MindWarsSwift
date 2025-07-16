@@ -8,11 +8,11 @@
 import Foundation
 
 struct ErrorMessageProvider {
-    static func authMessage(error: Error) -> String {
+    static func firebaseErrorMessage(error: Error) -> String {
         if let firebaseError = error as? FirebaseErrorResponse {
             return FirebaseError.data(
                 message: firebaseError.error.message,
-                domain: .auth
+                domain: .firebase
             )
         }
 
