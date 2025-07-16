@@ -39,7 +39,7 @@ class LoginViewModel: BaseViewModel, ObservableObject {
 
         switch result {
 
-        case .success(let data):
+        case .success():
             clearForm()
             navigate = true
         case .failure(let error):

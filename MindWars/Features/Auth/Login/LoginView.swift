@@ -54,8 +54,6 @@ struct LoginView: View {
             SecureField(LocaleKeys.password.localized, text: $vm.state.password)
                 .modifier(TextFieldViewModifier(textContentType: .password))
 
-            Text(vm.errorMessage ?? "").modifier(ValidationErrorViewModifier())
-
         }
     }
 
