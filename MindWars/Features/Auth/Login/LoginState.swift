@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+struct LoginState {
+    var email: String = ""
+    var password: String = ""
+    var isValid: Bool { !email.isEmpty && !password.isEmpty }
+}

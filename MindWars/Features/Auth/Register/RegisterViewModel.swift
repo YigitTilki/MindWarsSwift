@@ -55,7 +55,7 @@ final class RegisterViewModel: BaseViewModel, ObservableObject {
         case .failure(let error):
             toast = Toast(
                 style: .error,
-                message: ErrorMessageProvider.authMessage(error: error)
+                message: ErrorMessageProvider.firebaseErrorMessage(error: error)
             )
         }
     }

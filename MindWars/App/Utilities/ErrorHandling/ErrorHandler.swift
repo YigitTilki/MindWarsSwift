@@ -8,16 +8,13 @@
 import Foundation
 
 enum FirebaseErrorDomain {
-    case auth
-    case firestore
+    case firebase
 }
 
 struct FirebaseError {
     static func data(message: String, domain: FirebaseErrorDomain) -> String {
         switch domain {
-        case .auth:
-            return FirebaseAuthErrorMapper.map(message)
-        case .firestore:
+        case .firebase:
             return FirebaseAuthErrorMapper.map(message)
         }
     }

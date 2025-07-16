@@ -8,7 +8,7 @@
 import Foundation
 
 final class AuthUseCase: AuthUseCaseProtocol {
-    
+
     private let authRepository: AuthRepositoryProtocol
     private let realmDatabase: RealmDatabaseProtocol
 
@@ -21,14 +21,16 @@ final class AuthUseCase: AuthUseCaseProtocol {
     }
 
     func signUp(state: RegisterState) async -> Result<Void, Error> {
-        let result = await authRepository.signUp(
-            model: AuthUserPostModel(email: state.email, password: state.password)
+        let model = AuthUserPostModel(
+            email: state.email,
+            password: state.password
         )
+        let result = await authRepository.signUp(model: model)
 
         switch result {
         case .success(let data):
             await MainActor.run { saveToken(data: data) }
-                    
+
             let firestoreUserPostModel = FirestoreUserPostModel(
                 id: data.localId,
                 email: state.email,
@@ -56,9 +58,34 @@ final class AuthUseCase: AuthUseCaseProtocol {
         case .failure(let error):
             return .failure(error)
         }
-
     }
-    
+
+    func signIn(state: LoginState) async -> Result<Void, any Error> {
+        let model = AuthUserPostModel(
+            email: state.email,
+            password: state.password
+        )
+        let result = await authRepository.signIn(model: model)
+
+        switch result {
+        case .success(let data):
+            await MainActor.run { saveToken(data: data) }
+            let userResult = await authRepository.getFirestoreUser(
+                userId: data.localId,
+                token: data.idToken
+            )
+            switch userResult {
+            case .success(let userData):
+                await MainActor.run { saveUser(data: userData) }
+                return .success(())
+            case .failure(let error):
+                return .failure(error)
+            }
+        case .failure(let error):
+            return .failure(error)
+        }
+    }
+
     func refreshAndLoadUser(refreshToken: String) async -> Result<Void, Error> {
         let model = TokenPostModel(refreshToken: refreshToken)
         let result = await authRepository.getToken(model: model)
@@ -85,9 +112,10 @@ final class AuthUseCase: AuthUseCaseProtocol {
         }
     }
 
-
     @MainActor
-    private func saveUser<T: FirestoreUserStorageProtocol>(data: FirestoreResponseModel<T>) {
+    private func saveUser<T: FirestoreUserStorageProtocol>(
+        data: FirestoreResponseModel<T>
+    ) {
         let user = StorageUserModel(from: data.fields)
         realmDatabase.add(model: user)
     }

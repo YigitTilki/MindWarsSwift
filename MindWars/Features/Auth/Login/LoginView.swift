@@ -44,14 +44,14 @@ struct LoginView: View {
 
     // MARK: - Email Field
     private func emailTextField() -> some View {
-        TextField(LocaleKeys.email.localized, text: $vm.email)
+        TextField(LocaleKeys.email.localized, text: $vm.state.email)
             .modifier(TextFieldViewModifier(keyboardType: .emailAddress,textContentType: .emailAddress))
     }
 
     // MARK: - PasswordField
     func passwordTextField() -> some View {
         VStack(alignment: .leading) {
-            SecureField(LocaleKeys.password.localized, text: $vm.password)
+            SecureField(LocaleKeys.password.localized, text: $vm.state.password)
                 .modifier(TextFieldViewModifier(textContentType: .password))
 
             Text(vm.errorMessage ?? "").modifier(ValidationErrorViewModifier())
@@ -61,15 +61,14 @@ struct LoginView: View {
 
     // MARK: - Login Button
     private func continueButton() -> some View {
-        let isDisabled = vm.email.isEmpty || vm.password.isEmpty
 
         return HStack {
             Spacer()
             Button(LocaleKeys.continueValue.localized) {
                 Task { await vm.onTapLogin() }
             }
-            .buttonStyle(AppButtonStyle(isDisabled: isDisabled))
-            .disabled(isDisabled)
+            .buttonStyle(AppButtonStyle(isDisabled: !vm.state.isValid))
+            .disabled(!vm.state.isValid)
         }
         .padding(.top, 10)
     }
